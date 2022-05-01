@@ -1,0 +1,70 @@
+#include "Language.h"
+#include <QFile>
+#include <QDebug>
+#include <QJsonArray>
+
+Language::Language(QObject *parent)
+	: QObject(parent)
+{
+}
+
+Language::~Language()
+{
+}
+
+QJsonObject Language::GetTextAarry(QString file_path)
+{
+	QJsonObject AllTextJsonObject;
+	QFile file(file_path);
+	if (!file.open(QIODevice::ReadOnly))
+	{
+		qDebug() << "open file error!" << file_path;
+		//return o;
+	}
+	QString text_key;
+	QJsonArray text_array;
+	
+	
+	while (!file.atEnd())
+	{
+		QByteArray file_data = file.readLine();
+		QString current_text(file_data);
+		if (current_text.contains("const"))
+		{
+			//获取当前的翻译项
+			QStringList text_split = current_text.split(" ");
+			if (text_split.size() > 2)
+			{
+				//qDebug() << text_split[2];
+				text_key = text_split[2];
+			}
+			
+
+			
+		}
+		else if (current_text.contains("/*"))
+		{
+			//具体文本内容
+			QStringList text_split = current_text.split("*");
+			if (text_split.size() > 2)
+			{
+				//qDebug() << text_split[1];
+				QString text = text_split[1];
+				text_array.append(text);
+			}
+		}
+		else if (current_text.contains("};"))
+		{
+			//结束当前的翻译项
+			AllTextJsonObject.insert(text_key, text_array);
+			//清空数组
+			int size = text_array.size();
+			for (int i = 0; i < size; i++)
+			{
+				text_array.removeFirst();
+			}
+		}
+	}
+	qDebug() << AllTextJsonObject.keys();
+	return AllTextJsonObject;
+}

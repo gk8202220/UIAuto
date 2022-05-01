@@ -1,0 +1,11 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "vslsRemoteLaunch",
+            "name": "UIAuto",
+            "request": "attach",
+            "projectID": "4103d1a9-a64a-3403-9242-3828823bd2ad"
+        }
+    ]
+}

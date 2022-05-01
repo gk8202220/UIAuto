@@ -1,0 +1,37 @@
+#pragma once
+
+#include <QObject>
+#include <QJsonObject>
+
+typedef struct
+{
+    uint8_t        alignment;      //对齐方式   0左对齐   1居中      其他:右对齐
+    int       x;              //起始y坐标
+    int       y;              //起始y坐标
+    uint16_t       height;         //高度
+    uint16_t       width;          //宽度
+    bool           middle;         //搭配居中时使用
+    uint8_t        spacing;        //文字间隔
+    uint8_t        y_interval;     //行间隔
+    uint16_t       color;          //文字颜色
+    uint16_t       backcolor;      //背景颜色
+    uint8_t        font_size;      //字号  
+    bool           show_bg;        //背景融合
+
+}font_param_t;
+typedef struct
+{
+    font_param_t param;
+    QString text;
+
+}font_t;
+class Language : public QObject
+{
+	Q_OBJECT
+
+public:
+	Language(QObject *parent);
+	~Language();
+	QJsonObject GetTextAarry(QString file_path); //从文件中获取文字
+
+};

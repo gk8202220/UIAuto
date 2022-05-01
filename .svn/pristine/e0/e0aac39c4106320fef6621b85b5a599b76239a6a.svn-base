@@ -1,0 +1,55 @@
+#ifndef PXCPJSON_H
+#define PXCPJSON_H
+
+#include <QObject>
+#include <QDebug>
+#include <QJsonObject>
+#include <QJsonDocument>
+#include <QJsonArray>
+#include <QPainter>
+#include <QPixmap>
+#include <QImage>
+#include <QFile>
+#include <QJsonParseError>
+#include <QFileInfo>
+#include <QDir>
+#include <QThread>
+class pxcpJson : public QThread
+{
+    Q_OBJECT
+public:
+    // explicit pxcpJson(QObject *parent = nullptr);
+    pxcpJson();
+    void jsonAnalysis(QString jsonfile); //json解析
+     void findIconSize(QString path);
+     void savefile();
+     QJsonArray geticonArray(QString iconFilePath); // 获取到有x y 高度 宽度 切图路径的json数组
+     bool isOk();
+     bool getJson(QString srcPath);
+     QString getValue(QByteArray data);
+     void  getBmpPaths(QString srcPath);//获取所有的bmp切图
+     QString getBmpPath(QString name);
+     void setPath(QString path);
+     void run();
+      QStringList bmpPath;
+
+private:
+
+
+    int iconconut;
+    QFile *iconfile;
+    QString jsonPath;
+   // QJsonArray object;
+    QString iconFilePath;
+    bool isok;
+
+    QString saveiconFile;
+
+
+
+signals:
+
+public slots:
+};
+
+#endif // PXCPJSON_H

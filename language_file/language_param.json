@@ -1,0 +1,154 @@
+{
+    "": {
+        "font_BP_fail_long\r\n": {
+            "请保持静止并戴紧手表": {
+                "language": {
+                    "chinese": {
+                        "lineHeight": 0,
+                        "pixelSize": 16,
+                        "x": 0,
+                        "y": -4
+                    },
+                    "enaglish": {
+                        "lineHeight": 0,
+                        "pixelSize": 16,
+                        "x": 0,
+                        "y": 20
+                    }
+                },
+                "param": {
+                    "color": 0,
+                    "showBg": false
+                }
+            }
+        },
+        "font_BP_last_not_wear_tips_en\r\n": {
+            "开始": {
+                "language": {
+                    "chinese": {
+                        "lineHeight": 0,
+                        "pixelSize": 16,
+                        "x": 0,
+                        "y": 20
+                    },
+                    "enaglish": {
+                        "lineHeight": 0,
+                        "pixelSize": 16,
+                        "x": 0,
+                        "y": 20
+                    }
+                },
+                "param": {
+                    "color": 0,
+                    "showBg": false
+                }
+            },
+            "血压": {
+                "language": {
+                    "chinese": {
+                        "lineHeight": 0,
+                        "pixelSize": 16,
+                        "x": 104,
+                        "y": 163
+                    },
+                    "enaglish": {
+                        "lineHeight": 0,
+                        "pixelSize": 16,
+                        "x": 0,
+                        "y": 20
+                    }
+                },
+                "param": {
+                    "color": 0,
+                    "showBg": false
+                }
+            },
+            "请保持静止并戴紧手表": {
+                "language": {
+                    "chinese": {
+                        "lineHeight": 0,
+                        "pixelSize": 16,
+                        "x": 113,
+                        "y": 152
+                    },
+                    "enaglish": {
+                        "lineHeight": 0,
+                        "pixelSize": 16,
+                        "x": 0,
+                        "y": 20
+                    }
+                },
+                "param": {
+                    "color": 0,
+                    "showBg": false
+                }
+            }
+        },
+        "font_BP_success\r\n": {
+            "mmHg": {
+                "language": {
+                    "chinese": {
+                        "lineHeight": 0,
+                        "pixelSize": 16,
+                        "x": 82,
+                        "y": 67
+                    },
+                    "enaglish": {
+                        "lineHeight": 0,
+                        "pixelSize": 16,
+                        "x": 0,
+                        "y": 20
+                    }
+                },
+                "param": {
+                    "color": 0,
+                    "showBg": false
+                }
+            },
+            "测量成功": {
+                "language": {
+                    "chinese": {
+                        "fontSize": 16,
+                        "lineHeight": 0,
+                        "x": 237,
+                        "y": 232
+                    },
+                    "enaglish": {
+                        "fontSize": 16,
+                        "lineHeight": 0,
+                        "x": 0,
+                        "y": 20
+                    }
+                },
+                "param": {
+                    "color": 0,
+                    "family": 0,
+                    "fontSize": 16,
+                    "showBg": false
+                }
+            },
+            "重试": {
+                "language": {
+                    "chinese": {
+                        "fontSize": 16,
+                        "lineHeight": 0,
+                        "x": 76,
+                        "y": 274
+                    },
+                    "enaglish": {
+                        "fontSize": 16,
+                        "lineHeight": 0,
+                        "x": 0,
+                        "y": 20
+                    }
+                },
+                "param": {
+                    "color": 0,
+                    "family": 0,
+                    "fontSize": 16,
+                    "showBg": false
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,299 @@
+#include "Language.h"
+#include <QFile>
+#include <QDebug>
+#include <QJsonArray>
+#include <QPixmap>
+#include <QPainter>
+#include <QFile>
+#include <QFileInfo>
+#include <QFileDialog>
+#include <QJsonParseError>
+void Language::SaveJsonFile()
+{
+	
+	QJsonDocument doc;
+	doc.setObject(language_obj);
+	QFile file(language_json_file_path);
+	if (!file.open(QIODevice::WriteOnly))
+	{
+		qDebug() << "open file error!" << language_json_file_path;
+		return;
+	}
+	file.write(doc.toJson());
+	file.close();
+}
+Language::Language(QObject *parent)
+	: QObject(parent)
+{
+	 lang_file_list = {"param_zh_cn.c","param_en.c","param_ja.c", "param_ko.c",  "param_de_de.c","param_ru.c", 
+								 "param_es_es.c","param_it_it.c","param_fr_fr.c","param_pt_pt.c","param_zh_hk.c" ,"param_pl.c","param_tur.c",
+								 "param_cs.c","param_hu.c","param_el.c","param_ro.c","param_sk.c","param_id.c","param_pt_br.c",
+								 "param_hr.c","param_lt.c","param_uk.c","param_ar_ae.c","param_vi.c" };
+
+}
+
+Language::~Language()
+{
+}
+
+QJsonObject Language::GetTextAarry(QString file_path)
+{
+	QJsonObject AllTextJsonObject;
+	QFile file(file_path);
+	if (!file.open(QIODevice::ReadOnly))
+	{
+		qDebug() << "open file error!" << file_path;
+		//return o;
+	}
+	QString text_key;
+	QJsonArray text_array;
+	
+	
+	while (!file.atEnd())
+	{
+		QByteArray file_data = file.readLine();
+		QString current_text(file_data);
+		if (current_text.contains("const"))
+		{
+			//获取当前的翻译项
+			QStringList text_split = current_text.split(" ");
+			if (text_split.size() > 2)
+			{
+				//qDebug() << text_split[2];
+				text_key = text_split[2];
+			}
+			
+
+			
+		}
+		else if (current_text.contains("/*"))
+		{
+			//具体文本内容
+			QStringList text_split = current_text.split("*");
+			if (text_split.size() > 2)
+			{
+				//qDebug() << text_split[1];
+				QString text = text_split[1];
+				text_array.append(text);
+			}
+		}
+		else if (current_text.contains("};"))
+		{
+			//结束当前的翻译项
+			AllTextJsonObject.insert(text_key, text_array);
+			//清空数组
+			int size = text_array.size();
+			for (int i = 0; i < size; i++)
+			{
+				text_array.removeFirst();
+			}
+		}
+	}
+	qDebug() << AllTextJsonObject.keys();
+	return AllTextJsonObject;
+}
+void Language::GenerateCode(font_t *font)
+{
+	//QString code_str;
+	//code_str.append("void  ");
+	//code_str.append(font->title);
+	//code_str.append("(void)");
+	//code_str.append("{");
+	//code_str.append("	//偏移结构体");
+	//code_str.append("font_offset  coord = {");
+	//code_str.append("	.chinese = {0,0}");
+	//code_str.append("};");
+	//	
+	////显示参数结构体
+	//code_str.append("multilanguage_word_wrap_t currency_word_warp_s =");
+	//code_str.append("{");
+	//		
+	//code_str.append(".line_spacing = "+QString::number(1) + ",     //换行间距");
+	//code_str.append(".invl = 0,     //文字间隔");
+	//code_str.append(".show_bg = false,     //背景融合");
+	//	
+
+	//code_str.append("};");
+	//code_str.append("uint16_t color[] = //字库颜色表");
+	//code_str.append("{");
+	//code_str.append("LCD_COLOR_WHITE,");
+	//code_str.append("};");
+	//code_str.append("language_offset coord = language_get_offset(offset);");
+	//code_str.append("currency_word_warp_s.start_x = coord.offset_x;");
+	//code_str.append("currency_word_warp_s.start_y = coord.offset_y;");
+
+	//code_str.append("currency_word_warp_s.color = color[0];");
+
+	//code_str.append("Font_ShowString(&currency_word_warp_s, font_boot_setting_for_hband_addr(0));");
+
+}
+
+void Language::TextGenerateImage(QString text, int font_size, QString font_family, QString file_name)
+{
+	QFont font;
+	font.setPixelSize(font_size);
+	font.setFamily(font_family);
+	QFontMetrics me(font);
+	QRect rec = me.boundingRect(text);
+	int label_h = me.height();// ui->label_display->height();
+	int label_w = rec.width();// ui->label_display->width();
+
+
+	QPixmap pix(label_w, label_h);
+	pix.fill(QColor(Qt::black));
+	QPainter painter;
+	
+	painter.begin(&pix);
+	if (!text.isEmpty())
+	{
+
+	
+		painter.setPen(QColor(255, 255, 255));
+		painter.setFont(font);
+		painter.drawText(0, font_size - 2, text);
+	}
+	painter.end();
+	pix.save(file_name);
+
+}
+
+void Language::TextGenerateImage(QStringList text_list, int font_size, QString font_family)
+{
+	int text_count = text_list.count();
+	QString file_name = "./TextImage/icon_text_";
+	for (int i = 0; i < text_count; i++)
+	{
+		file_name.append(QString::number(i));
+		file_name.append(".bmp");
+		TextGenerateImage(text_list.at(i), font_size, font_family, file_name);
+	}
+}
+
+void Language::SetLanguageFile(QString file_path)
+{
+	//解析不同名字的语言文件，获取对象
+	// for each (QString file  in file_path)
+	
+	{
+	    QFileInfo lan_file(file_path);
+		qDebug() << lan_file.fileName();
+		language_path = lan_file.absolutePath();//保持语言文件的路径
+		language_file.insert(lan_file.fileName(), this->GetTextAarry(file_path));
+	}
+	
+}
+
+QJsonObject Language::GetLanuageFile(Language_e lan)
+{
+	QString select =  lang_file_list.at(lan);
+	qDebug() << select;
+	return language_file.value(select);
+}
+#define KEY_FONT_SIZE			 "pixelSize"
+#define KEY_FONT_X				 "x"
+#define KEY_FONT_Y				 "y"
+#define KEY_FONT_WIDTH			 "width"
+#define KEY_FONT_HEIGHT			 "height"
+#define KEY_FONT_COLOR			 "color"
+#define KEY_FONT_TEXT			 "text"
+#define KEY_FONT_AlignMent		 "Alignment"
+#define KEY_FONT_FAMILY			 "family"
+#define KEY_FONT_LETTERSPACING   "letterSpacing" //字间隔
+#define KEY_FONT_LINEHEIGHT		 "lineHeight" //行间隔
+#define KEY_FONT_COLOR			 "color" //颜色
+#define KEY_FONT_SHOWBG			 "showBg" //行间隔
+void Language::FontParamToJson(font_t font)
+{
+	//json的格式形式
+
+	language_obj.insert("id", font.title);
+
+
+	//填写参数
+	QJsonObject param_obj;
+	if(!language_obj.find("param").key().isEmpty())
+	{
+		param_obj = language_obj.find("param").value().toObject();
+	}
+	bool show_bg = font.param.show_bg;
+	int color = font.param.color;
+	
+	param_obj.insert(KEY_FONT_SHOWBG, show_bg);
+	param_obj.insert(KEY_FONT_COLOR, color);
+
+	//填写位置
+	QJsonObject coord_obj;
+
+	if (!language_obj.find("english").key().isEmpty())
+	{
+		coord_obj = language_obj.find("english").value().toObject();
+	}
+	int x = font.coodr.enaglish.x;
+	int y = font.coodr.enaglish.y;
+	int letterSpacing = font.coodr.enaglish.spacing;
+	int font_size = font.coodr.enaglish.font_size;
+	int lineHeight = font.coodr.enaglish.lineHeight;
+	coord_obj.insert(KEY_FONT_X, x);
+	coord_obj.insert(KEY_FONT_Y, y);
+	coord_obj.insert(KEY_FONT_SIZE, font_size);
+	coord_obj.insert(KEY_FONT_LINEHEIGHT, lineHeight);
+	
+	if (letterSpacing != 0)
+	{
+		coord_obj.insert(KEY_FONT_LETTERSPACING, letterSpacing);
+	}
+
+
+
+	language_obj.insert("param", param_obj);
+	language_obj.insert("english", coord_obj);
+	qDebug() << language_obj;
+	SaveJsonFile();
+	
+}
+
+void Language::SetParamJsonFile(QString path)
+{
+	language_json_file_path = path;
+	QFile file(path);
+	if (!file.open(QIODevice::ReadOnly))
+	{
+		qDebug() << "open file error!" << path;
+		return;
+	}
+	QByteArray fileData = file.readAll();
+	file.close();
+	QJsonParseError  json_error;
+	//json读取格式
+	QJsonDocument json(QJsonDocument::fromJson(fileData, &json_error));
+	if (json_error.error != QJsonParseError::NoError)
+	{
+		qDebug() << "json error!" << json_error.error;
+		return;
+	}
+	language_obj = json.object();
+}
+
+void Language::DarwText(QPainter* painter, font_t* font_text)
+{
+	QFont font;
+	QString draw_text = font_text->title;
+	int x = font_text->param.x;
+	int y = font_text->param.y;
+	int font_size = font_text->param.font_size;
+	QString family = font_text->param.family;
+	font.setFamily(family);
+	font.setPixelSize(font_size);
+	if (!draw_text.isEmpty())
+	{
+		//int set_y = text_display.param.y + label_y;
+		//paint.setPen(QColor(255, 255, 255));
+		//paint.setFont(font);
+		//paint.drawText(text_display.param.x + label_x, set_y, text_display.text);
+		painter->setPen(QColor(255, 255, 255));
+		painter->setFont(font);
+		painter->drawText(x, y, draw_text);
+	}
+}
+
+

@@ -1,0 +1,150 @@
+#ifndef MAINWINDOW_H
+#define MAINWINDOW_H
+
+#include <QMainWindow>
+#include <QDragEnterEvent>
+#include <QUrl>
+#include <QMimeData>
+#include <QDropEvent>
+#include  <QFile>
+#include <QFileInfo>
+#include <QDebug>
+#include <QDir>
+#include <QFileDevice>
+#include <QFileDialog>
+#include <QMessageBox>
+#include <QFile>
+#include  <QMap>
+#include  "pxcpjson.h"
+#include "formdraw.h"
+#include <QMap>
+#include <QJsonObject>
+#include <QJsonDocument>
+#include <QJsonArray>
+#include <QStandardItem>
+#include "Language.h"
+namespace Ui {
+class MainWindow;
+}
+
+class MainWindow : public QMainWindow
+{
+    Q_OBJECT
+
+public:
+    explicit MainWindow(QWidget *parent = nullptr);
+    ~MainWindow();
+protected:
+    void dragEnterEvent(QDragEnterEvent *event);
+    void dropEvent(QDropEvent *event);
+	void paintEvent(QPaintEvent *event);
+	bool eventFilter(QObject *watched, QEvent *event);
+    void mousePressEvent(QMouseEvent* event);
+    void mouseReleaseEvent(QMouseEvent* event);
+    void mouseMoveEvent(QMouseEvent* event);
+private slots:
+    void on_pushButton_clicked();
+
+    void getBmpAddr(QString path);
+
+    void on_CB_one_activated(const QString &arg1);
+
+    void on_CB_Time_activated(const QString &arg1);
+
+    void on_CB_heart_activated(const QString &arg1);
+
+    void on_CB_step_activated(const QString &arg1);
+
+    void on_CB_blu_activated(const QString &arg1);
+
+    void on_CB_data_activated(const QString &arg1);
+
+    void on_CB_ampm_activated(const QString &arg1);
+
+    void on_CB_charge_activated(const QString &arg1);
+
+    void on_CB_week_activated(const QString &arg1);
+
+    void on_CB_calories_activated(const QString &arg1);
+
+    void on_CB_unit_activated(const QString &arg1);
+
+    void on_CB_distant_activated(const QString &arg1);
+
+    void on_CB_sleep_activated(const QString &arg1);
+
+    void on_CB_postion_activated(const QString &arg1);
+
+    void on_CB_BP_activated(const QString &arg1);
+
+    void on_CB_FunSelect_activated(const QString &arg1);
+
+    void on_CB_women_activated(const QString &arg1);
+
+    void on_CB_sleep_2_activated(const QString &arg1);
+
+    void on_display_text(const QModelIndex index); //选择的文字项
+    void on_display_page(const QModelIndex index); //选择的文字项
+    void on_select_text(const QModelIndex index); //选中文字
+    void on_lond_language_file(); //加载语言文件
+    void on_select_language_file(int select); //选择语言文件
+private:
+    Ui::MainWindow *ui;
+    QString filePath;
+    //void mainDisplay(QString path);
+    QString iconName;
+    QStringList iconTitleList;
+    void UI_time(QString title);
+    void UI_week(QString title,QString title_en);
+    void UI_Step(QString title);
+    void UI_Sleep_4(QString title);
+    void UI_blue(QString title);
+    void UI_heart(QString title);
+    void UI_data(QString title);
+    void UI_calories(QString title);
+    void UI_distance(QString title);
+    void write_param_head(QStringList list);
+    void UI_AMPM(QString title);
+    void UI_one(QString title);
+    void UI_charge(QString title);
+    void UI_uint(QString title);
+    void UI_BP(QString title);
+    void UI_Sleep(QString title);
+    void UI_position(QString title);
+    void display();
+    void initDisplay();
+    void UI_Women(QString title);
+    void AllJsonAnalysis(QString jsonPath);
+    void dispaly_BP(QString icon_data,QString icon_person,QString icon_no,QString icon_error);
+    void write_code(QString data);
+    void writePosiAndData(QString tile);
+
+    void getBmpPaths(QString path);
+    QJsonArray iconArray;
+    QFile *file_c;
+    QFile *file;
+    QString title;
+    QString dirName;
+    QString addrName;
+    QMap<QString,int> iconListnum;
+    pxcpJson  *json;
+    QString last_filePath;
+    QString setPostionFun;
+    QString WriteDataFun;
+    QStringList jsonPaths;
+    QMap<QString, QString>Image_Path_Map; //图片命名和路径
+    void saveBmpPaths(QString path);
+    QStringList titleList; //图片类型的标题
+    QJsonObject Title_Image_json;  //保存标题和对应的所有切图
+    QStandardItemModel* iconModel;
+    void DislayAddrParm(QString Image_title, QJsonArray image_arry);
+    //多国语言
+    Language *language;
+    void LanguageProcess(); //多国语言处理
+    QJsonObject text_object;
+    QString priview_path;
+    font_t text_display;
+    QMap<int ,font_t> item_text_list; //界面中存在文字的项
+};
+
+#endif // MAINWINDOW_H

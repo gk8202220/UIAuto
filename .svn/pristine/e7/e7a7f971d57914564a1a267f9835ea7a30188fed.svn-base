@@ -1,0 +1,14 @@
+#pragma once
+
+#include <QObject>
+#include <QJsonObject>
+class Language : public QObject
+{
+	Q_OBJECT
+
+public:
+	Language(QObject *parent);
+	~Language();
+	QJsonObject GetTextAarry(QString file_path); //从文件中获取文字
+
+};
