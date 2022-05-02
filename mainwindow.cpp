@@ -9,7 +9,8 @@
 #include <QFile>
 #include <QPicture>
 #include <QMap>
-
+#include "WatchComponentsWidget.h"
+#include "readexcel.h"
 #pragma execution_character_set("UTF-8")
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -23,7 +24,16 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui->label_display->installEventFilter(this); //这行不能省
     language = new Language(this);
     current_lan = (Language_e)ui->CB_language->currentIndex();
-  
+   // WatchComponentsWidget  watchComponentsWidget = new WatchComponentsWidget(this);
+    QStandardItemModel  *components_model = new QStandardItemModel(this);
+    QStandardItem* item = new QStandardItem("文本");
+    QStandardItem* item1= new QStandardItem("电池");
+    components_model->setItem(0,0,item);
+    components_model->setItem(1, 0, item1);
+    ui->listView_componnets->setModel(components_model);
+
+   // watchComponentsWidget.setGeometry(0, 0, 100, 100);
+   // watchComponentsWidget.show();
     if(ui->CB_FunSelect->currentIndex() == 2)
     {
         setPostionFun = "LCD_SetPosition(icon_16_";
@@ -65,9 +75,9 @@ void MainWindow::dragEnterEvent(QDragEnterEvent *event)
 }
 bool MainWindow::eventFilter(QObject *watched, QEvent *event)   //用过滤器eventFilter（）拦截QLabel中的QEvent::Paint事件
 {
-	if (watched == ui->label_display && event->type() == QEvent::Paint)
+	//if (watched == ui->label_display && event->type() == QEvent::Paint)
 		//paint();
-		this->update();
+//		this->update();
 
 
 	return QWidget::eventFilter(watched, event);
@@ -108,7 +118,7 @@ void MainWindow::mousePressEvent(QMouseEvent* event)
 void MainWindow::mouseReleaseEvent(QMouseEvent* event)
 {
    // current_select_text = nullptr;
-   // qDebug() << "Release";
+    qDebug() << "Release";
     if (item_is_drop)
     {
         language->FontParamToJson(&item_text_list.value(check_text_index), &font_page); //保存所有选中的文字
@@ -196,6 +206,18 @@ void MainWindow::paintEvent(QPaintEvent * event)
         language->DarwText(&painter, &font_text);
     
     }
+    for each (ComponnetsItem var in component_list)
+    {
+        if (var.fomat == "Text")
+        {
+            font_t font_text;
+            font_text.title = var.text;
+            font_text.param.x = var.point.x();
+            font_text.param.y = var.point.y();
+            language->DarwText(&painter, &font_text);
+           // painter.drawText(var.point, var.text);
+        }
+    }
 
     painter.end();
     ui->label_display->setPixmap(pix);
@@ -260,13 +282,50 @@ void MainWindow::paintEvent(QPaintEvent * event)
 
 void MainWindow::dropEvent(QDropEvent *event)
 {
+    qDebug() << event->mimeData()->formats();
+ 
+    QList formats = event->mimeData()->formats();
+    for each (QString format in formats)
+    {
+        if (format == ("application/x-qabstractitemmodeldatalist"))
+        {
+          
+        }
+        else if (format ==  "application/x-qstandarditemmodeldatalist")
+        {
+           // qDebug() << event->
+            if (event->source() == ui->listView_componnets)
+            {
+                qDebug() << "listView_componnets";
+                qDebug() << ui->listView_componnets->currentIndex().data().toString();
+                
+                
+               // QString text("Text");
+                ComponnetsItem item;
+                item.text  = "你好!";
+                item.fomat = "Text";
+                item.point = QPoint(10, 10);
+                component_list.append(item);
 
+                
+            }
+        }
+        else if (format == "text/uri-list")
+        {
+            //QString file_path = event->mimeData()->urls().first().toLocalFile();
+           // readexcel *excel = new readexcel(this);
+            //excel->read(file_path); 
+
+        }
+
+    }
+    return;
     this->filePath =  event->mimeData()->urls().first().toLocalFile();
     QFileInfo info(filePath);
 
     if(filePath.isEmpty())
     {
-        QMessageBox::warning(this,"Error",tr("The Path is Error!"));
+        QMessageBox::warning(this, "Error",tr("The Path is Error!"));
         return;
     }
   
@@ -454,7 +513,7 @@ void MainWindow::DislayAddrParm(QString Image_title, QJsonArray image_arry)
                 //按x大小排序
 				//在QT6中找不到这个函数
                 //qSort(position_temp_x.begin(), position_temp_x.end());
-                for (size_t i = 0; i < position_temp_x.count(); i++)
+                for (int i = 0; i < position_temp_x.count(); i++)
                 {
                    // qDebug() << "x = " << QString::number(position_temp_x.at(i), 10) << "y = " << position_temp_y.at(i);
                    
@@ -494,6 +553,8 @@ void MainWindow::LanguageProcess()
 
    }
    ui->listView_page->setModel(page_item_model);
+
+   
 }
 void MainWindow::saveBmpPaths(QString path)
 {
@@ -1600,6 +1661,8 @@ void MainWindow::on_display_text(const QModelIndex index)
     }
 //    text_index++;
     ui->listView_text_select->setModel(text_model);
+
+
 }
 
 void MainWindow::on_display_page(const QModelIndex index)
@@ -1660,13 +1723,12 @@ void MainWindow::on_select_language_file(int select)
         int index = 0;
         for each (QString  icontitel in text_item_list)
         {
-
             QStandardItem* item = new QStandardItem(icontitel);
             text_item_model->setItem(index, 0, item);
             index++;
-
         }
         ui->listView_Text->setModel(text_item_model);
+
     }
 }
 void MainWindow::on_lond_language_file()
@@ -1693,6 +1755,12 @@ void MainWindow::on_lond_language_file()
                     language->SetParamJsonFile(fileInfo.filePath());
 
                 }
+                else if (suffix == "xlsx")
+                {
+                    language->SetLanguageFileExcel(fileInfo.filePath());
+                }
+
+
 
            
             }
@@ -1748,4 +1816,5 @@ void MainWindow::SelectedText(int index)
     ui->spinBox_font->setValue(font_size);
     qDebug() << "SelectedText" << current_select_text->title;
     font_page.text = current_select_text->title;
+
 }

@@ -1,23 +1,101 @@
 {
     "": {
-        "font_BP_fail_long\r\n": {
-            "请保持静止并戴紧手表": {
+        "font_BP_fail\r\n": {
+            "测量失败": {
                 "language": {
                     "chinese": {
-                        "lineHeight": 0,
-                        "pixelSize": 16,
+                        "fontSize": 16,
+                        "letterSpacing": 113,
+                        "lineHeight": 209,
                         "x": 0,
-                        "y": -4
+                        "y": 20
                     },
                     "enaglish": {
-                        "lineHeight": 0,
-                        "pixelSize": 16,
+                        "fontSize": 16,
+                        "letterSpacing": 113,
+                        "lineHeight": 209,
                         "x": 0,
                         "y": 20
                     }
                 },
                 "param": {
                     "color": 0,
+                    "family": 0,
+                    "fontSize": 16,
+                    "showBg": false
+                }
+            },
+            "血压": {
+                "language": {
+                    "chinese": {
+                        "fontSize": 16,
+                        "letterSpacing": 113,
+                        "lineHeight": 209,
+                        "x": 0,
+                        "y": 20
+                    },
+                    "enaglish": {
+                        "fontSize": 16,
+                        "letterSpacing": 113,
+                        "lineHeight": 209,
+                        "x": 0,
+                        "y": 20
+                    }
+                },
+                "param": {
+                    "color": 0,
+                    "family": 0,
+                    "fontSize": 16,
+                    "showBg": false
+                }
+            },
+            "重试": {
+                "language": {
+                    "chinese": {
+                        "fontSize": 16,
+                        "letterSpacing": 113,
+                        "lineHeight": 209,
+                        "x": 0,
+                        "y": 20
+                    },
+                    "enaglish": {
+                        "fontSize": 16,
+                        "letterSpacing": 113,
+                        "lineHeight": 209,
+                        "x": 0,
+                        "y": 20
+                    }
+                },
+                "param": {
+                    "color": 0,
+                    "family": 0,
+                    "fontSize": 16,
+                    "showBg": false
+                }
+            }
+        },
+        "font_BP_fail_long\r\n": {
+            "请保持静止并戴紧手表": {
+                "language": {
+                    "chinese": {
+                        "fontSize": 16,
+                        "letterSpacing": 113,
+                        "lineHeight": 209,
+                        "x": 0,
+                        "y": 20
+                    },
+                    "enaglish": {
+                        "fontSize": 16,
+                        "letterSpacing": 113,
+                        "lineHeight": 209,
+                        "x": 0,
+                        "y": 20
+                    }
+                },
+                "param": {
+                    "color": 0,
+                    "family": 0,
+                    "fontSize": 16,
                     "showBg": false
                 }
             }
@@ -26,40 +104,48 @@
             "开始": {
                 "language": {
                     "chinese": {
-                        "lineHeight": 0,
-                        "pixelSize": 16,
+                        "fontSize": 16,
+                        "letterSpacing": 113,
+                        "lineHeight": 209,
                         "x": 0,
                         "y": 20
                     },
                     "enaglish": {
-                        "lineHeight": 0,
-                        "pixelSize": 16,
+                        "fontSize": 16,
+                        "letterSpacing": 113,
+                        "lineHeight": 209,
                         "x": 0,
                         "y": 20
                     }
                 },
                 "param": {
                     "color": 0,
+                    "family": 0,
+                    "fontSize": 16,
                     "showBg": false
                 }
             },
             "血压": {
                 "language": {
                     "chinese": {
-                        "lineHeight": 0,
-                        "pixelSize": 16,
-                        "x": 104,
-                        "y": 163
+                        "fontSize": 16,
+                        "letterSpacing": 113,
+                        "lineHeight": 209,
+                        "x": 0,
+                        "y": 20
                     },
                     "enaglish": {
-                        "lineHeight": 0,
-                        "pixelSize": 16,
+                        "fontSize": 16,
+                        "letterSpacing": 113,
+                        "lineHeight": 209,
                         "x": 0,
                         "y": 20
                     }
                 },
                 "param": {
                     "color": 0,
+                    "family": 0,
+                    "fontSize": 16,
                     "showBg": false
                 }
             },
@@ -88,20 +174,24 @@
             "mmHg": {
                 "language": {
                     "chinese": {
-                        "lineHeight": 0,
-                        "pixelSize": 16,
-                        "x": 82,
-                        "y": 67
+                        "fontSize": 16,
+                        "letterSpacing": 113,
+                        "lineHeight": 209,
+                        "x": 0,
+                        "y": 20
                     },
                     "enaglish": {
-                        "lineHeight": 0,
-                        "pixelSize": 16,
+                        "fontSize": 16,
+                        "letterSpacing": 113,
+                        "lineHeight": 209,
                         "x": 0,
                         "y": 20
                     }
                 },
                 "param": {
                     "color": 0,
+                    "family": 0,
+                    "fontSize": 16,
                     "showBg": false
                 }
             },
@@ -109,13 +199,39 @@
                 "language": {
                     "chinese": {
                         "fontSize": 16,
-                        "lineHeight": 0,
-                        "x": 237,
-                        "y": 232
+                        "letterSpacing": 113,
+                        "lineHeight": 209,
+                        "x": 0,
+                        "y": 20
                     },
                     "enaglish": {
                         "fontSize": 16,
-                        "lineHeight": 0,
+                        "letterSpacing": 113,
+                        "lineHeight": 209,
+                        "x": 0,
+                        "y": 20
+                    }
+                },
+                "param": {
+                    "color": 0,
+                    "family": 0,
+                    "fontSize": 16,
+                    "showBg": false
+                }
+            },
+            "请保持静止并戴紧手表": {
+                "language": {
+                    "chinese": {
+                        "fontSize": 16,
+                        "letterSpacing": 113,
+                        "lineHeight": 209,
+                        "x": 0,
+                        "y": 20
+                    },
+                    "enaglish": {
+                        "fontSize": 16,
+                        "letterSpacing": 113,
+                        "lineHeight": 209,
                         "x": 0,
                         "y": 20
                     }
@@ -131,13 +247,91 @@
                 "language": {
                     "chinese": {
                         "fontSize": 16,
-                        "lineHeight": 0,
-                        "x": 76,
-                        "y": 274
+                        "letterSpacing": 113,
+                        "lineHeight": 209,
+                        "x": 0,
+                        "y": 20
                     },
                     "enaglish": {
                         "fontSize": 16,
-                        "lineHeight": 0,
+                        "letterSpacing": 113,
+                        "lineHeight": 209,
+                        "x": 0,
+                        "y": 20
+                    }
+                },
+                "param": {
+                    "color": 0,
+                    "family": 0,
+                    "fontSize": 16,
+                    "showBg": false
+                }
+            }
+        },
+        "font_BP_testing\r\n": {
+            "开始": {
+                "language": {
+                    "chinese": {
+                        "fontSize": 16,
+                        "letterSpacing": 113,
+                        "lineHeight": 209,
+                        "x": 0,
+                        "y": 20
+                    },
+                    "enaglish": {
+                        "fontSize": 16,
+                        "letterSpacing": 113,
+                        "lineHeight": 209,
+                        "x": 0,
+                        "y": 20
+                    }
+                },
+                "param": {
+                    "color": 0,
+                    "family": 0,
+                    "fontSize": 16,
+                    "showBg": false
+                }
+            },
+            "血压": {
+                "language": {
+                    "chinese": {
+                        "fontSize": 16,
+                        "letterSpacing": 113,
+                        "lineHeight": 209,
+                        "x": 0,
+                        "y": 20
+                    },
+                    "enaglish": {
+                        "fontSize": 16,
+                        "letterSpacing": 113,
+                        "lineHeight": 209,
+                        "x": 0,
+                        "y": 20
+                    }
+                },
+                "param": {
+                    "color": 0,
+                    "family": 0,
+                    "fontSize": 16,
+                    "showBg": false
+                }
+            }
+        },
+        "font_boot_start_using\r\n": {
+            "血压": {
+                "language": {
+                    "chinese": {
+                        "fontSize": 16,
+                        "letterSpacing": 113,
+                        "lineHeight": 209,
+                        "x": 0,
+                        "y": 20
+                    },
+                    "enaglish": {
+                        "fontSize": 16,
+                        "letterSpacing": 113,
+                        "lineHeight": 209,
                         "x": 0,
                         "y": 20
                     }

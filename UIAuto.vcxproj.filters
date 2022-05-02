@@ -57,6 +57,15 @@
     <ClCompile Include="Language.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="WatchComponentsWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponnetsItem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="readexcel.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="formdraw.h">
@@ -71,6 +80,12 @@
     <QtMoc Include="Language.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="WatchComponentsWidget.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="readexcel.h">
+      <Filter>Generated Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="formdraw.ui">
@@ -79,9 +94,15 @@
     <QtUic Include="mainwindow.ui">
       <Filter>Form Files</Filter>
     </QtUic>
+    <QtUic Include="WatchComponentsWidget.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="version.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponnetsItem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

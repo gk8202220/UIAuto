@@ -122,7 +122,7 @@
   </PropertyGroup>
   <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <QtInstall>6.2.4_msvc2019_64</QtInstall>
-    <QtModules>core;gui;widgets</QtModules>
+    <QtModules>core;gui;axcontainer;widgets</QtModules>
   </PropertyGroup>
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.props')">
     <Import Project="$(QtMsBuild)\qt.props" />
@@ -351,11 +351,14 @@
     </QtUic>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ComponnetsItem.cpp" />
     <ClCompile Include="formdraw.cpp" />
     <ClCompile Include="Language.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mainwindow.cpp" />
     <ClCompile Include="pxcpjson.cpp" />
+    <ClCompile Include="readexcel.cpp" />
+    <ClCompile Include="WatchComponentsWidget.cpp" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="formdraw.h">
@@ -366,7 +369,10 @@
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
+    <QtMoc Include="WatchComponentsWidget.h" />
     <QtMoc Include="Language.h" />
+    <ClInclude Include="ComponnetsItem.h" />
+    <QtMoc Include="readexcel.h" />
     <ClInclude Include="version.h" />
   </ItemGroup>
   <ItemGroup>
@@ -374,6 +380,7 @@
     </QtUic>
     <QtUic Include="mainwindow.ui">
     </QtUic>
+    <QtUic Include="WatchComponentsWidget.ui" />
   </ItemGroup>
   <ItemGroup>
     <QtTranslation Include="uiauto_zh.ts" />

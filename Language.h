@@ -62,11 +62,10 @@ typedef struct
 }font_coodr;
 typedef struct
 {
+    int id;  
     font_param_t param;
-   
-    //font_coodr coodr;
     QString title;
-
+    
 }font_t;
 
 typedef enum
@@ -108,6 +107,7 @@ typedef struct
     QString text; //文字
 
 }Font_page_t;
+
 class Language : public QObject
 {
 	Q_OBJECT
@@ -119,6 +119,7 @@ private:
     QString language_json_file_path; // 所有参数的json文件对象
     void SaveJsonFile(); //保持json文件
     QStringList language_type_list; 
+    QList<QList<QVariant> > language_excel_list;
 public:
 	Language(QObject *parent);
 	~Language();
@@ -138,4 +139,5 @@ public:
     QMap<Language_e, font_t> language_font_map; //语言和对应文字的参数
     void GetPageFontParam(QMap<Language_e, font_t>* language_font_map, Font_page_t* font_page); //从json中过去界面的参数
 
+    void SetLanguageFileExcel(QString excel_file); //读取翻译文件,来自excel表格
 };

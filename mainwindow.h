@@ -23,6 +23,7 @@
 #include <QJsonArray>
 #include <QStandardItem>
 #include "Language.h"
+#include "ComponnetsItem.h"
 namespace Ui {
 class MainWindow;
 }
@@ -151,6 +152,7 @@ private:
     int check_text_index;
     Language_e current_lan; //当前的语言
     Font_page_t font_page;
+    QList<ComponnetsItem> component_list;
 };
 
 #endif // MAINWINDOW_H

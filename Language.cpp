@@ -8,6 +8,7 @@
 #include <QFileInfo>
 #include <QFileDialog>
 #include <QJsonParseError>
+#include "readexcel.h"
 void Language::SaveJsonFile()
 {
 	
@@ -366,6 +367,9 @@ void Language::DarwText(QPainter* painter, font_t* font_text)
 		painter->setPen(QColor(255, 255, 255));
 		painter->setFont(font);
 		painter->drawText(x, y, draw_text);
+		rec.setY(y); 
+		rec.setX(x);
+		painter->drawRect(rec);
 	}
 }
 
@@ -392,7 +396,7 @@ void Language::GetPageFontParam(QMap<Language_e, font_t>* language_font_map, Fon
 {
 
 	QString page = font_page->Page;
-	/*界胡*/
+	/*界面*/
 	if (language_root_obj.contains(page))
 	{
 		QJsonObject page_obj;
@@ -425,6 +429,12 @@ void Language::GetPageFontParam(QMap<Language_e, font_t>* language_font_map, Fon
 
 
 
+}
+
+void Language::SetLanguageFileExcel(QString excel_file)
+{
+	readexcel* excel = new readexcel(this);
+	excel->read(excel_file, language_excel_list);
 }
 
 
