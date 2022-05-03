@@ -66,6 +66,9 @@
     <ClCompile Include="readexcel.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
+    <ClCompile Include="LanguageTextSelect.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="formdraw.h">
@@ -86,6 +89,9 @@
     <QtMoc Include="readexcel.h">
       <Filter>Generated Files</Filter>
     </QtMoc>
+    <QtMoc Include="LanguageTextSelect.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="formdraw.ui">
@@ -95,6 +101,9 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="WatchComponentsWidget.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="LanguageTextSelect.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

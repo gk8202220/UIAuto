@@ -11,6 +11,7 @@
 #include <QMap>
 #include "WatchComponentsWidget.h"
 #include "readexcel.h"
+
 #pragma execution_character_set("UTF-8")
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -31,6 +32,13 @@ MainWindow::MainWindow(QWidget *parent) :
     components_model->setItem(0,0,item);
     components_model->setItem(1, 0, item1);
     ui->listView_componnets->setModel(components_model);
+
+    //文本选择界面
+    //  QStringList test = { "nihao","zhong" };
+     languageTextSelect = new LanguageTextSelect();
+     languageTextSelect->SetSelectedText(&select_text_list);
+     QObject::connect(languageTextSelect, SIGNAL(updata_text()), this, SLOT(on_updata_select_text_list()));
+
 
    // watchComponentsWidget.setGeometry(0, 0, 100, 100);
    // watchComponentsWidget.show();
@@ -78,6 +86,7 @@ bool MainWindow::eventFilter(QObject *watched, QEvent *event)   //用过滤器ev
 	//if (watched == ui->label_display && event->type() == QEvent::Paint)
 		//paint();
 //		this->update();
+   
 
 
 	return QWidget::eventFilter(watched, event);
@@ -296,25 +305,35 @@ void MainWindow::dropEvent(QDropEvent *event)
            // qDebug() << event->
             if (event->source() == ui->listView_componnets)
             {
+                /*  控件的拖拽*/
                 qDebug() << "listView_componnets";
-                qDebug() << ui->listView_componnets->currentIndex().data().toString();
+                QString componnet_type =  ui->listView_componnets->currentIndex().data().toString();
+                if (componnet_type == "文本")
+                {
+                    select_text_list.clear(); //清除当前的文字列表
+                    languageTextSelect->show();// 显示文本选择框
+                    ComponnetsItem item;
+                    item.text = "Text";
+                    item.fomat = "Text";
+                   QPoint point =  event->pos();
+                    item.point = QPoint(point.x(), point.y());
+                    component_list.append(item);
+                }
                 
-                
-               // QString text("Text");
-                ComponnetsItem item;
-                item.text  = "你好!";
-                item.fomat = "Text";
-                item.point = QPoint(10, 10);
-                component_list.append(item);
+              
 
                 
             }
         }
         else if (format == "text/uri-list")
         {
-            //QString file_path = event->mimeData()->urls().first().toLocalFile();
+            QString file_path = event->mimeData()->urls().first().toLocalFile();
            // readexcel *excel = new readexcel(this);
             //excel->read(file_path); 
+            language->SetLanguageFileExcel(file_path);
+            languageTextSelect->SetTextList(language->id_text_map.values());
+            languageTextSelect->show();
+
 
         }
 
@@ -1731,8 +1750,24 @@ void MainWindow::on_select_language_file(int select)
 
     }
 }
+void MainWindow::on_updata_select_text_list()
+{
+    ui->comboBox_texts->clear();
+    for each (QString text in select_text_list)
+    {
+        ui->comboBox_texts->addItem(text);
+    }
+
+  
+    
+}
 void MainWindow::on_lond_language_file()
 {
+    /* 文字选中窗口显示*/
+    languageTextSelect->SetSelectedText(&select_text_list);
+    languageTextSelect->show();
+    return;
+
     QString	path = QFileDialog::getExistingDirectory(this, "选择字库路径", "./");
     QFileInfo lan_path(path);
     if (lan_path.isDir())
@@ -1758,8 +1793,10 @@ void MainWindow::on_lond_language_file()
                 else if (suffix == "xlsx")
                 {
                     language->SetLanguageFileExcel(fileInfo.filePath());
+                    //languageTextSelect->SetTextList(test);
+                    //languageTextSelect->show();
                 }
-
+               
 
 
            

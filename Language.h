@@ -140,4 +140,6 @@ public:
     void GetPageFontParam(QMap<Language_e, font_t>* language_font_map, Font_page_t* font_page); //从json中过去界面的参数
 
     void SetLanguageFileExcel(QString excel_file); //读取翻译文件,来自excel表格
+    QMap<QString, QString> id_text_map; //ID和对应的中文文字
+    
 };

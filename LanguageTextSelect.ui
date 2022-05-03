@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>LanguageTextSelect</class>
+ <widget class="QWidget" name="LanguageTextSelect">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>547</width>
+    <height>423</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>文字选择</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(255, 255, 255);</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QLabel" name="label">
+           <property name="text">
+            <string>搜索</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="lineEdit_filter"/>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QListView" name="listView_textList">
+         <property name="editTriggers">
+          <set>QAbstractItemView::NoEditTriggers</set>
+         </property>
+         <property name="selectionMode">
+          <enum>QAbstractItemView::ExtendedSelection</enum>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_2">
+         <item>
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string>已选择</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QListView" name="listView_selected">
+           <property name="dragEnabled">
+            <bool>true</bool>
+           </property>
+           <property name="dragDropOverwriteMode">
+            <bool>false</bool>
+           </property>
+           <property name="dragDropMode">
+            <enum>QAbstractItemView::InternalMove</enum>
+           </property>
+           <property name="defaultDropAction">
+            <enum>Qt::MoveAction</enum>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QPushButton" name="PB_confirm">
+         <property name="text">
+          <string>确定</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>lineEdit_filter</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>LanguageTextSelect</receiver>
+   <slot>filterChanged(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>165</x>
+     <y>39</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>273</x>
+     <y>211</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>listView_textList</sender>
+   <signal>clicked(QModelIndex)</signal>
+   <receiver>LanguageTextSelect</receiver>
+   <slot>on_selected_text(QModelIndex)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>83</x>
+     <y>115</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>273</x>
+     <y>211</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>listView_selected</sender>
+   <signal>pressed(QModelIndex)</signal>
+   <receiver>LanguageTextSelect</receiver>
+   <slot>on_change_text(QModelIndex)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>445</x>
+     <y>145</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>273</x>
+     <y>211</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>PB_confirm</sender>
+   <signal>clicked()</signal>
+   <receiver>LanguageTextSelect</receiver>
+   <slot>on_confirm()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>441</x>
+     <y>403</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>273</x>
+     <y>211</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>filterChanged(QString)</slot>
+  <slot>on_selected_text(QModelIndex)</slot>
+  <slot>on_change_text(QModelIndex)</slot>
+  <slot>on_confirm()</slot>
+ </slots>
+</ui>

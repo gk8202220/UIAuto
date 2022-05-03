@@ -435,6 +435,18 @@ void Language::SetLanguageFileExcel(QString excel_file)
 {
 	readexcel* excel = new readexcel(this);
 	excel->read(excel_file, language_excel_list);
+	//获取ID
+	int row_count = language_excel_list.count(); //总行数
+	for (int row = 0; row < row_count; row++)
+	{
+		//qDebug() << language_excel_list.at(row).at(1);
+		QString id = language_excel_list.at(row).at(0).toString();
+		QString text = language_excel_list.at(row).at(1).toString();
+		id_text_map.insert(id, text);
+		 
+	}
+	//获取中文
+
 }
 
 

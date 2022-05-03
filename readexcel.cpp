@@ -84,7 +84,7 @@ void readexcel::castVariant2ListListVariant(const QVariant& var, QList<QList<QVa
 	for (int i = 0; i < rowCount; ++i)
 	{
 		rowData = varRows[i].toList();
-		qDebug() << rowData;
+		//qDebug() << rowData;
 		res.push_back(rowData);
 	}
 }

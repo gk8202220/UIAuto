@@ -24,6 +24,7 @@
 #include <QStandardItem>
 #include "Language.h"
 #include "ComponnetsItem.h"
+#include "LanguageTextSelect.h"
 namespace Ui {
 class MainWindow;
 }
@@ -89,6 +90,7 @@ private slots:
     void on_select_text(const QModelIndex index); //选中文字
     void on_lond_language_file(); //加载语言文件
     void on_select_language_file(int select); //选择语言文件
+    void on_updata_select_text_list(); //更新选择的文字
 private:
     Ui::MainWindow *ui;
     QString filePath;
@@ -153,6 +155,8 @@ private:
     Language_e current_lan; //当前的语言
     Font_page_t font_page;
     QList<ComponnetsItem> component_list;
+    LanguageTextSelect* languageTextSelect;
+    QStringList select_text_list;
 };
 
 #endif // MAINWINDOW_H
