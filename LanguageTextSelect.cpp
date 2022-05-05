@@ -5,23 +5,26 @@ LanguageTextSelect::LanguageTextSelect(QWidget *parent)
 {
 	ui.setupUi(this);
 	selected_text_model = new QStandardItemModel(this);
+	language = Language::GetInstance();
+	lan_type = chinese; //默认中文
 }
 
 LanguageTextSelect::~LanguageTextSelect()
 {
 }
 
-void LanguageTextSelect::SetTextList(QMap<QString, QString> id_text_map)
+void LanguageTextSelect::SetTextList(QStringList id_text_list)
 {
+	/* 用ID和文字列表来显示所有可以选择的字*/
 	text_model = new QStandardItemModel(this);
 	modelProxy = new QSortFilterProxyModel(this);
 	text_model->setHorizontalHeaderItem(1, new QStandardItem("ID"));
 	text_model->setHorizontalHeaderItem(0, new QStandardItem("文字"));
 	int row = 0;
-	for each (QString id in id_text_map.keys())
+	for each (QString id in id_text_list)
 	{
 		//text_model->appendRow()
-		QString text = id_text_map.value(id);
+		QString text = language->GetText(id, lan_type); //id_text_map.value(id);
 		text_model->setItem(row, 1, new QStandardItem(id));
 		text_model->setItem(row, 0, new QStandardItem(text));
 		row++;
@@ -30,7 +33,7 @@ void LanguageTextSelect::SetTextList(QMap<QString, QString> id_text_map)
 	ui.treeView_textList->setModel(modelProxy);
 }
 
-void LanguageTextSelect::SetSelectedText(QStringList *text_list)
+void LanguageTextSelect::SetSelectedText(QStringList* text_list)
 {
 	selected_text_list = text_list;
 	selected_text_model->clear();
@@ -46,6 +49,11 @@ void LanguageTextSelect::SetSelectedText(QStringList *text_list)
 		ui.listView_selected->setModel(selected_text_model);
 	}
 	
+}
+
+void LanguageTextSelect::SetLanguage(Language_e lan)
+{
+	lan_type = lan;
 }
 
 void LanguageTextSelect::ShowSelectText()

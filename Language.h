@@ -121,9 +121,19 @@ private:
     void SaveJsonFile(); //保持json文件
     QStringList language_type_list; 
     QList<QList<QVariant> > language_excel_list;
+    
 public:
-	Language(QObject *parent);
+	//Language(QObject *parent);
 	~Language();
+    static Language* GetInstance()
+    {
+        //if (instance == nullptr)
+        //{
+        static Language instance;
+            //instance = new Language();
+       // }
+        return &instance;
+    }
 	QJsonObject GetTextAarry(QString file_path); //从文件中获取文字
     void GenerateCode(font_t* font);
     void TextGenerateImage(QString text, int font_size, QString font_family, QString file_name); //文字生成切图
@@ -141,8 +151,10 @@ public:
     void GetPageFontParam(QMap<Language_e, font_t>* language_font_map, Font_page_t* font_page); //从json中过去界面的参数
 
     void SetLanguageFileExcel(QString excel_file); //读取翻译文件,来自excel表格
-    QMap<QString, QString> id_text_map; //ID和对应的中文文字
+    QStringList text_id_list; //所有文字的ID列表
     QMap<QString, QMap<Language_e, QString> >id_texts_map; //ID和对应的所有国家文字
     QRect GetTextRect(QString text, int font_size, QString font_family); //获取文本的范围
-    
+    QString GetText(QString id, Language_e lan); //通过ID和对应的语言获取到文字
+    QStringList GetText(QStringList id_list, Language_e lan); //通过ID和对应的语言获取到文字
+   
 };

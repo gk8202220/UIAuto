@@ -28,19 +28,19 @@ void Language::SaveJsonFile()
 	file.write(doc.toJson());
 	file.close();
 }
-Language::Language(QObject *parent)
-	: QObject(parent)
-{
-	 lang_file_list = {"param_zh_cn.c","param_en.c","param_ja.c", "param_ko.c",  "param_de_de.c","param_ru.c", 
-								 "param_es_es.c","param_it_it.c","param_fr_fr.c","param_pt_pt.c","param_zh_hk.c" ,"param_pl.c","param_tur.c",
-								 "param_cs.c","param_hu.c","param_el.c","param_ro.c","param_sk.c","param_id.c","param_pt_br.c",
-								 "param_hr.c","param_lt.c","param_uk.c","param_ar_ae.c","param_vi.c" };
-	 language_type_list = { "chinese", "enaglish", "japanese", "korean", "german", "russian", "spanish",
-"italiarn", "french", "vietnamese", "portuguese_pt", "portuguese_br", "traditional,"
-"polish", "czech", "ukraine", "hungary", "turkey", "indonesia", "romania", "slovakia", "croatia",
-"lithuania", "greece", "arae", "sv", "nlnl", };
-
-}
+//Language::Language(QObject *parent)
+//	: QObject(parent)
+//{
+//	 lang_file_list = {"param_zh_cn.c","param_en.c","param_ja.c", "param_ko.c",  "param_de_de.c","param_ru.c", 
+//								 "param_es_es.c","param_it_it.c","param_fr_fr.c","param_pt_pt.c","param_zh_hk.c" ,"param_pl.c","param_tur.c",
+//								 "param_cs.c","param_hu.c","param_el.c","param_ro.c","param_sk.c","param_id.c","param_pt_br.c",
+//								 "param_hr.c","param_lt.c","param_uk.c","param_ar_ae.c","param_vi.c" };
+//	 language_type_list = { "chinese", "enaglish", "japanese", "korean", "german", "russian", "spanish",
+//"italiarn", "french", "vietnamese", "portuguese_pt", "portuguese_br", "traditional,"
+//"polish", "czech", "ukraine", "hungary", "turkey", "indonesia", "romania", "slovakia", "croatia",
+//"lithuania", "greece", "arae", "sv", "nlnl", };
+//
+//}
 
 Language::~Language()
 {
@@ -451,11 +451,12 @@ void Language::SetLanguageFileExcel(QString excel_file)
 		}
 		id_texts_map.insert(id, lan_text);
 		QString text = language_excel_list.at(row).at(1).toString();
-		id_text_map.insert(id, text);
+		//id_text_map.insert(id, text);
+		text_id_list.append(id);
 		 
 	}
 	//获取中文
-
+	qDebug() << id_texts_map.values();
 }
 
 QRect Language::GetTextRect(QString text, int font_size, QString font_family)
@@ -468,6 +469,23 @@ QRect Language::GetTextRect(QString text, int font_size, QString font_family)
 	int label_h = rec.height();
 	int label_w = rec.width();
 	return rec;
+}
+
+QString Language::GetText(QString id, Language_e lan)
+{
+	QString Text = id_texts_map.value(id).value(lan);
+	return Text;
+}
+
+QStringList Language::GetText(QStringList id_list, Language_e lan)
+{
+	QStringList text_list;
+	for each (QString id in id_list)
+	{
+		QString Text = id_texts_map.value(id).value(lan);
+		text_list.append(Text);
+	}
+	return text_list;
 }
 
 

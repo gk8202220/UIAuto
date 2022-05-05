@@ -162,12 +162,11 @@ private:
     Language_e current_lan; //当前的语言
     Font_page_t font_page;
     ComponnetsItem current_item;  //当前选择的控件
-   // QList<ComponnetsItem> component_list; //已选择的控件列表
     QMap<QString, ComponnetsItem> items_map; //已选择的控件列表
     LanguageTextSelect* languageTextSelect;
     QStringList select_text_list;
     QString current_item_id; //当前选择的控件
-    QMap<QString, QString> id_text_map;
+   
 };
 
 #endif // MAINWINDOW_H

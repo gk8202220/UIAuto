@@ -23,7 +23,7 @@ MainWindow::MainWindow(QWidget *parent) :
     json = new pxcpJson();
     ui->CB_old->setChecked(false);
 	ui->label_display->installEventFilter(this); //这行不能省
-    language = new Language(this);
+    language = Language::GetInstance();
     current_lan = (Language_e)ui->CB_language->currentIndex();
    // WatchComponentsWidget  watchComponentsWidget = new WatchComponentsWidget(this);
     QStandardItemModel  *components_model = new QStandardItemModel(this);
@@ -354,7 +354,7 @@ void MainWindow::dropEvent(QDropEvent *event)
            // readexcel *excel = new readexcel(this);
             //excel->read(file_path); 
             language->SetLanguageFileExcel(file_path);
-            languageTextSelect->SetTextList(language->id_text_map);
+            languageTextSelect->SetTextList(language->text_id_list);
            
             languageTextSelect->show();
 
@@ -1767,6 +1767,8 @@ void MainWindow::on_select_language_file(int select)
 {
     /* 语言切换*/
     current_lan = (Language_e)select;
+    languageTextSelect->SetLanguage(current_lan);
+    return;
     if (language != nullptr)
     {
         text_object =   language->GetLanuageFile((Language_e)select);

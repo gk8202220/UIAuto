@@ -10,8 +10,18 @@ class WatchComponentsWidget : public QWidget
 public:
 	WatchComponentsWidget(QWidget *parent = Q_NULLPTR);
 	~WatchComponentsWidget();
+	static WatchComponentsWidget* GetInstance()
+	{
+		if (instance == nullptr)
+		{
+			instance = new WatchComponentsWidget();
+		}
+		return instance;
+	}
 
 private:
 	Ui::WatchComponentsWidget ui;
 	QStandardItemModel* components_model;
+	static WatchComponentsWidget* instance;
 };
+
