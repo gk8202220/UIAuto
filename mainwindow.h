@@ -91,6 +91,8 @@ private slots:
     void on_lond_language_file(); //加载语言文件
     void on_select_language_file(int select); //选择语言文件
     void on_updata_select_text_list(); //更新选择的文字
+    void on_updata_item_param(); //更新控件的参数
+    void on_selected_item(QModelIndex index); //选择已经存在的控件
 private:
     Ui::MainWindow *ui;
     QString filePath;
@@ -121,8 +123,15 @@ private:
     void dispaly_BP(QString icon_data,QString icon_person,QString icon_no,QString icon_error);
     void write_code(QString data);
     void writePosiAndData(QString tile);
-
     void getBmpPaths(QString path);
+    int  GetX();
+    int  GetY();
+    void saveBmpPaths(QString path);
+    void DislayAddrParm(QString Image_title, QJsonArray image_arry);
+    void LanguageProcess(); //多国语言处理
+    bool CheckPointText(int touch_x, int touch_y); //判断是否选中到文字
+    void SelectedText(QString id); //选中已有的文字
+    void CreatTextItem(QPoint* point); //创建一个文字的控件
     QJsonArray iconArray;
     QFile *file_c;
     QFile *file;
@@ -136,27 +145,29 @@ private:
     QString WriteDataFun;
     QStringList jsonPaths;
     QMap<QString, QString>Image_Path_Map; //图片命名和路径
-    void saveBmpPaths(QString path);
     QStringList titleList; //图片类型的标题
     QJsonObject Title_Image_json;  //保存标题和对应的所有切图
     QStandardItemModel* iconModel;
-    void DislayAddrParm(QString Image_title, QJsonArray image_arry);
-    //多国语言
-    Language *language;
-    void LanguageProcess(); //多国语言处理
+    QStandardItemModel* selected_items_model; //已经选择的控件
+   
+      //多国语言
+    Language* language;
     QJsonObject text_object;
     QString priview_path;
     font_t *current_select_text; //当前选中的文字
     QMap<int , QMap<Language_e, font_t>> item_text_list; //界面中存在文字的项
-    int  CheckPointText(int touch_x, int touch_y, Language_e lan); //判断是否选中到文字
-    void SelectedText(int index); //选中已有的文字
+  
     bool item_is_drop; //选中项是否拖动
     int check_text_index;
     Language_e current_lan; //当前的语言
     Font_page_t font_page;
-    QList<ComponnetsItem> component_list;
+    ComponnetsItem current_item;  //当前选择的控件
+   // QList<ComponnetsItem> component_list; //已选择的控件列表
+    QMap<QString, ComponnetsItem> items_map; //已选择的控件列表
     LanguageTextSelect* languageTextSelect;
     QStringList select_text_list;
+    QString current_item_id; //当前选择的控件
+    QMap<QString, QString> id_text_map;
 };
 
 #endif // MAINWINDOW_H

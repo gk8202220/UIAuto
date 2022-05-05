@@ -351,6 +351,7 @@
     </QtUic>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CodeJson.cpp" />
     <ClCompile Include="ComponnetsItem.cpp" />
     <ClCompile Include="formdraw.cpp" />
     <ClCompile Include="Language.cpp" />
@@ -372,6 +373,7 @@
   <ItemGroup>
     <QtMoc Include="WatchComponentsWidget.h" />
     <QtMoc Include="Language.h" />
+    <QtMoc Include="CodeJson.h" />
     <ClInclude Include="ComponnetsItem.h" />
     <QtMoc Include="readexcel.h" />
     <QtMoc Include="LanguageTextSelect.h" />

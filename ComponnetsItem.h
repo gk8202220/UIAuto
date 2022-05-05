@@ -12,7 +12,7 @@ public:
 	~ComponnetsItem();
 	QString fomat;
 	QVariant *data;
-	//font_t font;
+	
 	QPoint point;
 	QSize size;
 	QString text;
@@ -20,6 +20,9 @@ public:
 	int id;
 	QIcon *icon;
 	QStringList texts;
+	font_t font;
+	QStringList text_id;
+	QMap<QString, QString> id_text_map;
 
 
 	

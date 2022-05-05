@@ -32,7 +32,9 @@ MainWindow::MainWindow(QWidget *parent) :
     components_model->setItem(0,0,item);
     components_model->setItem(1, 0, item1);
     ui->listView_componnets->setModel(components_model);
-
+    selected_items_model  = new QStandardItemModel(this);
+    selected_items_model->setHorizontalHeaderItem(0, new QStandardItem("ID"));
+    selected_items_model->setHorizontalHeaderItem(1, new QStandardItem("属性"));
     //文本选择界面
     //  QStringList test = { "nihao","zhong" };
      languageTextSelect = new LanguageTextSelect();
@@ -93,13 +95,15 @@ bool MainWindow::eventFilter(QObject *watched, QEvent *event)   //用过滤器ev
 }
 void MainWindow::mousePressEvent(QMouseEvent* event)
 {
+    qDebug() << "Press";
     //直接点击效果图进行坐标的设置
     //点击是选中
     QPoint point = event->pos();
     int label_x = ui->label_display->x();
     int label_y = ui->label_display->y();
     int lan = ui->CB_language->currentIndex();
-     check_text_index = CheckPointText(point.x()- label_x, point.y() - label_y, (Language_e)lan);
+    /*
+     check_text_index = CheckPointText(point.x()- label_x, point.y() - label_y);
     if (check_text_index != -1)
     {
         SelectedText(check_text_index); //选中已有的文字
@@ -109,8 +113,14 @@ void MainWindow::mousePressEvent(QMouseEvent* event)
     {
         item_is_drop = false;
     }
-   
-   // qDebug() << "Press" << check_text_index;
+   */
+    item_is_drop = CheckPointText(point.x() - label_x, point.y() - label_y); //当前点击的控件id
+    if (!item_is_drop)
+    {
+        //没有点击到
+        current_item_id.clear();
+    }
+                                                                             // qDebug() << "Press" << check_text_index;
 
     //if (point.x() >= label_x && point.x() < label_x + ui->label_display->width()
     //    && point.y() >= label_y && point.y() < label_y + ui->label_display->height()
@@ -126,16 +136,20 @@ void MainWindow::mousePressEvent(QMouseEvent* event)
 }
 void MainWindow::mouseReleaseEvent(QMouseEvent* event)
 {
-   // current_select_text = nullptr;
+ 
     qDebug() << "Release";
+    item_is_drop = false;
+    /*
     if (item_is_drop)
     {
         language->FontParamToJson(&item_text_list.value(check_text_index), &font_page); //保存所有选中的文字
     }
+    */
    
 }
 void MainWindow::mouseMoveEvent(QMouseEvent* event)
 {
+    qDebug() << "Move";
     QPoint point = event->pos();
     int label_x = ui->label_display->x();
     int label_y = ui->label_display->y();
@@ -143,6 +157,7 @@ void MainWindow::mouseMoveEvent(QMouseEvent* event)
     int touch_y = point.y() - label_y;
     if (item_is_drop)
     {
+        /*
         QMap<Language_e, font_t> font_map = item_text_list.value(check_text_index);
         font_t  font_text= font_map.value(current_lan);
         if (current_select_text != nullptr)
@@ -157,6 +172,10 @@ void MainWindow::mouseMoveEvent(QMouseEvent* event)
             item_text_list.insert(check_text_index, font_map);
 
         }
+        */
+        ui->spinBox_cood_x->setValue(touch_x);
+        ui->spinBox_cood_y->setValue(touch_y);
+        on_updata_item_param();
     }
  
 }
@@ -215,16 +234,25 @@ void MainWindow::paintEvent(QPaintEvent * event)
         language->DarwText(&painter, &font_text);
     
     }
-    for each (ComponnetsItem var in component_list)
+    //for each (ComponnetsItem var in items_map.values())
+    for each(QString id in items_map.keys())
     {
+        ComponnetsItem var = items_map.value(id);
         if (var.fomat == "Text")
         {
             font_t font_text;
+            font_text = var.font;
             font_text.title = var.text;
             font_text.param.x = var.point.x();
             font_text.param.y = var.point.y();
             language->DarwText(&painter, &font_text);
            // painter.drawText(var.point, var.text);
+        }
+        if (id == current_item_id)
+        {
+            //点击到当前的id，进行矩形的绘画
+            painter.drawRect(var.point.x(), var.point.y(), var.size.width(), var.size.height());
+
         }
     }
 
@@ -310,14 +338,9 @@ void MainWindow::dropEvent(QDropEvent *event)
                 QString componnet_type =  ui->listView_componnets->currentIndex().data().toString();
                 if (componnet_type == "文本")
                 {
-                    select_text_list.clear(); //清除当前的文字列表
-                    languageTextSelect->show();// 显示文本选择框
-                    ComponnetsItem item;
-                    item.text = "Text";
-                    item.fomat = "Text";
-                   QPoint point =  event->pos();
-                    item.point = QPoint(point.x(), point.y());
-                    component_list.append(item);
+                    QPoint point = event->pos();
+                    CreatTextItem(&point);
+                    
                 }
                 
               
@@ -331,7 +354,8 @@ void MainWindow::dropEvent(QDropEvent *event)
            // readexcel *excel = new readexcel(this);
             //excel->read(file_path); 
             language->SetLanguageFileExcel(file_path);
-            languageTextSelect->SetTextList(language->id_text_map.values());
+            languageTextSelect->SetTextList(language->id_text_map);
+           
             languageTextSelect->show();
 
 
@@ -1358,6 +1382,16 @@ void MainWindow::writePosiAndData(QString tile)
 
 }
 
+int MainWindow::GetX()
+{
+    return ui->spinBox_cood_x->value();
+}
+
+int MainWindow::GetY()
+{
+    return ui->spinBox_cood_y->value();;
+}
+
 void MainWindow::getBmpAddr(QString path)
 {
 
@@ -1718,7 +1752,7 @@ void MainWindow::on_select_text(const QModelIndex index)
       
     }
      check_text_index = select_index;
-     SelectedText(select_index); //选中已有的文字
+    // SelectedText(select_index); //选中已有的文字
      //for each (int index in item_text_list.keys())
      {
          language->FontParamToJson(&item_text_list.value(select_index), &font_page); //保存所有选中的文字
@@ -1753,13 +1787,57 @@ void MainWindow::on_select_language_file(int select)
 void MainWindow::on_updata_select_text_list()
 {
     ui->comboBox_texts->clear();
-    for each (QString text in select_text_list)
+    if (!select_text_list.isEmpty())
     {
-        ui->comboBox_texts->addItem(text);
+       ui->comboBox_texts->addItems(select_text_list);
     }
-
+   
+   
+    qDebug() << "on_updata_select_text_list" << select_text_list;
+    on_updata_item_param(); //更新参数
   
     
+}
+void MainWindow::on_updata_item_param()
+{
+    if (items_map.contains(current_item_id))
+    {
+        current_item = items_map.value(current_item_id);
+        /*位置*/
+        current_item.point.setX(GetX());
+        current_item.point.setY(GetY());
+        /*尺寸*/
+        int width = ui->spinBox_width->value();
+        int height = ui->spinBox_height->value();
+
+        current_item.size.setWidth(width);
+        current_item.size.setHeight(height);
+        if (current_item.fomat == "Text")
+        {
+            int font_size = ui->spinBox_font->value();
+            QString font_family = ui->fontComboBox->currentText();
+            current_item.font.param.font_size = font_size;
+            current_item.font.param.family = font_family;
+            current_item.texts.clear();
+            current_item.texts.append( select_text_list);
+            qDebug() << "id"<< current_item_id << "updata" << select_text_list;
+            QString text = ui->comboBox_texts->currentText();
+            if (!text.isEmpty())
+            {
+                current_item.text = text;
+            }
+            
+        
+        }
+        items_map.insert(current_item_id, current_item); 
+    }         
+}
+void MainWindow::on_selected_item(QModelIndex index)
+{
+      int row =   index.row();
+      QModelIndex row_index = ui->treeView_slelect_items->model()->index(row, 0);
+      QString select_id = row_index.data().toString();
+      SelectedText(select_id);
 }
 void MainWindow::on_lond_language_file()
 {
@@ -1809,11 +1887,14 @@ void MainWindow::on_lond_language_file()
     }
 
 }
-int MainWindow::CheckPointText(int touch_x, int touch_y, Language_e lan)
+bool MainWindow::CheckPointText(int touch_x, int touch_y)
 {
+    /*  只用在文本上的*/
+     /* 根据文字的位置和大小判断是否点击在此位置*/
+    /*
     for each (int i in item_text_list.keys())
     {
-        /* 根据文字的位置和大小判断是否点击在此位置*/
+       
      
         font_t font_text = item_text_list.value(i).value(lan);
         QFont font;
@@ -1839,10 +1920,36 @@ int MainWindow::CheckPointText(int touch_x, int touch_y, Language_e lan)
 
     }
     return -1;
+    */
+  
+    //for each (ComponnetsItem item in items_map)
+    for each(QString key in items_map.keys())
+    {
+        ComponnetsItem item = items_map.value(key);
+        int height = item.size.height();
+        int width = item.size.width();
+        int x = item.point.x();
+        int y = item.point.y();
+        int end_x = x + width;
+        int end_y = y + height;
+        if (touch_x > end_x || touch_x < x || touch_y > end_y || touch_y < y)
+        {
+          
+        }
+        else
+        {
+            
+            SelectedText(key);
+            return true;
+        }
+    }
+    return false;
 }
 
-void MainWindow::SelectedText(int index)
+void MainWindow::SelectedText(QString id)
 {
+    /* 点击选中某个控件后,对界面的参数进行更新*/
+    /*
     current_select_text = &item_text_list.value(index).value(current_lan);
     int x = current_select_text->param.x;
     int y = current_select_text->param.y;
@@ -1853,5 +1960,77 @@ void MainWindow::SelectedText(int index)
     ui->spinBox_font->setValue(font_size);
     qDebug() << "SelectedText" << current_select_text->title;
     font_page.text = current_select_text->title;
+    */
+    current_item_id = id;
+    ComponnetsItem item = items_map.value(id);
+    int x = item.point.x();
+    int y = item.point.y();
+    int font_size = item.font.param.font_size;
+    int width = item.size.width();
+    int height = item.size.height();
+    select_text_list.clear();
+    QStringList texts = item.texts;
+    select_text_list.append(texts);
+    ui->spinBox_cood_x->setValue(x);
+    ui->spinBox_cood_y->setValue(y);
+    ui->spinBox_font->setValue(font_size);
+    ui->spinBox_width->setValue(width);
+    ui->spinBox_height->setValue(height);
+    ui->comboBox_texts->clear(); 
+    ui->comboBox_texts->addItems(select_text_list);
+    
+    qDebug()<< "id" << id << "chick" << texts;
 
+}
+
+void MainWindow::CreatTextItem(QPoint *point)
+{
+    ComponnetsItem item;
+    current_item = item;
+    item.id = items_map.count() + 1;
+    QString id_str = QString::number(item.id);
+    current_item_id = id_str;
+    select_text_list.clear(); //清除当前的文字列表
+    ui->comboBox_texts->clear();
+    languageTextSelect->SetSelectedText(&select_text_list);
+    languageTextSelect->show();// 显示文本选择框
+    
+    item.text = "Text";
+    item.fomat = "Text";
+    
+    int label_x = ui->label_display->x();
+    int label_y = ui->label_display->y();
+    int font_size = ui->spinBox_font->value();
+    //获取文本的范围
+    QString font_family = ui->fontComboBox->currentText();
+    QRect rect = language->GetTextRect(item.text, font_size, font_family);
+    int width = rect.width();
+    int height = rect.height();
+    int x = point->x() - label_x;
+    int y = point->y() - label_y;
+    item.size.setWidth(width);
+    item.size.setHeight(height);
+    
+    item.point = QPoint(x , y);
+    item.point = QPoint(x , y);
+   
+    
+    items_map.insert(id_str, item); //添加新的控件
+   
+    ui->spinBox_width->setValue(width);
+    ui->spinBox_height->setValue(height);
+
+    ui->spinBox_cood_x->setValue(x);
+    ui->spinBox_cood_y->setValue(y);
+
+    //添加到已选择的控件  
+    QString type = "文本";
+    //type.append("(" + id_str + ")");
+    QStandardItem* item_type = new QStandardItem(type);   
+    int row_count = selected_items_model->rowCount();
+    //selected_items_model->appendRow(item_type);
+    selected_items_model->setItem(row_count, 1, item_type);
+    selected_items_model->setItem(row_count , 0, new QStandardItem(id_str));
+    //ui->LV_selected_Items->setModel(selected_items_model);
+    ui->treeView_slelect_items->setModel(selected_items_model);
 }

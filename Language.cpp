@@ -145,8 +145,8 @@ void Language::TextGenerateImage(QString text, int font_size, QString font_famil
 	font.setFamily(font_family);
 	QFontMetrics me(font);
 	QRect rec = me.boundingRect(text);
-	int label_h = rec.height();// ui->label_display->height();
-	int label_w = rec.width();// ui->label_display->width();
+	int label_h = rec.height();
+	int label_w = rec.width();
 
 
 	QPixmap pix(label_w, label_h);
@@ -367,9 +367,8 @@ void Language::DarwText(QPainter* painter, font_t* font_text)
 		painter->setPen(QColor(255, 255, 255));
 		painter->setFont(font);
 		painter->drawText(x, y, draw_text);
-		rec.setY(y); 
-		rec.setX(x);
-		painter->drawRect(rec);
+		
+		//painter->drawRect(x, y + rec.y(), rec.width(), rec.height());
 	}
 }
 
@@ -440,13 +439,35 @@ void Language::SetLanguageFileExcel(QString excel_file)
 	for (int row = 0; row < row_count; row++)
 	{
 		//qDebug() << language_excel_list.at(row).at(1);
+		//int count = language_excel_list.
+		int column_count = language_excel_list.at(row).count();//总列数
 		QString id = language_excel_list.at(row).at(0).toString();
+		QMap<Language_e, QString> lan_text;
+		for (int column = 1; column < column_count; column++)
+		{
+			QString text = language_excel_list.at(row).at(column).toString();
+			Language_e lan = (Language_e)(column - 1);	
+			lan_text.insert(lan, text);
+		}
+		id_texts_map.insert(id, lan_text);
 		QString text = language_excel_list.at(row).at(1).toString();
 		id_text_map.insert(id, text);
 		 
 	}
 	//获取中文
 
+}
+
+QRect Language::GetTextRect(QString text, int font_size, QString font_family)
+{
+	QFont font;
+	font.setPixelSize(font_size);
+	font.setFamily(font_family);
+	QFontMetrics me(font);
+	QRect rec = me.boundingRect(text);
+	int label_h = rec.height();
+	int label_w = rec.width();
+	return rec;
 }
 
 

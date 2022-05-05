@@ -36,7 +36,7 @@
         </layout>
        </item>
        <item>
-        <widget class="QListView" name="listView_textList">
+        <widget class="QTreeView" name="treeView_textList">
          <property name="editTriggers">
           <set>QAbstractItemView::NoEditTriggers</set>
          </property>
@@ -112,38 +112,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>listView_textList</sender>
-   <signal>clicked(QModelIndex)</signal>
-   <receiver>LanguageTextSelect</receiver>
-   <slot>on_selected_text(QModelIndex)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>83</x>
-     <y>115</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>273</x>
-     <y>211</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>listView_selected</sender>
-   <signal>pressed(QModelIndex)</signal>
-   <receiver>LanguageTextSelect</receiver>
-   <slot>on_change_text(QModelIndex)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>445</x>
-     <y>145</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>273</x>
-     <y>211</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>PB_confirm</sender>
    <signal>clicked()</signal>
    <receiver>LanguageTextSelect</receiver>
@@ -152,6 +120,22 @@
     <hint type="sourcelabel">
      <x>441</x>
      <y>403</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>273</x>
+     <y>211</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>treeView_textList</sender>
+   <signal>pressed(QModelIndex)</signal>
+   <receiver>LanguageTextSelect</receiver>
+   <slot>on_selected_text(QModelIndex)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>95</x>
+     <y>157</y>
     </hint>
     <hint type="destinationlabel">
      <x>273</x>

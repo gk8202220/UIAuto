@@ -12,7 +12,7 @@ class LanguageTextSelect : public QWidget
 public:
 	LanguageTextSelect(QWidget *parent = Q_NULLPTR);
 	~LanguageTextSelect();
-	void SetTextList(QStringList text_list);
+	void SetTextList(QMap<QString, QString> id_text_map);
 	void SetSelectedText(QStringList *text_list);//设置已经选择的文字
 private slots:
 	void filterChanged(const QString text);

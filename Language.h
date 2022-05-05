@@ -15,10 +15,10 @@ typedef struct
     uint16_t       color;          //文字颜色
     uint16_t       backcolor;      //背景颜色
     bool           show_bg;        //背景融合
-    uint8_t         font_size;      //字号  
-    QString         family;         //字体
-    uint8_t          spacing;        //文字间隔
-    uint8_t         lineHeight;     //行间隔
+    uint8_t        font_size;      //字号  
+    QString        family;         //字体
+    uint8_t        spacing;        //文字间隔
+    uint8_t        lineHeight;     //行间隔
 }font_param_t;
 typedef struct
 {
@@ -62,9 +62,10 @@ typedef struct
 }font_coodr;
 typedef struct
 {
-    int id;  
+    //int id;  
     font_param_t param;
     QString title;
+    QString id;
     
 }font_t;
 
@@ -141,5 +142,7 @@ public:
 
     void SetLanguageFileExcel(QString excel_file); //读取翻译文件,来自excel表格
     QMap<QString, QString> id_text_map; //ID和对应的中文文字
+    QMap<QString, QMap<Language_e, QString> >id_texts_map; //ID和对应的所有国家文字
+    QRect GetTextRect(QString text, int font_size, QString font_family); //获取文本的范围
     
 };

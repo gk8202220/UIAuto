@@ -69,6 +69,9 @@
     <ClCompile Include="LanguageTextSelect.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CodeJson.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="formdraw.h">
@@ -90,6 +93,9 @@
       <Filter>Generated Files</Filter>
     </QtMoc>
     <QtMoc Include="LanguageTextSelect.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="CodeJson.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

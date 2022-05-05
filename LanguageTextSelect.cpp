@@ -1,5 +1,5 @@
 #include "LanguageTextSelect.h"
-
+#pragma execution_character_set("UTF-8")
 LanguageTextSelect::LanguageTextSelect(QWidget *parent)
 	: QWidget(parent)
 {
@@ -11,17 +11,23 @@ LanguageTextSelect::~LanguageTextSelect()
 {
 }
 
-void LanguageTextSelect::SetTextList(QStringList text_list)
+void LanguageTextSelect::SetTextList(QMap<QString, QString> id_text_map)
 {
 	text_model = new QStandardItemModel(this);
 	modelProxy = new QSortFilterProxyModel(this);
-	for each (QString text in text_list)
+	text_model->setHorizontalHeaderItem(1, new QStandardItem("ID"));
+	text_model->setHorizontalHeaderItem(0, new QStandardItem("ÎÄ×Ö"));
+	int row = 0;
+	for each (QString id in id_text_map.keys())
 	{
-		QStandardItem* item = new QStandardItem(text);
-		text_model->appendRow(item);
+		//text_model->appendRow()
+		QString text = id_text_map.value(id);
+		text_model->setItem(row, 1, new QStandardItem(id));
+		text_model->setItem(row, 0, new QStandardItem(text));
+		row++;
 	}
 	modelProxy->setSourceModel(text_model);
-	ui.listView_textList->setModel(modelProxy);
+	ui.treeView_textList->setModel(modelProxy);
 }
 
 void LanguageTextSelect::SetSelectedText(QStringList *text_list)
@@ -49,10 +55,12 @@ void LanguageTextSelect::ShowSelectText()
 
 void LanguageTextSelect::on_selected_text(QModelIndex index)
 {
-	QModelIndexList select_list = ui.listView_textList->selectionModel()->selectedIndexes();
+	QModelIndexList select_list = ui.treeView_textList->selectionModel()->selectedIndexes();
 	for each (QModelIndex index in select_list)
 	{
-		QString  text = index.data().toString();
+		int row = index.row();
+		QModelIndex text_index = ui.treeView_textList->model()->index(row, 0);
+		QString  text = text_index.data().toString();
 		if (selected_text_list->contains(text))
 		{
 			continue;

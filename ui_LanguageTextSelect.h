@@ -13,10 +13,12 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QListView>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QTreeView>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
@@ -31,7 +33,7 @@ public:
     QHBoxLayout *horizontalLayout;
     QLabel *label;
     QLineEdit *lineEdit_filter;
-    QListView *listView_textList;
+    QTreeView *treeView_textList;
     QVBoxLayout *verticalLayout_3;
     QVBoxLayout *verticalLayout_2;
     QLabel *label_2;
@@ -70,12 +72,12 @@ public:
 
         verticalLayout->addLayout(horizontalLayout);
 
-        listView_textList = new QListView(LanguageTextSelect);
-        listView_textList->setObjectName(QString::fromUtf8("listView_textList"));
-        listView_textList->setEditTriggers(QAbstractItemView::NoEditTriggers);
-        listView_textList->setSelectionMode(QAbstractItemView::ExtendedSelection);
+        treeView_textList = new QTreeView(LanguageTextSelect);
+        treeView_textList->setObjectName(QString::fromUtf8("treeView_textList"));
+        treeView_textList->setEditTriggers(QAbstractItemView::NoEditTriggers);
+        treeView_textList->setSelectionMode(QAbstractItemView::ExtendedSelection);
 
-        verticalLayout->addWidget(listView_textList);
+        verticalLayout->addWidget(treeView_textList);
 
 
         horizontalLayout_2->addLayout(verticalLayout);
@@ -118,9 +120,8 @@ public:
 
         retranslateUi(LanguageTextSelect);
         QObject::connect(lineEdit_filter, SIGNAL(textChanged(QString)), LanguageTextSelect, SLOT(filterChanged(QString)));
-        QObject::connect(listView_textList, SIGNAL(clicked(QModelIndex)), LanguageTextSelect, SLOT(on_selected_text(QModelIndex)));
-        QObject::connect(listView_selected, SIGNAL(pressed(QModelIndex)), LanguageTextSelect, SLOT(on_change_text(QModelIndex)));
         QObject::connect(PB_confirm, SIGNAL(clicked()), LanguageTextSelect, SLOT(on_confirm()));
+        QObject::connect(treeView_textList, SIGNAL(pressed(QModelIndex)), LanguageTextSelect, SLOT(on_selected_text(QModelIndex)));
 
         QMetaObject::connectSlotsByName(LanguageTextSelect);
     } // setupUi
