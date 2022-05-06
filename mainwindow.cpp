@@ -41,7 +41,6 @@ MainWindow::MainWindow(QWidget *parent) :
      languageTextSelect->SetSelectedText(&select_text_list);
      QObject::connect(languageTextSelect, SIGNAL(updata_text()), this, SLOT(on_updata_select_text_list()));
      watch_view = new WatchView(this);
-     watch_view->SetView(&items_map);
    // watchComponentsWidget.setGeometry(0, 0, 100, 100);
    // watchComponentsWidget.show();
     if(ui->CB_FunSelect->currentIndex() == 2)
@@ -234,8 +233,9 @@ void MainWindow::paintEvent(QPaintEvent * event)
         language->DarwText(&painter, &font_text);
     
     }
-    //for each (ComponnetsItem var in items_map.values())
-    for each(QString id in items_map.keys())
+  
+    QStringList view_id_list = watch_view->GetViewId();
+    for each(QString id in view_id_list)
     {
         int draw_x = watch_view->X(id);
         int draw_y = watch_view->Y(id); 
@@ -1827,10 +1827,10 @@ void MainWindow::on_updata_select_text_list()
 }
 void MainWindow::on_updata_item_param()
 {
-    if (items_map.contains(current_item_id))
+    if (watch_view->contains(current_item_id))
     {
-        current_item = items_map.value(current_item_id);
      
+        ComponnetsItem current_item = watch_view->GetCurrentItem(current_item_id);
         /*尺寸*/
         int width = ui->spinBox_width->value();
         int height = ui->spinBox_height->value();
@@ -1871,9 +1871,9 @@ void MainWindow::on_updata_item_param()
             
         
         }
-        items_map.insert(current_item_id, current_item); 
-        CodeJson* json = new CodeJson(this);
-        json->FontParamToJson(&items_map);
+        watch_view->AppendItem(current_item_id, current_item);
+        /*CodeJson* json = new CodeJson(this);
+        json->FontParamToJson(&items_map);*/
     }         
 }
 void MainWindow::on_selected_item(QModelIndex index)
@@ -1935,41 +1935,10 @@ bool MainWindow::CheckPointText(int touch_x, int touch_y)
 {
     /*  只用在文本上的*/
      /* 根据文字的位置和大小判断是否点击在此位置*/
-    /*
-    for each (int i in item_text_list.keys())
-    {
-       
-     
-        font_t font_text = item_text_list.value(i).value(lan);
-        QFont font;
-        font.setPixelSize(font_text.param.font_size);
-        font.setFamily(font_text.param.family);
-        QFontMetrics me(font);
-        QRect rec = me.boundingRect(font_text.title);
-        int text_h = rec.height();
-        int text_w = rec.width();
-        int x = font_text.param.x;
-        int y = font_text.param.y;
-        int end_x = x + text_w;
-        int end_y = y + text_h;
-        
-        if (touch_x > end_x || touch_x < x || touch_y > end_y || touch_y < y)
-        {
-            continue;
-        }
-        else
-        {
-            return i;
-        }
-
-    }
-    return -1;
-    */
-  
-    //for each (ComponnetsItem item in items_map)
-    for each(QString id in items_map.keys())
-    {
-     
+   
+    QStringList view_id_list = watch_view->GetViewId();
+    for each(QString id in view_id_list)
+    {   
         int height = watch_view->Height(id);
         int width = watch_view->Width(id);
         QPoint point = watch_view->GetPoint(id, current_lan);
@@ -2032,8 +2001,8 @@ void MainWindow::SelectedText(QString id)
 void MainWindow::CreatTextItem(QPoint *point)
 {
     ComponnetsItem item;
-    current_item = item;
-    item.id = items_map.count() + 1;
+   // current_item = item;
+    item.id = watch_view->Count() + 1;//items_map.count() + 1;
     QString id_str = QString::number(item.id);
     current_item_id = id_str;
     select_text_list.clear(); //清除当前的文字列表
@@ -2067,8 +2036,9 @@ void MainWindow::CreatTextItem(QPoint *point)
     item.point = QPoint(x , y);
     item.text_point.insert(current_lan, text_point);
    
-    
-    items_map.insert(id_str, item); //添加新的控件
+    watch_view->AppendItem(current_item_id, item); //添加新的控件
+    watch_view->SetCurrentItem(current_item_id);
+
    
     ui->spinBox_width->setValue(width);
     ui->spinBox_height->setValue(height);

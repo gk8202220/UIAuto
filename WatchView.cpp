@@ -72,17 +72,13 @@ void WatchView::SetItem(ComponnetsItem item)
 
 void WatchView::SetCurrentItem(QString id)
 {
-	if (view_items_map->contains(id))
+	if (view_items_map.contains(id))
 	{
-		current_item = view_items_map->value(id);
+		current_item = view_items_map.value(id);
 	}
 
 }
 
-void WatchView::SetView(QMap<QString, ComponnetsItem> *items_map)
-{
-	view_items_map = items_map;
-}
 
 QPoint WatchView::GetPoint(QString id, Language_e lan)
 {
@@ -130,4 +126,29 @@ QString WatchView::Family(QString id)
 {
 	SetCurrentItem(id);
 	return current_item.font.param.family;
+}
+
+void WatchView::AppendItem(QString id, ComponnetsItem item)
+{
+	view_items_map.insert(id, item);
+}
+
+QStringList WatchView::GetViewId()
+{
+	return view_items_map.keys();
+}
+
+bool WatchView::contains(QString id)
+{
+	return view_items_map.contains(id);
+}
+
+ComponnetsItem WatchView::GetCurrentItem(QString id)
+{
+	return view_items_map.value(id);
+}
+
+int WatchView::Count()
+{
+	return view_items_map.count();
 }

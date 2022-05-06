@@ -22,11 +22,16 @@ public:
 	void SetItem(ComponnetsItem item);
 	void SetCurrentItem(QString id);
 	ComponnetsItem current_item;
-	QMap<QString, ComponnetsItem> *view_items_map;
-	void SetView(QMap<QString, ComponnetsItem> *items_map);
+	QMap<QString, ComponnetsItem> view_items_map;
 	QPoint GetPoint(QString id, Language_e lan);
 	QPoint GetPoint(QString id);
 	QString GetPriviewText(QString id);
 	QString Family(QString id);
+	void AppendItem(QString id, ComponnetsItem item);
+	QStringList GetViewId();
+	bool contains(QString id);
+	ComponnetsItem GetCurrentItem(QString id);
+	int Count();
+
 
 };
