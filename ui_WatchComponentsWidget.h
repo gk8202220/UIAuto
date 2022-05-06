@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'WatchComponentsWidget.ui'
 **
-** Created by: Qt User Interface Compiler version 6.2.4
+** Created by: Qt User Interface Compiler version 5.12.3
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -32,7 +32,7 @@ public:
 
     void retranslateUi(QWidget *WatchComponentsWidget)
     {
-        WatchComponentsWidget->setWindowTitle(QCoreApplication::translate("WatchComponentsWidget", "WatchComponentsWidget", nullptr));
+        WatchComponentsWidget->setWindowTitle(QApplication::translate("WatchComponentsWidget", "WatchComponentsWidget", nullptr));
     } // retranslateUi
 
 };

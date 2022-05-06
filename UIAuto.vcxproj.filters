@@ -75,6 +75,9 @@
     <ClCompile Include="WatchView.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="VpWatchCode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="formdraw.h">
@@ -102,6 +105,9 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="WatchView.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="VpWatchCode.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

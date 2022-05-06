@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'formdraw.ui'
 **
-** Created by: Qt User Interface Compiler version 6.2.4
+** Created by: Qt User Interface Compiler version 5.12.3
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -33,7 +33,7 @@ public:
 
     void retranslateUi(QWidget *FormDraw)
     {
-        FormDraw->setWindowTitle(QCoreApplication::translate("FormDraw", "\346\225\210\346\236\234\345\233\276", nullptr));
+        FormDraw->setWindowTitle(QApplication::translate("FormDraw", "\346\225\210\346\236\234\345\233\276", nullptr));
     } // retranslateUi
 
 };

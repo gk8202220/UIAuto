@@ -12,6 +12,7 @@
 #include "WatchComponentsWidget.h"
 #include "readexcel.h"
 #include "CodeJson.h"
+
 #pragma execution_character_set("UTF-8")
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -41,6 +42,7 @@ MainWindow::MainWindow(QWidget *parent) :
      languageTextSelect->SetSelectedText(&select_text_list);
      QObject::connect(languageTextSelect, SIGNAL(updata_text()), this, SLOT(on_updata_select_text_list()));
      watch_view = new WatchView(this);
+     vpWatchCode = new VpWatchCode(this);
    // watchComponentsWidget.setGeometry(0, 0, 100, 100);
    // watchComponentsWidget.show();
     if(ui->CB_FunSelect->currentIndex() == 2)
@@ -139,47 +141,23 @@ void MainWindow::mouseMoveEvent(QMouseEvent* event)
 void MainWindow::paintEvent(QPaintEvent * event)
 {
 
-	QPainter paint(this);
- 
-   
-    // 大小
-   
-    // 设置字符间距
-  //  font.setLetterSpacing(QFont::AbsoluteSpacing, 20);
-
-    // 使用字体
-    
+	QPainter paint(this);   
     
     int label_x = ui->label_display->x();
     int label_y = ui->label_display->y();
 	pxcpJson json;
     QPainter painter;
 
-
- /*   current_select_text.param.x = ui->spinBox_cood_x->value();
-    current_select_text.param.y = ui->spinBox_cood_y->value();
-    current_select_text.param.font_size = ui->spinBox_font->value();
-    QFontMetrics me(font);
-    QRect rec = me.boundingRect(current_select_text.title);*/
-
     int label_h = ui->label_display->height(); //  current_select_text.param.font_size;
-    int label_w =  ui->label_display->width();//rec.width();
-   
-
+    int label_w =  ui->label_display->width();//rec.width(); 
 
     QPixmap pix(label_w, label_h);
     pix.fill(QColor(Qt::black));
     painter.begin(&pix);
     /*进行预览图的绘画*/
     if (!priview_path.isEmpty())
-    {
-        //ui->label_display->setPixmap(priview_path);            
+    {          
         painter.drawImage(QPoint(0, 0), QImage(priview_path));
-     /*   QImage image(priview_path);
-        qDebug() << image.width() << image.height();
-        image.scaled(ui->label_display->width(), ui->label_display->height(),Qt::KeepAspectRatio);
-        ui->label_display->setPixmap(priview_path);
-        paint.drawImage(label_x, label_y, image);*/
      
     }
  
@@ -662,497 +640,6 @@ void MainWindow::saveBmpPaths(QString path)
 int addr_count = 0;
 
 
-void MainWindow::UI_time(QString title)
-{
-    ui->textBrowser->append("\n//***** 时间 ****//");
-    ui->textBrowser->append( setPostionFun+title.toLower()+"_coord[0][0],icon_16_"+title.toLower()+"_coord[0][1],");
-    ui->textBrowser->append("\t\tICON_"+title.toUpper()+"_WIDE,"+ "ICON_"+title.toUpper()+"_HIGH);");
-    ui->textBrowser->append( WriteDataFun+title.toLower()+"_addr[hour / 10 % 10 % 3],ICON_"+title.toUpper()+"_SIZE);");
-    ui->textBrowser->append("");
-    ui->textBrowser->append( setPostionFun+title.toLower()+"_coord[1][0],icon_16_"+title.toLower()+"_coord[1][1],");
-    ui->textBrowser->append("\t\tICON_"+title.toUpper()+"_WIDE,"+ "ICON_"+title.toUpper()+"_HIGH);");
-    ui->textBrowser->append( WriteDataFun+title.toLower()+"_addr[hour % 10],ICON_"+title.toUpper()+"_SIZE);");
-    ui->textBrowser->append("");
-    ui->textBrowser->append( setPostionFun+title.toLower()+"_coord[2][0],icon_16_"+title.toLower()+"_coord[2][1],");
-    ui->textBrowser->append("\t\tICON_"+title.toUpper()+"_WIDE,"+ "ICON_"+title.toUpper()+"_HIGH);");
-    ui->textBrowser->append( WriteDataFun+title.toLower()+"_addr[minute / 10 % 6],ICON_"+title.toUpper()+"_SIZE);");
-    ui->textBrowser->append("");
-    ui->textBrowser->append( setPostionFun+title.toLower()+"_coord[3][0],icon_16_"+title.toLower()+"_coord[3][1],");
-    ui->textBrowser->append("\t\tICON_"+title.toUpper()+"_WIDE,"+ "ICON_"+title.toUpper()+"_HIGH);");
-    ui->textBrowser->append( WriteDataFun+title.toLower()+"_addr[minute % 10],ICON_"+title.toUpper()+"_SIZE);");
-    ui->textBrowser->append("");
-}
-
-void MainWindow::UI_week(QString title,QString title_en)
-{
-    ui->textBrowser->append("\n//***** 星期 ****//");
-    ui->textBrowser->append("if(language == 0)\n{");
-    ui->textBrowser->append( "\t"+setPostionFun+title.toLower()+"_coord[0][0],icon_16_"+title.toLower()+"_coord[0][1],");
-    ui->textBrowser->append("\t\tICON_"+title.toUpper()+"_WIDE,"+ "ICON_"+title.toUpper()+"_HIGH);");
-    ui->textBrowser->append( "\t"+WriteDataFun+title.toLower()+"_addr[((week >= 1)?(week-1):week) % 7],ICON_"+title.toUpper()+"_SIZE);");
-    ui->textBrowser->append("");
-    ui->textBrowser->append("}\nelse\n{");
-    ui->textBrowser->append( "\t"+setPostionFun+title_en.toLower()+"_coord[0][0],icon_16_"+title_en.toLower()+"_coord[0][1],");
-    ui->textBrowser->append("\t\tICON_"+title_en.toUpper()+"_WIDE,"+ "ICON_"+title_en.toUpper()+"_HIGH);");
-    ui->textBrowser->append( "\t"+WriteDataFun+title_en.toLower()+"_addr[((week >= 1)?(week-1):week) % 7],ICON_"+title.toUpper()+"_SIZE);");
-    ui->textBrowser->append("}");
-
-}
-//计步数
-void MainWindow::UI_Step(QString title)
-{
-
-      ui->textBrowser->append("\n//***** 计步 ****//");
-      if (ui->CB_old->isChecked())
-      {
-          ui->textBrowser->append("uint32_t step_temp = step_cnt;");
-          ui->textBrowser->append("if(step_temp > 99999)");
-          ui->textBrowser->append("{");
-          ui->textBrowser->append("   step_temp = 99999;");
-          ui->textBrowser->append("}");
-          ui->textBrowser->append("uint8_t step_data[5]= {0};");
-          ui->textBrowser->append("step_data[0] = (step_temp / 10000) %10;");
-          ui->textBrowser->append("step_data[1] = (step_temp / 1000) %10;");
-          ui->textBrowser->append("step_data[2] = (step_temp / 100) %10;");
-          ui->textBrowser->append("step_data[3] = (step_temp / 10) %10;");
-          ui->textBrowser->append("step_data[4] = step_temp  %10;");
-      }
-
-      ui->textBrowser->append("for(uint8_t i = 0;i < 5; i++)");
-      ui->textBrowser->append("{");
-
-      ui->textBrowser->append("\t"+setPostionFun+title.toLower()+"_coord[i][0],icon_16_"+title.toLower()+"_coord[i][1],");
-      ui->textBrowser->append("\t\tICON_"+title.toUpper()+"_WIDE,"+ "ICON_"+title.toUpper()+"_HIGH);");
-      ui->textBrowser->append( "\t"+WriteDataFun+title.toLower()+"_addr[step_data[i]],ICON_"+title.toUpper()+"_SIZE);");
-      ui->textBrowser->append("}");
-
-
-}
-
-void MainWindow::UI_blue(QString title)
-{
-    ui->textBrowser->append("\n//***** 蓝牙 ****//");
-    ui->textBrowser->append( setPostionFun+title.toLower()+"_coord[0][0],icon_16_"+title.toLower()+"_coord[0][1],");
-    ui->textBrowser->append("\t\t\t\t\tICON_"+title.toUpper()+"_WIDE,"+ "ICON_"+title.toUpper()+"_HIGH);");
-    ui->textBrowser->append( WriteDataFun+title.toLower()+"_addr[ble_status % 2],ICON_"+title.toUpper()+"_SIZE);");
-
-}
-
-void MainWindow::UI_heart(QString title)
-{
-
-    QString dot;
-    for(int i = 0;i<iconTitleList.count();i++)
-    {
-
-        QString name = iconTitleList.value(i);
-        if(name.contains(title) && name.contains("DOT"))
-        {
-            dot = name;
-        }
-    }
-     ui->textBrowser->append("\n//***** 心率 ****//");
-    
-     ui->textBrowser->append("uint8_t heart_tmp = heart;\n");
-     ui->textBrowser->append("if(heart_tmp == 0)\n{");
-     ui->textBrowser->append("\tfor(uint8_t i = 0;i<3;i++)");
-     ui->textBrowser->append("\t{");
-
-     if(!dot.isEmpty())
-     {
-         //显示 ---
-         ui->textBrowser->append( "\t\t"+setPostionFun+title.toLower()+"_coord[i][0],icon_16_"+title.toLower()+"_coord[i][1],");
-         ui->textBrowser->append("\t\t\tICON_"+dot.toUpper()+"_WIDE,"+ "ICON_"+dot.toUpper()+"_HIGH);");
-         ui->textBrowser->append( "\t\t"+WriteDataFun+dot.toLower()+"_addr[0],ICON_"+dot.toUpper()+"_SIZE);");
-
-     }else {
-         ui->textBrowser->append( "\t\t"+setPostionFun+title.toLower()+"_coord[i][0],icon_16_"+title.toLower()+"_coord[i][1],");
-         ui->textBrowser->append("\t\t\tICON_"+title.toUpper()+"_WIDE,"+ "ICON_"+title.toUpper()+"_HIGH);");
-         ui->textBrowser->append( "\t\t"+WriteDataFun+title.toLower()+"_addr[0],ICON_"+title.toUpper()+"_SIZE);");
-
-
-    }
-     ui->textBrowser->append("\t}");
-     ui->textBrowser->append("}");
-
-     ui->textBrowser->append("else\n{");
-     if (ui->CB_old->isChecked())
-     {
-         ui->textBrowser->append("\tif(heart_tmp > 255)\n\t{\n\t\theart_tmp = 255;\n");
-         ui->textBrowser->append("\t}");
-
-         ui->textBrowser->append("\t\tuint8_t heart_data[3]= {0};");
-         ui->textBrowser->append("\t\theart_data[0] = (heart_tmp / 100) %10;");
-         ui->textBrowser->append("\t\theart_data[1] = (heart_tmp / 10) %10;");
-         ui->textBrowser->append("\t\theart_data[2] = heart_tmp %10;");
-     }
-
-     ui->textBrowser->append("\tfor(uint8_t i = 0;i<3;i++)");
-     ui->textBrowser->append("\t{");
-     ui->textBrowser->append( "\t\t"+setPostionFun+title.toLower()+"_coord[i][0],icon_16_"+title.toLower()+"_coord[i][1],");
-     ui->textBrowser->append("\t\t\tICON_"+title.toUpper()+"_WIDE,"+ "ICON_"+title.toUpper()+"_HIGH);");
-     ui->textBrowser->append( "\t\t"+WriteDataFun+title.toLower()+"_addr[heart_data[i]],ICON_"+title.toUpper()+"_SIZE);");
-     ui->textBrowser->append("\t}");
-     ui->textBrowser->append("}");
-
-
-}
-
-void MainWindow::UI_data(QString title)
-{
-    ui->textBrowser->append("\n//***** 月份 ****//");
-    ui->textBrowser->append( setPostionFun+title.toLower()+"_coord[0][0],icon_16_"+title.toLower()+"_coord[0][1],");
-    ui->textBrowser->append("\t\t\t\tICON_"+title.toUpper()+"_WIDE,"+ "ICON_"+title.toUpper()+"_HIGH);");
-    ui->textBrowser->append( WriteDataFun+title.toLower()+"_addr[month / 10 % 10],ICON_"+title.toUpper()+"_SIZE);");
-    ui->textBrowser->append("");
-    ui->textBrowser->append( setPostionFun+title.toLower()+"_coord[1][0],icon_16_"+title.toLower()+"_coord[1][1],");
-    ui->textBrowser->append("\t\t\t\tICON_"+title.toUpper()+"_WIDE,"+ "ICON_"+title.toUpper()+"_HIGH);");
-    ui->textBrowser->append( WriteDataFun+title.toLower()+"_addr[month % 10],ICON_"+title.toUpper()+"_SIZE);");
-    ui->textBrowser->append("\n//*****day****//");
-    ui->textBrowser->append( setPostionFun+title.toLower()+"_coord[2][0],icon_16_"+title.toLower()+"_coord[2][1],");
-    ui->textBrowser->append("\t\t\t\tICON_"+title.toUpper()+"_WIDE,"+ "ICON_"+title.toUpper()+"_HIGH);");
-    ui->textBrowser->append( WriteDataFun+title.toLower()+"_addr[day / 10 % 10],ICON_"+title.toUpper()+"_SIZE);");
-    ui->textBrowser->append("");
-    ui->textBrowser->append( setPostionFun+title.toLower()+"_coord[3][0],icon_16_"+title.toLower()+"_coord[3][1],");
-    ui->textBrowser->append("\t\t\t\tICON_"+title.toUpper()+"_WIDE,"+ "ICON_"+title.toUpper()+"_HIGH);");
-    ui->textBrowser->append( WriteDataFun+title.toLower()+"_addr[day % 10],ICON_"+title.toUpper()+"_SIZE);");
-    ui->textBrowser->append("");
-}
-//卡路里
-void MainWindow::UI_calories(QString title)
-{
-    ui->textBrowser->append("\n/***** 卡路里 ****/");
-    if (ui->CB_old->isChecked())
-    {
-
-        ui->textBrowser->append("uint32_t calories_temp = calories_cnt;");
-        ui->textBrowser->append("if(calories_temp > 9999)");
-        ui->textBrowser->append("{");
-        ui->textBrowser->append("   calories_temp = 9999;");
-        ui->textBrowser->append("}");
-        ui->textBrowser->append("uint8_t calories_data[4]= {0};");
-        ui->textBrowser->append("calories_data[0] = (calories_temp / 1000) %10;");
-        ui->textBrowser->append("calories_data[1] = (calories_temp / 100) %10;");
-        ui->textBrowser->append("calories_data[2] = (calories_temp / 10) %10;");
-        ui->textBrowser->append("calories_data[3] = calories_temp  %10;");
-    }
-    ui->textBrowser->append("for(uint8_t i = 0;i < 4; i++)");
-    ui->textBrowser->append("{");
-    ui->textBrowser->append("\t"+setPostionFun+title.toLower()+"_coord[i][0],icon_16_"+title.toLower()+"_coord[i][1],");
-    ui->textBrowser->append("\t\tICON_"+title.toUpper()+"_WIDE,"+ "ICON_"+title.toUpper()+"_HIGH);");
-    ui->textBrowser->append( "\t"+WriteDataFun+title.toLower()+"_addr[calories_data[i] ],ICON_"+title.toUpper()+"_SIZE);");
-    ui->textBrowser->append("}");
-}
-//里程
-void MainWindow::UI_distance(QString title)
-{
-    ui->textBrowser->append("\n/***** 里程 ****/");
-    if (ui->CB_old->isChecked())
-    {
-        ui->textBrowser->append("uint32_t distance_temp = 0;");
-        ui->textBrowser->append("\tif(distance_cnt >= 99.9f)\n\t{\n\tdistance_temp = 999;\n");
-        ui->textBrowser->append("\t}");
-        ui->textBrowser->append("\telse ");
-        ui->textBrowser->append("\t{");
-        ui->textBrowser->append("\t     distance_temp = (uint32_t)(distance_cnt* 10);");
-        ui->textBrowser->append("\t}");
-        ui->textBrowser->append("\tuint8_t distance_data[3]= {0};");
-        ui->textBrowser->append("\tdistance_data[0] = (distance_temp / 100) %10;");
-        ui->textBrowser->append("\tdistance_data[1] = (distance_temp / 10) %10;");
-        ui->textBrowser->append("\tdistance_data[2] = distance_temp %10;");
-    }
-
-    ui->textBrowser->append("\tfor(uint8_t i = 0;i<3;i++)");
-    ui->textBrowser->append("\t{");
-    ui->textBrowser->append( "\t\t"+setPostionFun+title.toLower()+"_coord[i][0],icon_16_"+title.toLower()+"_coord[i][1],");
-    ui->textBrowser->append("\t\t\t\t\t\tICON_"+title.toUpper()+"_WIDE,"+ "ICON_"+title.toUpper()+"_HIGH);");
-    ui->textBrowser->append( "\t\t"+WriteDataFun+title.toLower()+"_addr[distance_data[i]],ICON_"+title.toUpper()+"_SIZE);");
-    ui->textBrowser->append("\t}");
-
-}
-
-void MainWindow::write_param_head(QStringList list)
-{
-
-
-
-}
-
-void MainWindow::UI_AMPM(QString title)
-{
-   ui->textBrowser->append("\n/***** 上下午 ****/");
-   ui->textBrowser->append( "if(language == 0)");
-   ui->textBrowser->append( "{");
-   ui->textBrowser->append( "\t"+setPostionFun+title.toLower()+"_coord[0][0],icon_16_"+title.toLower()+"_coord[0][1],");
-   ui->textBrowser->append("\t\t\tICON_"+title.toUpper()+"_WIDE,"+ "ICON_"+title.toUpper()+"_HIGH);");
-
-   ui->textBrowser->append("\tif(am_pm == GUI_TIME_FORMAT_AM)");
-   ui->textBrowser->append( "\t{");
-   ui->textBrowser->append( "\t\t"+WriteDataFun+title.toLower()+"_addr[0],ICON_"+title.toUpper()+"_SIZE);");
-   ui->textBrowser->append( "\t}");
-   ui->textBrowser->append( "\telse if(am_pm == GUI_TIME_FORMAT_PM)");
-   ui->textBrowser->append( "\t{");
-   ui->textBrowser->append( "\t\t"+WriteDataFun+title.toLower()+"_addr[1],ICON_"+title.toUpper()+"_SIZE);");
-   ui->textBrowser->append("\t}");
-   ui->textBrowser->append("\telse if(am_pm == GUI_TIME_FORMAT_STANDARD)");
-   ui->textBrowser->append("\t{");
-   ui->textBrowser->append( "\t\t"+WriteDataFun+title.toLower()+"_addr[4],ICON_"+title.toUpper()+"_SIZE);");
-   ui->textBrowser->append("\t}");
-   ui->textBrowser->append("}");
-   ui->textBrowser->append("else");
-   ui->textBrowser->append("{");
-   ui->textBrowser->append( "\t\t"+setPostionFun+title.toLower()+"_coord[0][0],icon_16_"+title.toLower()+"_coord[0][1],");
-   ui->textBrowser->append("\t\t\t\t\tICON_"+title.toUpper()+"_WIDE,"+ "ICON_"+title.toUpper()+"_HIGH);");
-   ui->textBrowser->append("\tif(am_pm == GUI_TIME_FORMAT_AM)");
-   ui->textBrowser->append("\t{");
-   ui->textBrowser->append( "\t\t\t"+WriteDataFun+title.toLower()+"_addr[2],ICON_"+title.toUpper()+"_SIZE);");
-   ui->textBrowser->append("\t}");
-   ui->textBrowser->append("\telse if(am_pm == GUI_TIME_FORMAT_PM)");
-   ui->textBrowser->append("\t{");
-   ui->textBrowser->append( "\t\t\t"+WriteDataFun+title.toLower()+"_addr[3],ICON_"+title.toUpper()+"_SIZE);");
-   ui->textBrowser->append("\t}");
-   ui->textBrowser->append("\telse if(am_pm == GUI_TIME_FORMAT_STANDARD)");
-   ui->textBrowser->append("\t{");
-   ui->textBrowser->append( "\t\t\t"+WriteDataFun+title.toLower()+"_addr[4],ICON_"+title.toUpper()+"_SIZE);");
-   ui->textBrowser->append("\t}");
-   ui->textBrowser->append("}");
-
-}
-
-void MainWindow::UI_one(QString title)
-{
-
-    ui->textBrowser->append("\n\t\t/*****" +title+" ****/");
-    ui->textBrowser->append( "\t\t"+setPostionFun+title.toLower()+"_coord[0][0],icon_16_"+title.toLower()+"_coord[0][1],");
-    ui->textBrowser->append("\t\t\t\t  ICON_"+title.toUpper()+"_WIDE,"+ "ICON_"+title.toUpper()+"_HIGH);");
-    if(iconListnum.value(title) >1 )
-    {
-        //动图
-       QString num1 = QString::number(iconListnum.value(title));
-       ui->textBrowser->append( "\t\t"+WriteDataFun+title.toLower()+"_addr[index % " +num1 +"],ICON_"+title.toUpper()+"_SIZE);\n");
-    }else
-    {
-        ui->textBrowser->append( "\t\t"+WriteDataFun+title.toLower()+"_addr[0],ICON_"+title.toUpper()+"_SIZE);\n");
-
-    }
-
-
-
-}
-
-
-void MainWindow::UI_charge(QString title)
-{
-    ui->textBrowser->append("\n/***** 充电 ****/");
-    ui->textBrowser->append( "    if(charge == BATTERRY_IS_CHARGING)");
-    ui->textBrowser->append( "    {");
-    ui->textBrowser->append( "\t\t"+setPostionFun+title.toLower()+"_coord[0][0],icon_16_"+title.toLower()+"_coord[0][1],");
-    ui->textBrowser->append("\t\t\tICON_"+title.toUpper()+"_WIDE,"+ "ICON_"+title.toUpper()+"_HIGH);");
-    ui->textBrowser->append( "\t\t"+WriteDataFun+title.toLower()+"_addr[index % 5],ICON_"+title.toUpper()+"_SIZE);\n");
-    ui->textBrowser->append( "    }");
-    ui->textBrowser->append( "    else");
-    ui->textBrowser->append( "    {");
-    ui->textBrowser->append( "        if(battery_level == 0)");
-    ui->textBrowser->append( "        {");
-    ui->textBrowser->append( "            if(index % 4 == 1)");
-    ui->textBrowser->append( "            {");
-    ui->textBrowser->append( "\t\t\t"+setPostionFun+title.toLower()+"_coord[0][0],icon_16_"+title.toLower()+"_coord[0][1],");
-    ui->textBrowser->append("\t\t\t\t\tICON_"+title.toUpper()+"_WIDE,"+ "ICON_"+title.toUpper()+"_HIGH);");
-    ui->textBrowser->append( "\t\t\t"+WriteDataFun+title.toLower()+"_addr[0],ICON_"+title.toUpper()+"_SIZE);\n");
-    ui->textBrowser->append( "            }");
-    ui->textBrowser->append( "            else if(index % 4 == 3)");
-    ui->textBrowser->append( "            {");
-    ui->textBrowser->append( "\t\t\t"+setPostionFun+title.toLower()+"_coord[0][0],icon_16_"+title.toLower()+"_coord[0][1],");
-    ui->textBrowser->append("\t\t\t\t\tICON_"+title.toUpper()+"_WIDE,"+ "ICON_"+title.toUpper()+"_HIGH);");
-    ui->textBrowser->append( "\t\t\t"+WriteDataFun+title.toLower()+"_addr[5],ICON_"+title.toUpper()+"_SIZE);\n");
-
-    ui->textBrowser->append( "            }");
-    ui->textBrowser->append( "        }");
-    ui->textBrowser->append( "        else");
-    ui->textBrowser->append( "        {");
-
-    ui->textBrowser->append( "\t\t\t"+setPostionFun+title.toLower()+"_coord[0][0],icon_16_"+title.toLower()+"_coord[0][1],");
-    ui->textBrowser->append("\t\t\t\t\tICON_"+title.toUpper()+"_WIDE,"+ "ICON_"+title.toUpper()+"_HIGH);");
-    ui->textBrowser->append( "\t\t\t"+WriteDataFun+title.toLower()+"_addr[battery_level],ICON_"+title.toUpper()+"_SIZE);\n");
-
-    ui->textBrowser->append( "        }");
-    ui->textBrowser->append( "    }");
-
-
-}
-
-void MainWindow::UI_uint(QString title)
-{
-     ui->textBrowser->append("\n\t\t/***** 单位 ****/");
-    ui->textBrowser->append( "\t\t"+setPostionFun+title.toLower()+"_coord[0][0],icon_16_"+title.toLower()+"_coord[0][1],");
-    ui->textBrowser->append("\t\t\t\t  ICON_"+title.toUpper()+"_WIDE,"+ "ICON_"+title.toUpper()+"_HIGH);");
-    ui->textBrowser->append( "\t\t"+WriteDataFun+title.toLower()+"_addr[language % 2],ICON_"+title.toUpper()+"_SIZE);\n");
-
-}
-void MainWindow::UI_Women(QString title)
-{
-     ui->textBrowser->append("\n\t\t/***** 女性 ****/");
-    ui->textBrowser->append( "\t\t"+setPostionFun+title.toLower()+"_coord[0][0],icon_16_"+title.toLower()+"_coord[0][1],");
-    ui->textBrowser->append("\t\t\t\t  ICON_"+title.toUpper()+"_WIDE,"+ "ICON_"+title.toUpper()+"_HIGH);");
-    ui->textBrowser->append( "\t\t"+WriteDataFun+title.toLower()+"_addr[menstrual % 5],ICON_"+title.toUpper()+"_SIZE);\n");
-
-}
-//血压
-void MainWindow::UI_BP(QString title)
-{
-    ui->textBrowser->append("\n//***** 血压 ****//");
-    ui->textBrowser->append("uint8_t bp_data[6]= {0};");
-    ui->textBrowser->append("bp_data[0] = (bp_sp / 100)% 10;");
-    ui->textBrowser->append("bp_data[1] = (bp_sp / 10)% 10;");
-    ui->textBrowser->append("bp_data[2] =  bp_sp % 10;");
-
-    ui->textBrowser->append("bp_data[3] = (bp_dp / 100)% 10;");
-    ui->textBrowser->append("bp_data[4] = (bp_dp / 10)% 10;");
-    ui->textBrowser->append("bp_data[5] = bp_dp % 10;");
-
-    ui->textBrowser->append("for(uint8_t i = 0;i < 6; i++)");
-    ui->textBrowser->append("{");
-
-    ui->textBrowser->append("\t"+setPostionFun+title.toLower()+"_coord[i][0],icon_16_"+title.toLower()+"_coord[i][1],");
-    ui->textBrowser->append("\t\tICON_"+title.toUpper()+"_WIDE,"+ "ICON_"+title.toUpper()+"_HIGH);");
-    ui->textBrowser->append( "\t"+WriteDataFun+title.toLower()+"_addr[bp_data[i]],ICON_"+title.toUpper()+"_SIZE);");
-    ui->textBrowser->append("}");
-
-}
-//显示三位的睡眠
-void MainWindow::UI_Sleep(QString title)
-{
-
-
-    ui->textBrowser->append("\n//***** 睡眠三位  ****//");
-    ui->textBrowser->append("uint8_t sleep_hours = time / 60;");
-    ui->textBrowser->append("uint8_t sleep_minutes = 10 * (time % 60 / 60.0f);");
-    ui->textBrowser->append("uint32_t disp_sleep_buf1 = sleep_hours*10 + sleep_minutes;");
-
-
-
-
-    ui->textBrowser->append("uint8_t light_sleep_hours = light_time / 60;");
-    ui->textBrowser->append("uint8_t light_sleep_minutes = 10 * (light_time % 60 / 60.0f);");
-    ui->textBrowser->append("uint32_t disp_light_sleep_buf1 = light_sleep_hours*10 + light_sleep_minutes;");
-
-
-    ui->textBrowser->append("uint8_t deep_sleep_hours = deep_time / 60;");
-    ui->textBrowser->append("uint8_t deep_sleep_minutes = 10 * (deep_time % 60 / 60.0f);");
-    ui->textBrowser->append("uint32_t disp_deep_sleep_buf1 = deep_sleep_hours*10 + deep_sleep_minutes;");
-
-    ui->textBrowser->append("if((disp_sleep_buf1 - disp_light_sleep_buf1 - disp_deep_sleep_buf1) != 0)");
-    ui->textBrowser->append("{");
-    ui->textBrowser->append("    disp_deep_sleep_buf1 = disp_sleep_buf1 - disp_light_sleep_buf1;");
-    ui->textBrowser->append("}");
-    ui->textBrowser->append("\n//***** Sleep ****//");
-    ui->textBrowser->append("uint8_t sleep_data[3]= {0};");
-    ui->textBrowser->append("sleep_data[0] = (disp_sleep_buf1 / 100)% 10;");
-    ui->textBrowser->append("sleep_data[1] = (disp_sleep_buf1 /10 )% 10;");
-
-    ui->textBrowser->append("sleep_data[2] = disp_sleep_buf1 % 10;");
-
-    ui->textBrowser->append("for(uint8_t i = 0;i < 3; i++)");
-    ui->textBrowser->append("{");
-
-    ui->textBrowser->append("\t"+setPostionFun+title.toLower()+"_coord[i][0],icon_16_"+title.toLower()+"_coord[i][1],");
-    ui->textBrowser->append("\t\tICON_"+title.toUpper()+"_WIDE,"+ "ICON_"+title.toUpper()+"_HIGH);");
-    ui->textBrowser->append( "\t"+WriteDataFun+title.toLower()+"_addr[sleep_data[i]],ICON_"+title.toUpper()+"_SIZE);");
-    ui->textBrowser->append("}");
-
-    ui->textBrowser->append("\n//***** deep Sleep ****//");
-    ui->textBrowser->append("uint8_t deep_sleep_data[3]= {0};");
-    ui->textBrowser->append("deep_sleep_data[0] = (disp_deep_sleep_buf1 / 100)% 10;");
-    ui->textBrowser->append("deep_sleep_data[1] = (disp_deep_sleep_buf1 / 10) % 10;");
-
-    ui->textBrowser->append("deep_sleep_data[2] = disp_deep_sleep_buf1 % 10;");
-
-    ui->textBrowser->append("for(uint8_t i = 0;i < 3; i++)");
-    ui->textBrowser->append("{");
-
-    ui->textBrowser->append("\t"+setPostionFun+title.toLower()+"_coord[i][0],icon_16_"+title.toLower()+"_coord[i][1],");
-    ui->textBrowser->append("\t\tICON_"+title.toUpper()+"_WIDE,"+ "ICON_"+title.toUpper()+"_HIGH);");
-    ui->textBrowser->append( "\t"+WriteDataFun+title.toLower()+"_addr[deep_sleep_data[i]],ICON_"+title.toUpper()+"_SIZE);");
-    ui->textBrowser->append("}");
-     ui->textBrowser->append("\n//***** light Sleep ****//");
-    ui->textBrowser->append("uint8_t light_sleep_data[3]= {0};");
-    ui->textBrowser->append("light_sleep_data[0] = (disp_light_sleep_buf1 / 100)% 10;");
-    ui->textBrowser->append("light_sleep_data[1] = (disp_light_sleep_buf1 / 10) % 10;");
-
-    ui->textBrowser->append("light_sleep_data[2] = disp_light_sleep_buf1  % 10;");
-
-    ui->textBrowser->append("for(uint8_t i = 0;i < 3; i++)");
-    ui->textBrowser->append("{");
-
-    ui->textBrowser->append("\t"+setPostionFun+title.toLower()+"_coord[i][0],icon_16_"+title.toLower()+"_coord[i][1],");
-    ui->textBrowser->append("\t\tICON_"+title.toUpper()+"_WIDE,"+ "ICON_"+title.toUpper()+"_HIGH);");
-    ui->textBrowser->append( "\t"+WriteDataFun+title.toLower()+"_addr[light_sleep_data[i]],ICON_"+title.toUpper()+"_SIZE);");
-    ui->textBrowser->append("}");
-}
-//显示4位的睡眠
-void MainWindow::UI_Sleep_4(QString title)
-{
-    ui->textBrowser->append("\n//***** 睡眠 4位 ****//");
-    if (ui->CB_old->isChecked())
-    {
-      
-        ui->textBrowser->append("uint8_t sleep_hours = time / 60;");
-        ui->textBrowser->append("uint8_t sleep_minutes = time % 60;");
-        ui->textBrowser->append("uint8_t deep_sleep_hours = deep_time / 60;");
-        ui->textBrowser->append("uint8_t deep_sleep_minutes = deep_time % 60;");
-        ui->textBrowser->append("uint8_t light_sleep_hours = light_time / 60;");
-        ui->textBrowser->append("uint8_t light_sleep_minutes = light_time % 60;");
-
-
-        ui->textBrowser->append("uint8_t sleep_data[4]= {0};");
-        ui->textBrowser->append("sleep_data[0] = (sleep_hours / 10)% 10;");
-        ui->textBrowser->append("sleep_data[1] =  sleep_hours % 10;");
-        ui->textBrowser->append("sleep_data[2] = (sleep_minutes / 10)% 10;");
-        ui->textBrowser->append("sleep_data[3] = sleep_minutes % 10;");
-    }
-
-    ui->textBrowser->append("for(uint8_t i = 0;i < 4; i++)");
-    ui->textBrowser->append("{");
-
-    ui->textBrowser->append("\t"+setPostionFun+title.toLower()+"_coord[i][0],icon_16_"+title.toLower()+"_coord[i][1],");
-    ui->textBrowser->append("\t\tICON_"+title.toUpper()+"_WIDE,"+ "ICON_"+title.toUpper()+"_HIGH);");
-    ui->textBrowser->append( "\t"+WriteDataFun+title.toLower()+"_addr[sleep_data[i]],ICON_"+title.toUpper()+"_SIZE);");
-    ui->textBrowser->append("}");
-    if (ui->CB_old->isChecked())
-    {
-        ui->textBrowser->append("\n//***** deep Sleep ****//");
-        ui->textBrowser->append("uint8_t deep_sleep_data[4]= {0};");
-        ui->textBrowser->append("deep_sleep_data[0] = (deep_sleep_hours / 10)% 10;");
-        ui->textBrowser->append("deep_sleep_data[1] =  deep_sleep_hours % 10;");
-        ui->textBrowser->append("deep_sleep_data[2] = (deep_sleep_minutes / 10)% 10;");
-        ui->textBrowser->append("deep_sleep_data[3] = deep_sleep_minutes % 10;");
-    }
-    ui->textBrowser->append("for(uint8_t i = 0;i < 4; i++)");
-    ui->textBrowser->append("{");
-
-    ui->textBrowser->append("\t"+setPostionFun+title.toLower()+"_coord[i][0],icon_16_"+title.toLower()+"_coord[i][1],");
-    ui->textBrowser->append("\t\tICON_"+title.toUpper()+"_WIDE,"+ "ICON_"+title.toUpper()+"_HIGH);");
-    ui->textBrowser->append( "\t"+WriteDataFun+title.toLower()+"_addr[deep_sleep_data[i]],ICON_"+title.toUpper()+"_SIZE);");
-    ui->textBrowser->append("}");
-
-    if (ui->CB_old->isChecked())
-    {
-        ui->textBrowser->append("\n//***** light Sleep ****//");
-        ui->textBrowser->append("uint8_t light_sleep_data[4]= {0};");
-        ui->textBrowser->append("light_sleep_data[0] = (light_sleep_hours / 10)% 10;");
-        ui->textBrowser->append("light_sleep_data[1] =  light_sleep_hours % 10;");
-        ui->textBrowser->append("light_sleep_data[2] = (light_sleep_minutes / 10)% 10;");
-        ui->textBrowser->append("light_sleep_data[3] = light_sleep_minutes % 10;");
-    }
-     ui->textBrowser->append("for(uint8_t i = 0;i < 4; i++)");
-     ui->textBrowser->append("{");
-
-     ui->textBrowser->append("\t"+setPostionFun+title.toLower()+"_coord[i][0],icon_16_"+title.toLower()+"_coord[i][1],");
-     ui->textBrowser->append("\t\tICON_"+title.toUpper()+"_WIDE,"+ "ICON_"+title.toUpper()+"_HIGH);");
-     ui->textBrowser->append( "\t"+WriteDataFun+title.toLower()+"_addr[light_sleep_data[i]],ICON_"+title.toUpper()+"_SIZE);");
-     ui->textBrowser->append("}");
-
-}
 
 void MainWindow::UI_position(QString title)
 {
@@ -1187,24 +674,6 @@ void MainWindow::display()
 {
     //添加到界面列表
     QStringList iconlistnumkeys = iconListnum.keys();
-    //ui->CB_Time->addItems(iconlistnumkeys);
-    //ui->CB_week->addItems(iconlistnumkeys);
-    //ui->CB_week_en->addItems(iconlistnumkeys);
-    //ui->CB_step->addItems(iconlistnumkeys);
-    //ui->CB_blu->addItems(iconlistnumkeys);
-    //ui->CB_heart->addItems(iconlistnumkeys);
-    //ui->CB_data->addItems(iconlistnumkeys);
-    //ui->CB_ampm->addItems(iconlistnumkeys);
-    //ui->CB_one->addItems(iconlistnumkeys);
-    //ui->CB_charge->addItems(iconlistnumkeys);
-    //ui->CB_calories->addItems(iconlistnumkeys);
-    //ui->CB_unit->addItems(iconlistnumkeys);
-    //ui->CB_distant->addItems(iconlistnumkeys);
-    //ui->CB_sleep->addItems(iconlistnumkeys);
-    //ui->CB_sleep_2->addItems(iconlistnumkeys);
-    //ui->CB_postion->addItems(iconlistnumkeys);
-    //ui->CB_BP->addItems(iconlistnumkeys);
-    //ui->CB_women->addItems(iconlistnumkeys);
    
     ui->CB_Time->setModel(iconModel);
     ui->CB_week->setModel(iconModel);
@@ -1231,7 +700,7 @@ void MainWindow::display()
 
         if(iconName.contains("ICON") ||iconName.contains("DOT") )
         {
-            UI_one(iconName);
+            vpWatchCode->UI_one(iconName, iconListnum.value(title));
         }
         if(iconName.contains("DATA")  )
         {
@@ -1249,18 +718,18 @@ void MainWindow::display()
 
               ui->CB_week->setCurrentText(iconName);
               ui->CB_week_en->setCurrentText(iconName);
-              UI_week(iconName,iconName);
+              vpWatchCode->UI_week(iconName,iconName);
          }
          if(iconName.contains("UNIT"))
          {
             ui->CB_unit->setCurrentText(iconName);
-            UI_uint(iconName);
+            vpWatchCode->UI_uint(iconName);
 
          }
          if(iconName.contains("AM"))
          {
               ui->CB_ampm->setCurrentText(iconName);
-              UI_AMPM(iconName);
+              vpWatchCode->UI_AMPM(iconName);
          }
 
     }
@@ -1521,91 +990,91 @@ this->update();
 void MainWindow::on_CB_one_activated(const QString &arg1)
 {
     ui->textBrowser->clear();
-    UI_one(arg1);
+    vpWatchCode->UI_one(arg1, iconListnum.value(title));
 }
 
 void MainWindow::on_CB_Time_activated(const QString &arg1)
 {
     ui->textBrowser->clear();
-    UI_time(arg1);
+    vpWatchCode->UI_time(arg1);
 }
 
 void MainWindow::on_CB_heart_activated(const QString &arg1)
 {
     ui->textBrowser->clear();
-    UI_heart(arg1);
+    vpWatchCode->UI_heart(arg1);
 }
 
 void MainWindow::on_CB_step_activated(const QString &arg1)
 {
    ui->textBrowser->clear();
-    UI_Step(arg1);
+    vpWatchCode->UI_Step(arg1);
 }
 
 void MainWindow::on_CB_blu_activated(const QString &arg1)
 {
     ui->textBrowser->clear();
-    UI_blue(arg1);
+    vpWatchCode->UI_blue(arg1);
 }
 
 void MainWindow::on_CB_data_activated(const QString &arg1)
 {
     ui->textBrowser->clear();
-    UI_data(arg1);
+    vpWatchCode->UI_data(arg1);
 }
 
 void MainWindow::on_CB_ampm_activated(const QString &arg1)
 {
     ui->textBrowser->clear();
-    UI_AMPM(arg1);
+    vpWatchCode->UI_AMPM(arg1);
 }
 
 void MainWindow::on_CB_charge_activated(const QString &arg1)
 {
     ui->textBrowser->clear();
-    UI_charge(arg1);
+    vpWatchCode->UI_charge(arg1);
 }
 
 void MainWindow::on_CB_week_activated(const QString &arg1)
 {
     ui->textBrowser->clear();
-    UI_week(arg1,arg1);
+    vpWatchCode->UI_week(arg1,arg1);
 }
 
 void MainWindow::on_CB_calories_activated(const QString &arg1)
 {
     ui->textBrowser->clear();
-    UI_calories(arg1);
+    vpWatchCode->UI_calories(arg1);
 }
 
 void MainWindow::on_CB_unit_activated(const QString &arg1)
 {
     ui->textBrowser->clear();
-    UI_uint(arg1);
+    vpWatchCode->UI_uint(arg1);
 }
 
 void MainWindow::on_CB_distant_activated(const QString &arg1)
 {
    ui->textBrowser->clear();
-    UI_distance(arg1);
+    vpWatchCode->UI_distance(arg1);
 }
 
 void MainWindow::on_CB_sleep_activated(const QString &arg1)
 {
    ui->textBrowser->clear();
-    UI_Sleep(arg1);
+    vpWatchCode->UI_Sleep(arg1);
 }
 
 void MainWindow::on_CB_postion_activated(const QString &arg1)
 {
     ui->textBrowser->clear();
-    UI_position(arg1);
+   UI_position(arg1);
 }
 
 void MainWindow::on_CB_BP_activated(const QString &arg1)
 {
     ui->textBrowser->clear();
-    UI_BP(arg1);
+    vpWatchCode->UI_BP(arg1);
 }
 
 void MainWindow::on_CB_FunSelect_activated(const QString &arg1)
@@ -1641,13 +1110,13 @@ void MainWindow::on_CB_FunSelect_activated(const QString &arg1)
 void MainWindow::on_CB_women_activated(const QString &arg1)
 {
     ui->textBrowser->clear();
-    UI_Women(arg1);
+    vpWatchCode->UI_Women(arg1);
 }
 
 void MainWindow::on_CB_sleep_2_activated(const QString &arg1)
 {
     ui->textBrowser->clear();
-    UI_Sleep_4(arg1);
+    vpWatchCode->UI_Sleep_4(arg1);
 
 }
 //int text_index = 0;
