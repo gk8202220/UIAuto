@@ -313,8 +313,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>494</width>
-        <height>640</height>
+        <width>316</width>
+        <height>574</height>
        </rect>
       </property>
       <attribute name="label">
@@ -1183,8 +1183,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>454</width>
-        <height>535</height>
+        <width>332</width>
+        <height>566</height>
        </rect>
       </property>
       <attribute name="label">
@@ -1801,7 +1801,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>307</x>
-     <y>460</y>
+     <y>456</y>
     </hint>
     <hint type="destinationlabel">
      <x>646</x>
@@ -1816,8 +1816,8 @@
    <slot>on_lond_language_file()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1091</x>
-     <y>639</y>
+     <x>969</x>
+     <y>626</y>
     </hint>
     <hint type="destinationlabel">
      <x>646</x>
@@ -1827,13 +1827,13 @@
   </connection>
   <connection>
    <sender>CB_language</sender>
-   <signal>currentIndexChanged(int)</signal>
+   <signal>activated(int)</signal>
    <receiver>MainWindow</receiver>
    <slot>on_select_language_file(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1091</x>
-     <y>516</y>
+     <x>969</x>
+     <y>502</y>
     </hint>
     <hint type="destinationlabel">
      <x>646</x>
@@ -1848,8 +1848,8 @@
    <slot>on_updata_item_param()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>872</x>
-     <y>618</y>
+     <x>811</x>
+     <y>625</y>
     </hint>
     <hint type="destinationlabel">
      <x>604</x>
@@ -1864,8 +1864,8 @@
    <slot>on_updata_item_param()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>900</x>
-     <y>320</y>
+     <x>828</x>
+     <y>318</y>
     </hint>
     <hint type="destinationlabel">
      <x>604</x>
@@ -1880,8 +1880,8 @@
    <slot>on_updata_item_param()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1091</x>
-     <y>326</y>
+     <x>969</x>
+     <y>318</y>
     </hint>
     <hint type="destinationlabel">
      <x>604</x>
@@ -1896,7 +1896,7 @@
    <slot>on_updata_item_param()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>900</x>
+     <x>839</x>
      <y>379</y>
     </hint>
     <hint type="destinationlabel">
@@ -1912,8 +1912,8 @@
    <slot>on_updata_item_param()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1090</x>
-     <y>386</y>
+     <x>968</x>
+     <y>379</y>
     </hint>
     <hint type="destinationlabel">
      <x>604</x>
@@ -1933,6 +1933,22 @@
     </hint>
     <hint type="destinationlabel">
      <x>604</x>
+     <y>432</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spinBox_font</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>on_updata_item_param()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>927</x>
+     <y>550</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>494</x>
      <y>432</y>
     </hint>
    </hints>

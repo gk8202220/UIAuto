@@ -25,7 +25,7 @@ void readexcel::read(QString file, QList<QList<QVariant> >& res)
 	excel->dynamicCall("SetVisible(bool)", false);
 	workbooks = excel->querySubObject("WorkBooks");
 	workbook = workbooks->querySubObject("Open(const QString&)", file);
-	QAxObject* worksheet = workbook->querySubObject("WorkSheets(int)", 2); // 获取第一个工作sheet  
+	QAxObject* worksheet = workbook->querySubObject("WorkSheets(int)", 1); // 获取第一个工作sheet  
 
 	//QAxObject* usedrange1 = worksheet->querySubObject("UsedRange");//获取该sheet的使用范围对象  
 	//QAxObject* usedrange = usedrange1->querySubObject("Range(const QString&)", "CF18");
@@ -84,7 +84,7 @@ void readexcel::castVariant2ListListVariant(const QVariant& var, QList<QList<QVa
 	for (int i = 0; i < rowCount; ++i)
 	{
 		rowData = varRows[i].toList();
-		//qDebug() << rowData;
+		qDebug() << rowData;
 		res.push_back(rowData);
 	}
 }

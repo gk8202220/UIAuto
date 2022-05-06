@@ -346,7 +346,7 @@ public:
         toolBox->setLineWidth(0);
         page = new QWidget();
         page->setObjectName(QString::fromUtf8("page"));
-        page->setGeometry(QRect(0, 0, 494, 640));
+        page->setGeometry(QRect(0, 0, 316, 574));
         gridLayout_8 = new QGridLayout(page);
         gridLayout_8->setSpacing(6);
         gridLayout_8->setContentsMargins(11, 11, 11, 11);
@@ -805,7 +805,7 @@ public:
         toolBox->addItem(page, QString::fromUtf8("\346\216\247\344\273\266"));
         page_2 = new QWidget();
         page_2->setObjectName(QString::fromUtf8("page_2"));
-        page_2->setGeometry(QRect(0, 0, 454, 535));
+        page_2->setGeometry(QRect(0, 0, 332, 566));
         gridLayout_7 = new QGridLayout(page_2);
         gridLayout_7->setSpacing(6);
         gridLayout_7->setContentsMargins(11, 11, 11, 11);
@@ -1123,7 +1123,7 @@ public:
         QObject::connect(listView_page, SIGNAL(clicked(QModelIndex)), MainWindow, SLOT(on_display_page(QModelIndex)));
         QObject::connect(listView_text_select, SIGNAL(clicked(QModelIndex)), MainWindow, SLOT(on_select_text(QModelIndex)));
         QObject::connect(PB_lond_font, SIGNAL(clicked()), MainWindow, SLOT(on_lond_language_file()));
-        QObject::connect(CB_language, SIGNAL(currentIndexChanged(int)), MainWindow, SLOT(on_select_language_file(int)));
+        QObject::connect(CB_language, SIGNAL(activated(int)), MainWindow, SLOT(on_select_language_file(int)));
         QObject::connect(comboBox_texts, SIGNAL(currentTextChanged(QString)), MainWindow, SLOT(on_updata_item_param()));
         QObject::connect(spinBox_cood_x, SIGNAL(valueChanged(int)), MainWindow, SLOT(on_updata_item_param()));
         QObject::connect(spinBox_cood_y, SIGNAL(valueChanged(int)), MainWindow, SLOT(on_updata_item_param()));

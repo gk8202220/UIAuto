@@ -238,20 +238,38 @@ void MainWindow::paintEvent(QPaintEvent * event)
     for each(QString id in items_map.keys())
     {
         ComponnetsItem var = items_map.value(id);
+        int draw_x = var.point.x();
+        int draw_y = var.point.y();
         if (var.fomat == "Text")
         {
             font_t font_text;
             font_text = var.font;
             font_text.title = var.text;
-            font_text.param.x = var.point.x();
-            font_text.param.y = var.point.y();
+            language_offset text_point;
+            if (var.text_point.contains(current_lan))
+            {
+                //如果当前的语言有对应的坐标
+               
+                text_point = var.text_point.value(current_lan);
+                font_text.param.x = text_point.x;
+                font_text.param.y = text_point.y;
+
+          //      qDebug() << "id" << id << "updata" << text_point.x << current_lan;
+            }
+            else
+            {
+                font_text.param.x = var.point.x();
+                font_text.param.y = var.point.y();
+            }
+            draw_x = font_text.param.x;
+            draw_y = font_text.param.y;
             language->DarwText(&painter, &font_text);
            // painter.drawText(var.point, var.text);
         }
         if (id == current_item_id)
         {
             //点击到当前的id，进行矩形的绘画
-            painter.drawRect(var.point.x(), var.point.y(), var.size.width(), var.size.height());
+            painter.drawRect(draw_x, draw_y, var.size.width(), var.size.height());
 
         }
     }
@@ -351,111 +369,119 @@ void MainWindow::dropEvent(QDropEvent *event)
         else if (format == "text/uri-list")
         {
             QString file_path = event->mimeData()->urls().first().toLocalFile();
-           // readexcel *excel = new readexcel(this);
+            this->filePath = event->mimeData()->urls().first().toLocalFile();
+            QFileInfo info(filePath);
+
+            if (filePath.isEmpty())
+            {
+                QMessageBox::warning(this, "Error", tr("The Path is Error!"));
+                return;
+            }
+
+            if (info.isFile())
+            {
+                if (info.suffix() == "pxcp")
+                {
+                    if (ui->tabWidget->currentIndex() == 4)
+                    {
+                        //对pxcp 文件进行分析 得到json文件和图片
+                        if (json->GetJsonAndImage(info.filePath()))
+                        {
+                            ui->textBrowser->setText("Read pxcp File succeed!");
+                        }
+                        else {
+                            ui->textBrowser->setText("Read pxcp File failed!");
+
+                        }
+                        //多国语言处理
+                        LanguageProcess();
+                    }
+                    else
+                    {
+                        //对pxcp 文件进行分析 得到json文件
+                        if (json->getJson(info.filePath()))
+                        {
+                            ui->textBrowser->setText("Read pxcp File succeed!");
+                        }
+                        else {
+                            ui->textBrowser->setText("Read pxcp File failed!");
+
+                        }
+                    }
+                }
+                else if (info.suffix() == "xlsx")
+                {
+                    language->SetLanguageFileExcel(file_path);
+                    languageTextSelect->SetTextList(language->text_id_list);
+
+                }
+
+                return;
+            }
+            // readexcel *excel = new readexcel(this);
             //excel->read(file_path); 
-            language->SetLanguageFileExcel(file_path);
-            languageTextSelect->SetTextList(language->text_id_list);
+            
+          
+            if (!info.isDir())
+            {
+                QMessageBox::warning(this, "Error", tr("The Path is Error!"));
+                return;
+            }
+            if (ui->tabWidget->currentIndex() == 3)
+            {
+                //专门获取地址
+                getBmpAddr(filePath);
+            }
+
+            else
+            {
+
+                if (ui->CB_old->isChecked())
+                {
+                    file = new QFile(filePath + "/gui_flash_param.h");
+                    file_c = new QFile(filePath + "/gui_flash_param.c");
+                }
+
+                ui->lineEdit->setText(filePath);
+                if (ui->CB_old->isChecked())
+                {
+                    //if (!file->open(QIODevice::WriteOnly))
+                        //QMessageBox::warning(this, "警告", "请检测gui_flash_param.h路径!");
+                    //if (!file_c->open(QIODevice::WriteOnly))
+                        //QMessageBox::warning(this, "警告", "请检测gui_flash_param.h路径!");
+                }
+                // json->getBmpPaths(filePath);
+                jsonPaths.clear();
+                AllJsonAnalysis(filePath);
+                foreach(QString path, jsonPaths)
+                {
+                    //pxcpJson *json = new pxcpJson();
+                     //json->setPath(path);
+                    json->jsonAnalysis(path);
+                }
+                iconArray = json->geticonArray(filePath);
+                initDisplay();
+
+                //mainDisplay(filePath);
+                //getBmpPaths(filePath);
+                saveBmpPaths(filePath);
+
+                display();
+                if (ui->CB_old->isChecked())
+                {
+                    file->close();
+                    file_c->close();
+                }
+
+            }
            
-            languageTextSelect->show();
 
 
         }
 
     }
     return;
-    this->filePath =  event->mimeData()->urls().first().toLocalFile();
-    QFileInfo info(filePath);
-
-    if(filePath.isEmpty())
-    {
-        QMessageBox::warning(this, "Error",tr("The Path is Error!"));
-        return;
-    }
-  
-    if(info.isFile() &&   info.suffix() == "pxcp")
-    {
-        if (ui->tabWidget->currentIndex() == 4)
-        {        
-            //对pxcp 文件进行分析 得到json文件和图片
-            if (json->GetJsonAndImage(info.filePath()))
-            {
-                ui->textBrowser->setText("Read pxcp File succeed!");
-            }
-            else {
-                ui->textBrowser->setText("Read pxcp File failed!");
-
-            }
-            //多国语言处理
-            LanguageProcess();
-        }
-        else
-        {
-            //对pxcp 文件进行分析 得到json文件
-            if (json->getJson(info.filePath()))
-            {
-                ui->textBrowser->setText("Read pxcp File succeed!");
-            }
-            else {
-                ui->textBrowser->setText("Read pxcp File failed!");
-
-            }
-        }
-     
-        return;
-    }
    
-    if(!info.isDir())
-    {
-        QMessageBox::warning(this,"Error",tr("The Path is Error!"));
-        return;
-    }
-	if (ui->tabWidget->currentIndex() == 3)
-	{
-		//专门获取地址
-		getBmpAddr(filePath);
-	}
-  
-	else
-	{
-       
-		if (ui->CB_old->isChecked())
-		{
-			file = new QFile(filePath + "/gui_flash_param.h");
-			file_c = new QFile(filePath + "/gui_flash_param.c");
-		}
-
-		ui->lineEdit->setText(filePath);
-		if (ui->CB_old->isChecked())
-		{
-			//if (!file->open(QIODevice::WriteOnly))
-				//QMessageBox::warning(this, "警告", "请检测gui_flash_param.h路径!");
-			//if (!file_c->open(QIODevice::WriteOnly))
-				//QMessageBox::warning(this, "警告", "请检测gui_flash_param.h路径!");
-		}
-		// json->getBmpPaths(filePath);
-		jsonPaths.clear();
-		AllJsonAnalysis(filePath);
-		foreach(QString path, jsonPaths)
-		{
-			//pxcpJson *json = new pxcpJson();
-			 //json->setPath(path);
-			json->jsonAnalysis(path);
-		}
-		iconArray = json->geticonArray(filePath);
-		initDisplay();
-
-		//mainDisplay(filePath);
-        //getBmpPaths(filePath);
-        saveBmpPaths(filePath);
-     
-		display();
-		if (ui->CB_old->isChecked())
-		{
-			file->close();
-			file_c->close();
-		}
-
-	}
 }
 void MainWindow::DislayAddrParm(QString Image_title, QJsonArray image_arry)
 {
@@ -1766,8 +1792,16 @@ void MainWindow::on_select_text(const QModelIndex index)
 void MainWindow::on_select_language_file(int select)
 {
     /* 语言切换*/
+  
     current_lan = (Language_e)select;
+    qDebug() << "select language " << current_lan;
     language->SetLanguage(current_lan);
+    ui->comboBox_texts->clear();
+    if (!select_text_list.isEmpty())
+    {
+        QStringList text_list = language->GetText(select_text_list);
+        ui->comboBox_texts->addItems(text_list);
+    }
     return;
     if (language != nullptr)
     {
@@ -1806,9 +1840,7 @@ void MainWindow::on_updata_item_param()
     if (items_map.contains(current_item_id))
     {
         current_item = items_map.value(current_item_id);
-        /*位置*/
-        current_item.point.setX(GetX());
-        current_item.point.setY(GetY());
+     
         /*尺寸*/
         int width = ui->spinBox_width->value();
         int height = ui->spinBox_height->value();
@@ -1819,11 +1851,28 @@ void MainWindow::on_updata_item_param()
         {
             int font_size = ui->spinBox_font->value();
             QString font_family = ui->fontComboBox->currentText();
+            int lineHeight = ui->spinBox_LineHeight->value();
+            int spacing = ui->spinBox_spacing->value();
+            /*位置*/
+            language_offset text_point;
+            if (current_item.text_point.contains(current_lan))
+            {
+                //如果当前的语言有对应的坐标
+                text_point = current_item.text_point.value(current_lan);
+            }    
+             /*更新当前语言的信息*/
+            text_point.x = GetX();
+            text_point.y = GetY();
+            text_point.lineHeight = lineHeight;
+            text_point.spacing = spacing;
+          
+            current_item.text_point.insert(current_lan, text_point);
+
             current_item.font.param.font_size = font_size;
             current_item.font.param.family = font_family;
             current_item.texts.clear();
             current_item.texts.append( select_text_list);
-            qDebug() << "id"<< current_item_id << "updata" << select_text_list;
+            qDebug() << "id"<< current_item_id << "updata" << text_point.x << current_lan;
             QString text = ui->comboBox_texts->currentText();
             if (!text.isEmpty())
             {
@@ -1931,8 +1980,16 @@ bool MainWindow::CheckPointText(int touch_x, int touch_y)
         ComponnetsItem item = items_map.value(key);
         int height = item.size.height();
         int width = item.size.width();
+        language_offset text_point;
         int x = item.point.x();
         int y = item.point.y();
+        if (current_item.text_point.contains(current_lan))
+        {
+            //如果当前的语言有对应的坐标
+            text_point = current_item.text_point.value(current_lan);
+            x = text_point.x;
+            y = text_point.y;
+        }      
         int end_x = x + width;
         int end_y = y + height;
         if (touch_x > end_x || touch_x < x || touch_y > end_y || touch_y < y)
@@ -1980,7 +2037,7 @@ void MainWindow::SelectedText(QString id)
         x = item.point.x();
         y = item.point.y();
     }
-   
+  
     int font_size = item.font.param.font_size;
     int width = item.size.width();
     int height = item.size.height();
