@@ -361,6 +361,7 @@
     <ClCompile Include="pxcpjson.cpp" />
     <ClCompile Include="readexcel.cpp" />
     <ClCompile Include="WatchComponentsWidget.cpp" />
+    <ClCompile Include="WatchView.cpp" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="formdraw.h">
@@ -371,6 +372,7 @@
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
+    <QtMoc Include="WatchView.h" />
     <QtMoc Include="WatchComponentsWidget.h" />
     <QtMoc Include="Language.h" />
     <QtMoc Include="CodeJson.h" />

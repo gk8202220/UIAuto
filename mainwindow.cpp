@@ -40,8 +40,8 @@ MainWindow::MainWindow(QWidget *parent) :
      languageTextSelect = new LanguageTextSelect();
      languageTextSelect->SetSelectedText(&select_text_list);
      QObject::connect(languageTextSelect, SIGNAL(updata_text()), this, SLOT(on_updata_select_text_list()));
-
-
+     watch_view = new WatchView(this);
+     watch_view->SetView(&items_map);
    // watchComponentsWidget.setGeometry(0, 0, 100, 100);
    // watchComponentsWidget.show();
     if(ui->CB_FunSelect->currentIndex() == 2)
@@ -237,40 +237,30 @@ void MainWindow::paintEvent(QPaintEvent * event)
     //for each (ComponnetsItem var in items_map.values())
     for each(QString id in items_map.keys())
     {
-        ComponnetsItem var = items_map.value(id);
-        int draw_x = var.point.x();
-        int draw_y = var.point.y();
-        if (var.fomat == "Text")
+        int draw_x = watch_view->X(id);
+        int draw_y = watch_view->Y(id); 
+        int width  = watch_view->Width(id);
+        int height = watch_view->Height(id);
+        QString fomat = watch_view->Fomat(id);
+        if (fomat == "Text")
         {
             font_t font_text;
-            font_text = var.font;
-            font_text.title = var.text;
-            language_offset text_point;
-            if (var.text_point.contains(current_lan))
-            {
-                //如果当前的语言有对应的坐标
-               
-                text_point = var.text_point.value(current_lan);
-                font_text.param.x = text_point.x;
-                font_text.param.y = text_point.y;
+            font_text.title = watch_view->GetPriviewText(id);
+            font_text.param.font_size = watch_view->FontSize(id);
+            font_text.param.family = watch_view->Family(id);
 
-          //      qDebug() << "id" << id << "updata" << text_point.x << current_lan;
-            }
-            else
-            {
-                font_text.param.x = var.point.x();
-                font_text.param.y = var.point.y();
-            }
+            QPoint point = watch_view->GetPoint(id, current_lan);
+            font_text.param.x = point.x();
+            font_text.param.y = point.y();
+            
             draw_x = font_text.param.x;
             draw_y = font_text.param.y;
             language->DarwText(&painter, &font_text);
-           // painter.drawText(var.point, var.text);
         }
         if (id == current_item_id)
         {
             //点击到当前的id，进行矩形的绘画
-            painter.drawRect(draw_x, draw_y, var.size.width(), var.size.height());
-
+            painter.drawRect(draw_x, draw_y, width, height);
         }
     }
 
@@ -1977,21 +1967,14 @@ bool MainWindow::CheckPointText(int touch_x, int touch_y)
     */
   
     //for each (ComponnetsItem item in items_map)
-    for each(QString key in items_map.keys())
+    for each(QString id in items_map.keys())
     {
-        ComponnetsItem item = items_map.value(key);
-        int height = item.size.height();
-        int width = item.size.width();
-        language_offset text_point;
-        int x = item.point.x();
-        int y = item.point.y();
-        if (current_item.text_point.contains(current_lan))
-        {
-            //如果当前的语言有对应的坐标
-            text_point = current_item.text_point.value(current_lan);
-            x = text_point.x;
-            y = text_point.y;
-        }      
+     
+        int height = watch_view->Height(id);
+        int width = watch_view->Width(id);
+        QPoint point = watch_view->GetPoint(id, current_lan);
+        int x = point.x();
+        int y = point.y();     
         int end_x = x + width;
         int end_y = y + height;
         if (touch_x > end_x || touch_x < x || touch_y > end_y || touch_y < y)
@@ -2001,7 +1984,7 @@ bool MainWindow::CheckPointText(int touch_x, int touch_y)
         else
         {
             
-            SelectedText(key);
+            SelectedText(id);
             return true;
         }
     }
@@ -2024,27 +2007,14 @@ void MainWindow::SelectedText(QString id)
     font_page.text = current_select_text->title;
     */
     current_item_id = id;
-    ComponnetsItem item = items_map.value(id);
-    int x = 0;
-    int y = 0;
-    if (item.text_point.contains(current_lan))
-    {
-        //对应的语言有位置
-        language_offset text_point = item.text_point.value(current_lan);
-        x = text_point.x;
-        y = text_point.y;
-    }
-    else
-    {
-        x = item.point.x();
-        y = item.point.y();
-    }
-  
-    int font_size = item.font.param.font_size;
-    int width = item.size.width();
-    int height = item.size.height();
+    QPoint point = watch_view->GetPoint(id, current_lan);
+    int x = point.x();
+    int y = point.y();
+    int font_size = watch_view->FontSize(id);
+    int width = watch_view->Width(id);
+    int height = watch_view->Height(id);
     select_text_list.clear();
-    QStringList texts = item.texts;
+    QStringList texts = watch_view->GetTextList(id);
     select_text_list.append(texts);
     ui->spinBox_cood_x->setValue(x);
     ui->spinBox_cood_y->setValue(y);

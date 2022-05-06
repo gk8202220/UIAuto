@@ -25,6 +25,7 @@
 #include "Language.h"
 #include "ComponnetsItem.h"
 #include "LanguageTextSelect.h"
+#include "WatchView.h"
 namespace Ui {
 class MainWindow;
 }
@@ -166,6 +167,8 @@ private:
     LanguageTextSelect* languageTextSelect;
     QStringList select_text_list;
     QString current_item_id; //当前选择的控件
+
+    WatchView *watch_view;
    
 };
 

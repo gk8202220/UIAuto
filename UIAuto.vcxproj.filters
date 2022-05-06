@@ -72,6 +72,9 @@
     <ClCompile Include="CodeJson.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="WatchView.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="formdraw.h">
@@ -96,6 +99,9 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="CodeJson.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="WatchView.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
