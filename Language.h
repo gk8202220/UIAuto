@@ -119,7 +119,10 @@ private:
     QJsonObject language_root_obj; // 所有参数的json文件对象
     QString language_json_file_path; // 所有参数的json文件对象
     void SaveJsonFile(); //保持json文件
-    QStringList language_type_list; 
+    QStringList language_type_list = { "chinese", "enaglish", "japanese", "korean", "german", "russian", "spanish",
+"italiarn", "french", "vietnamese", "portuguese_pt", "portuguese_br", "traditional,"
+"polish", "czech", "ukraine", "hungary", "turkey", "indonesia", "romania", "slovakia", "croatia",
+"lithuania", "greece", "arae", "sv", "nlnl", };
     QList<QList<QVariant> > language_excel_list;
     Language_e lan_type;
 public:
@@ -159,5 +162,6 @@ public:
     QString GetText(QString id);
     QStringList GetText(QStringList id_list); //通过ID和对应的语言获取到文字
     void SetLanguage(Language_e lan); //设置语言
+    QString LanToString(Language_e lan); //获取对应的字符串
    
 };

@@ -11,7 +11,7 @@
 #include <QMap>
 #include "WatchComponentsWidget.h"
 #include "readexcel.h"
-
+#include "CodeJson.h"
 #pragma execution_character_set("UTF-8")
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -1882,6 +1882,8 @@ void MainWindow::on_updata_item_param()
         
         }
         items_map.insert(current_item_id, current_item); 
+        CodeJson* json = new CodeJson(this);
+        json->FontParamToJson(&items_map);
     }         
 }
 void MainWindow::on_selected_item(QModelIndex index)

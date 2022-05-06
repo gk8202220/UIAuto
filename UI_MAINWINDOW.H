@@ -1130,6 +1130,7 @@ public:
         QObject::connect(spinBox_width, SIGNAL(valueChanged(int)), MainWindow, SLOT(on_updata_item_param()));
         QObject::connect(spinBox_height, SIGNAL(valueChanged(int)), MainWindow, SLOT(on_updata_item_param()));
         QObject::connect(treeView_slelect_items, SIGNAL(clicked(QModelIndex)), MainWindow, SLOT(on_selected_item(QModelIndex)));
+        QObject::connect(spinBox_font, SIGNAL(valueChanged(int)), MainWindow, SLOT(on_updata_item_param()));
 
         tabWidget->setCurrentIndex(4);
         toolBox->setCurrentIndex(1);

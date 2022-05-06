@@ -499,6 +499,16 @@ void Language::SetLanguage(Language_e lan)
 	lan_type = lan;
 }
 
+QString Language::LanToString(Language_e lan)
+{
+	QString language_type;
+	if (lan < language_type_list.count())
+	{
+		language_type = language_type_list.at(lan);
+	} 
+	return language_type;
+}
+
 QStringList Language::GetText(QStringList id_list)
 {
 	QStringList text_list = GetText(id_list, lan_type);
