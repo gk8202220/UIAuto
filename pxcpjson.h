@@ -37,7 +37,7 @@ public:
      QStringList GetPages(); //获取所有界面
      QString GetPriview(QString key); //获取预览图
      QString GetPageImage(QString key); //获取效果图
-
+     void FindPxcpJsonFile(QString jsonPath); //获取到该目录下的pxcp对应的json文件
 
 private:
 
@@ -54,8 +54,8 @@ private:
     QString GetPageName(QByteArray json_data); //获取界面的名字
     QMap<QString, QString> PagePriviewMap; //预览图
     QMap<QString, QString> PageImageMap; //效果图
-
-
+    QStringList jsonPaths;
+    void FindJsonFile(QString jsonPath);
 
 signals:
 

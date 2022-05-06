@@ -103,7 +103,7 @@ private:
     void UI_position(QString title);
     void display();
     void initDisplay();
-    void AllJsonAnalysis(QString jsonPath);
+    void FingPxcpJsonFile(QString jsonPath);
     void dispaly_BP(QString icon_data,QString icon_person,QString icon_no,QString icon_error);
     void write_code(QString data);
     void writePosiAndData(QString tile);
@@ -127,7 +127,7 @@ private:
     QString last_filePath;
     QString setPostionFun;
     QString WriteDataFun;
-    QStringList jsonPaths;
+
     QMap<QString, QString>Image_Path_Map; //图片命名和路径
     QStringList titleList; //图片类型的标题
     QJsonObject Title_Image_json;  //保存标题和对应的所有切图

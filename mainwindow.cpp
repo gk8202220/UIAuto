@@ -369,14 +369,9 @@ void MainWindow::dropEvent(QDropEvent *event)
                         //QMessageBox::warning(this, "警告", "请检测gui_flash_param.h路径!");
                 }
                 // json->getBmpPaths(filePath);
-                jsonPaths.clear();
-                AllJsonAnalysis(filePath);
-                foreach(QString path, jsonPaths)
-                {
-                    //pxcpJson *json = new pxcpJson();
-                     //json->setPath(path);
-                    json->jsonAnalysis(path);
-                }
+              
+                json->FindPxcpJsonFile(filePath);
+                json->jsonAnalysis(path);
                 iconArray = json->geticonArray(filePath);
                 initDisplay();
 
@@ -766,33 +761,7 @@ void MainWindow::initDisplay()
 
 }
 
-void MainWindow::AllJsonAnalysis(QString jsonPath)
-{
-    /*先对json进行解析获取坐标 */
-    QDir dir(jsonPath);
-    foreach(QFileInfo fileInfo ,dir.entryInfoList(QDir::Dirs|QDir::Files,QDir::DirsFirst))
-    {
-        if(fileInfo.isDir())
-        {
-            //目录遍历
-            if(fileInfo.fileName()  == "." || fileInfo.fileName()  == ".."  )continue;
-             AllJsonAnalysis(fileInfo.absoluteFilePath());
-        }else {
 
-            if(fileInfo.suffix() == "json")
-            {
-                //对位置json文件进行分析 获取到x y 高度 宽度的 icontmp.txt 文件
-
-                jsonPaths.append(fileInfo.filePath());
-                break;
-            }
-        }
-
-    }
-
-
-
-}
 
 void MainWindow::dispaly_BP(QString icon_data, QString icon_person, QString icon_no, QString icon_error)
 {
