@@ -101,36 +101,14 @@ void MainWindow::mousePressEvent(QMouseEvent* event)
     int label_x = ui->label_display->x();
     int label_y = ui->label_display->y();
     int lan = ui->CB_language->currentIndex();
-    /*
-     check_text_index = CheckPointText(point.x()- label_x, point.y() - label_y);
-    if (check_text_index != -1)
-    {
-        SelectedText(check_text_index); //选中已有的文字
-        item_is_drop = true;
-    }
-    else
-    {
-        item_is_drop = false;
-    }
-   */
+
     item_is_drop = CheckPointText(point.x() - label_x, point.y() - label_y); //当前点击的控件id
     if (!item_is_drop)
     {
         //没有点击到
         current_item_id.clear();
     }
-                                                                             // qDebug() << "Press" << check_text_index;
 
-    //if (point.x() >= label_x && point.x() < label_x + ui->label_display->width()
-    //    && point.y() >= label_y && point.y() < label_y + ui->label_display->height()
-    //    )
-    //{
-    //    int touch_x = point.x() - label_x;
-    //    int touch_y = point.y() - label_y;
-    //    
-
-
-    //}
   
 }
 void MainWindow::mouseReleaseEvent(QMouseEvent* event)
@@ -138,12 +116,7 @@ void MainWindow::mouseReleaseEvent(QMouseEvent* event)
  
     qDebug() << "Release";
     item_is_drop = false;
-    /*
-    if (item_is_drop)
-    {
-        language->FontParamToJson(&item_text_list.value(check_text_index), &font_page); //保存所有选中的文字
-    }
-    */
+ 
    
 }
 void MainWindow::mouseMoveEvent(QMouseEvent* event)
@@ -156,22 +129,6 @@ void MainWindow::mouseMoveEvent(QMouseEvent* event)
     int touch_y = point.y() - label_y;
     if (item_is_drop)
     {
-        /*
-        QMap<Language_e, font_t> font_map = item_text_list.value(check_text_index);
-        font_t  font_text= font_map.value(current_lan);
-        if (current_select_text != nullptr)
-        {
-            ui->spinBox_cood_x->setValue(touch_x);
-            ui->spinBox_cood_y->setValue(touch_y);
-            font_text.param.x = touch_x;
-            font_text.param.y = touch_y;
-            current_select_text = &font_text;
-           // qDebug() << "move" << current_select_text->title;
-            font_map.insert(current_lan, font_text);
-            item_text_list.insert(check_text_index, font_map);
-
-        }
-        */
         ui->spinBox_cood_x->setValue(touch_x);
         ui->spinBox_cood_y->setValue(touch_y);
         on_updata_item_param();
@@ -225,14 +182,7 @@ void MainWindow::paintEvent(QPaintEvent * event)
         paint.drawImage(label_x, label_y, image);*/
      
     }
-    /*进行文字的绘画*/
-    for each (int i  in item_text_list.keys())
-    {
-        font_t font_text = item_text_list.value(i).value(current_lan);
-     
-        language->DarwText(&painter, &font_text);
-    
-    }
+ 
   
     QStringList view_id_list = watch_view->GetViewId();
     for each(QString id in view_id_list)
@@ -1707,7 +1657,6 @@ void MainWindow::on_display_text(const QModelIndex index)
     //显示文字项
     QStandardItemModel* text_model = new QStandardItemModel(this);
     QString key = index.data().toString();
-    font_page.title = key;
     QJsonArray textarray =  text_object.value(key).toArray();
     int font_size = ui->spinBox_font->value();
     QString font_family = ui->fontComboBox->currentText();
@@ -1737,7 +1686,7 @@ void MainWindow::on_display_text(const QModelIndex index)
 void MainWindow::on_display_page(const QModelIndex index)
 {
    QString key =  index.data().toString();
-   font_page.Page = key;
+   //font_page.Page = key;
    QString path = json->GetPageImage(key);
    priview_path = path;
    ui->label_display->setScaledContents(true);
@@ -1748,35 +1697,7 @@ void MainWindow::on_display_page(const QModelIndex index)
 
 void MainWindow::on_select_text(const QModelIndex index)
 {
-    /* 根据列表中选中的第几个，创建一个font_t*/
-    QString text = index.data().toString();
-    font_page.text = text;
-    int select_index = index.row(); //选中的当前的第几个
-    if (!item_text_list.contains(select_index))
-    {
-        font_t font_new;
-    
-        /* 填充一个推荐值*/
-        font_new.title = text;
-        font_new.param.x =  0;
-        font_new.param.y =  20;
-        font_new.param.font_size = ui->spinBox_font->value();
-        font_new.param.family = ui->fontComboBox->currentText();
-        QMap<Language_e, font_t> font_map;
-        language->CalculatePoint(font_new, &font_map); //自动计算其他语言的位置
-        item_text_list.insert(select_index, font_map);
-      
-    }
-     check_text_index = select_index;
-    // SelectedText(select_index); //选中已有的文字
-     //for each (int index in item_text_list.keys())
-     {
-         language->FontParamToJson(&item_text_list.value(select_index), &font_page); //保存所有选中的文字
-     }
    
-
- 
-   // current_select_text.param.font_size = ui->
    
 }
 void MainWindow::on_select_language_file(int select)

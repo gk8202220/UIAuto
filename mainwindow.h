@@ -156,12 +156,10 @@ private:
     QJsonObject text_object;
     QString priview_path;
     font_t *current_select_text; //当前选中的文字
-    QMap<int , QMap<Language_e, font_t>> item_text_list; //界面中存在文字的项
-  
+
     bool item_is_drop; //选中项是否拖动
-    int check_text_index;
+
     Language_e current_lan; //当前的语言
-    Font_page_t font_page;
     LanguageTextSelect* languageTextSelect;
     QStringList select_text_list;
     QString current_item_id; //当前选择的控件
