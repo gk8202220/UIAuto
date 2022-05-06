@@ -488,5 +488,22 @@ QStringList Language::GetText(QStringList id_list, Language_e lan)
 	return text_list;
 }
 
+QString Language::GetText(QString id)
+{
+	QString text = GetText(id, lan_type);
+	return text;
+}
+
+void Language::SetLanguage(Language_e lan)
+{
+	lan_type = lan;
+}
+
+QStringList Language::GetText(QStringList id_list)
+{
+	QStringList text_list = GetText(id_list, lan_type);
+	return text_list;
+}
+
 
 

@@ -21,9 +21,7 @@ public:
 	QIcon *icon;
 	QStringList texts;
 	font_t font;
-	QStringList text_id;
-	QMap<QString, QString> id_text_map;
-
+	QMap<Language_e, language_offset> text_point;//语言对应的坐标
 
 	
 

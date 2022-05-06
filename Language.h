@@ -24,9 +24,9 @@ typedef struct
 {
     uint16_t x;
     uint16_t y;
-    QString text;
+    //QString text;
     uint8_t spacing;        //文字间隔
-    uint8_t font_size;      //字号  
+    //uint8_t font_size;      //字号  
     uint8_t lineHeight;     //行间隔
    
 }language_offset;
@@ -121,7 +121,7 @@ private:
     void SaveJsonFile(); //保持json文件
     QStringList language_type_list; 
     QList<QList<QVariant> > language_excel_list;
-    
+    Language_e lan_type;
 public:
 	//Language(QObject *parent);
 	~Language();
@@ -156,5 +156,8 @@ public:
     QRect GetTextRect(QString text, int font_size, QString font_family); //获取文本的范围
     QString GetText(QString id, Language_e lan); //通过ID和对应的语言获取到文字
     QStringList GetText(QStringList id_list, Language_e lan); //通过ID和对应的语言获取到文字
+    QString GetText(QString id);
+    QStringList GetText(QStringList id_list); //通过ID和对应的语言获取到文字
+    void SetLanguage(Language_e lan); //设置语言
    
 };

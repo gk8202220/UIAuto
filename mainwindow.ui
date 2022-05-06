@@ -312,7 +312,7 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-48</y>
+        <y>0</y>
         <width>494</width>
         <height>640</height>
        </rect>
@@ -1623,7 +1623,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QSpinBox" name="spinBox_font_2">
+            <widget class="QSpinBox" name="spinBox_spacing">
              <property name="minimumSize">
               <size>
                <width>100</width>
@@ -1688,7 +1688,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QSpinBox" name="spinBox_font_3">
+            <widget class="QSpinBox" name="spinBox_LineHeight">
              <property name="minimumSize">
               <size>
                <width>100</width>

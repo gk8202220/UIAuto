@@ -51,7 +51,7 @@ void CodeJson::FontParamToJson(QMap<QString, ComponnetsItem> *items_map)
 		if (item_fomat == "Text")
 		{
 			/*нд╠╬*/
-			QString text = item.text; 
+			QStringList text_id = item.texts; 
 			int width = item.size.width();
 			int height = item.size.height();
 			int x = item.point.x();

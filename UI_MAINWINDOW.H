@@ -160,7 +160,7 @@ public:
     QPushButton *PB_lond_font;
     QHBoxLayout *horizontalLayout_31;
     QLabel *label_33;
-    QSpinBox *spinBox_font_2;
+    QSpinBox *spinBox_spacing;
     QHBoxLayout *horizontalLayout_27;
     QHBoxLayout *horizontalLayout_25;
     QLabel *label_30;
@@ -169,7 +169,7 @@ public:
     QLabel *label_13;
     QHBoxLayout *horizontalLayout_32;
     QLabel *label_34;
-    QSpinBox *spinBox_font_3;
+    QSpinBox *spinBox_LineHeight;
     QListView *listView_componnets;
 
     void setupUi(QMainWindow *MainWindow)
@@ -346,7 +346,7 @@ public:
         toolBox->setLineWidth(0);
         page = new QWidget();
         page->setObjectName(QString::fromUtf8("page"));
-        page->setGeometry(QRect(0, -48, 494, 640));
+        page->setGeometry(QRect(0, 0, 494, 640));
         gridLayout_8 = new QGridLayout(page);
         gridLayout_8->setSpacing(6);
         gridLayout_8->setContentsMargins(11, 11, 11, 11);
@@ -1020,16 +1020,16 @@ public:
 
         horizontalLayout_31->addWidget(label_33);
 
-        spinBox_font_2 = new QSpinBox(page_2);
-        spinBox_font_2->setObjectName(QString::fromUtf8("spinBox_font_2"));
-        spinBox_font_2->setMinimumSize(QSize(100, 0));
-        spinBox_font_2->setFocusPolicy(Qt::ClickFocus);
-        spinBox_font_2->setButtonSymbols(QAbstractSpinBox::PlusMinus);
-        spinBox_font_2->setCorrectionMode(QAbstractSpinBox::CorrectToNearestValue);
-        spinBox_font_2->setKeyboardTracking(false);
-        spinBox_font_2->setValue(0);
+        spinBox_spacing = new QSpinBox(page_2);
+        spinBox_spacing->setObjectName(QString::fromUtf8("spinBox_spacing"));
+        spinBox_spacing->setMinimumSize(QSize(100, 0));
+        spinBox_spacing->setFocusPolicy(Qt::ClickFocus);
+        spinBox_spacing->setButtonSymbols(QAbstractSpinBox::PlusMinus);
+        spinBox_spacing->setCorrectionMode(QAbstractSpinBox::CorrectToNearestValue);
+        spinBox_spacing->setKeyboardTracking(false);
+        spinBox_spacing->setValue(0);
 
-        horizontalLayout_31->addWidget(spinBox_font_2);
+        horizontalLayout_31->addWidget(spinBox_spacing);
 
 
         verticalLayout_2->addLayout(horizontalLayout_31);
@@ -1075,16 +1075,16 @@ public:
 
         horizontalLayout_32->addWidget(label_34);
 
-        spinBox_font_3 = new QSpinBox(page_2);
-        spinBox_font_3->setObjectName(QString::fromUtf8("spinBox_font_3"));
-        spinBox_font_3->setMinimumSize(QSize(100, 0));
-        spinBox_font_3->setFocusPolicy(Qt::ClickFocus);
-        spinBox_font_3->setButtonSymbols(QAbstractSpinBox::PlusMinus);
-        spinBox_font_3->setCorrectionMode(QAbstractSpinBox::CorrectToNearestValue);
-        spinBox_font_3->setKeyboardTracking(false);
-        spinBox_font_3->setValue(0);
+        spinBox_LineHeight = new QSpinBox(page_2);
+        spinBox_LineHeight->setObjectName(QString::fromUtf8("spinBox_LineHeight"));
+        spinBox_LineHeight->setMinimumSize(QSize(100, 0));
+        spinBox_LineHeight->setFocusPolicy(Qt::ClickFocus);
+        spinBox_LineHeight->setButtonSymbols(QAbstractSpinBox::PlusMinus);
+        spinBox_LineHeight->setCorrectionMode(QAbstractSpinBox::CorrectToNearestValue);
+        spinBox_LineHeight->setKeyboardTracking(false);
+        spinBox_LineHeight->setValue(0);
 
-        horizontalLayout_32->addWidget(spinBox_font_3);
+        horizontalLayout_32->addWidget(spinBox_LineHeight);
 
 
         verticalLayout_2->addLayout(horizontalLayout_32);

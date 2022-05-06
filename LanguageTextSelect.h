@@ -15,7 +15,7 @@ public:
 	~LanguageTextSelect();
 	void SetTextList(QStringList id_text_list);
 	void SetSelectedText(QStringList *text_list);//设置已经选择的文字
-	void SetLanguage(Language_e lan); //设置显示的语言
+	
 private slots:
 	void filterChanged(const QString text);
 	void ShowSelectText();
@@ -29,7 +29,7 @@ private:
 	QStandardItemModel* text_model; //待选择的文字
 	QStandardItemModel* selected_text_model;//已经选择的文字
 	Language *language;
-	Language_e lan_type; //显示的语言
+
 signals:
 	void updata_text();
 };

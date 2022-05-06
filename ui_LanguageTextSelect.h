@@ -16,7 +16,6 @@
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
-#include <QtWidgets/QListView>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QTreeView>
 #include <QtWidgets/QVBoxLayout>
@@ -37,7 +36,7 @@ public:
     QVBoxLayout *verticalLayout_3;
     QVBoxLayout *verticalLayout_2;
     QLabel *label_2;
-    QListView *listView_selected;
+    QTreeView *treeView_selected;
     QPushButton *PB_confirm;
 
     void setupUi(QWidget *LanguageTextSelect)
@@ -94,14 +93,14 @@ public:
 
         verticalLayout_2->addWidget(label_2);
 
-        listView_selected = new QListView(LanguageTextSelect);
-        listView_selected->setObjectName(QString::fromUtf8("listView_selected"));
-        listView_selected->setDragEnabled(true);
-        listView_selected->setDragDropOverwriteMode(false);
-        listView_selected->setDragDropMode(QAbstractItemView::InternalMove);
-        listView_selected->setDefaultDropAction(Qt::MoveAction);
+        treeView_selected = new QTreeView(LanguageTextSelect);
+        treeView_selected->setObjectName(QString::fromUtf8("treeView_selected"));
+        treeView_selected->setDragEnabled(true);
+        treeView_selected->setDragDropOverwriteMode(false);
+        treeView_selected->setDragDropMode(QAbstractItemView::InternalMove);
+        treeView_selected->setDefaultDropAction(Qt::MoveAction);
 
-        verticalLayout_2->addWidget(listView_selected);
+        verticalLayout_2->addWidget(treeView_selected);
 
 
         verticalLayout_3->addLayout(verticalLayout_2);

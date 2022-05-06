@@ -1767,7 +1767,7 @@ void MainWindow::on_select_language_file(int select)
 {
     /* 语言切换*/
     current_lan = (Language_e)select;
-    languageTextSelect->SetLanguage(current_lan);
+    language->SetLanguage(current_lan);
     return;
     if (language != nullptr)
     {
@@ -1791,7 +1791,8 @@ void MainWindow::on_updata_select_text_list()
     ui->comboBox_texts->clear();
     if (!select_text_list.isEmpty())
     {
-       ui->comboBox_texts->addItems(select_text_list);
+        QStringList text_list = language->GetText(select_text_list);
+        ui->comboBox_texts->addItems(text_list);
     }
    
    
@@ -1965,8 +1966,21 @@ void MainWindow::SelectedText(QString id)
     */
     current_item_id = id;
     ComponnetsItem item = items_map.value(id);
-    int x = item.point.x();
-    int y = item.point.y();
+    int x = 0;
+    int y = 0;
+    if (item.text_point.contains(current_lan))
+    {
+        //对应的语言有位置
+        language_offset text_point = item.text_point.value(current_lan);
+        x = text_point.x;
+        y = text_point.y;
+    }
+    else
+    {
+        x = item.point.x();
+        y = item.point.y();
+    }
+   
     int font_size = item.font.param.font_size;
     int width = item.size.width();
     int height = item.size.height();
@@ -1979,7 +1993,8 @@ void MainWindow::SelectedText(QString id)
     ui->spinBox_width->setValue(width);
     ui->spinBox_height->setValue(height);
     ui->comboBox_texts->clear(); 
-    ui->comboBox_texts->addItems(select_text_list);
+    QStringList text_list = language->GetText(select_text_list);
+    ui->comboBox_texts->addItems(text_list);
     
     qDebug()<< "id" << id << "chick" << texts;
 
@@ -2003,6 +2018,8 @@ void MainWindow::CreatTextItem(QPoint *point)
     int label_x = ui->label_display->x();
     int label_y = ui->label_display->y();
     int font_size = ui->spinBox_font->value();
+    int lineHeight = ui->spinBox_LineHeight->value();
+    int spacing = ui->spinBox_spacing->value();
     //获取文本的范围
     QString font_family = ui->fontComboBox->currentText();
     QRect rect = language->GetTextRect(item.text, font_size, font_family);
@@ -2012,9 +2029,14 @@ void MainWindow::CreatTextItem(QPoint *point)
     int y = point->y() - label_y;
     item.size.setWidth(width);
     item.size.setHeight(height);
-    
+    /*  这里要添加推荐的坐标*/
+    language_offset text_point;
+    text_point.x = x;
+    text_point.y = y;
+    text_point.lineHeight = lineHeight;
+    text_point.spacing = spacing;
     item.point = QPoint(x , y);
-    item.point = QPoint(x , y);
+    item.text_point.insert(current_lan, text_point);
    
     
     items_map.insert(id_str, item); //添加新的控件

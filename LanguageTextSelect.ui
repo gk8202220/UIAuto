@@ -62,7 +62,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QListView" name="listView_selected">
+          <widget class="QTreeView" name="treeView_selected">
            <property name="dragEnabled">
             <bool>true</bool>
            </property>
