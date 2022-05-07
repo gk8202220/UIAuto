@@ -4,6 +4,8 @@
 #include "Language.h"
 #include <QIcon>
 #include <QList>
+#define COMPONNET_FORMAT_BETTARY "Bettary"
+#define COMPONNET_FORMAT_TEXT "Text"
 class ComponnetsItem 
 {
 public:

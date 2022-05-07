@@ -518,6 +518,7 @@ void pxcpJson::FindPxcpJsonFile(QString jsonPath)
 {
     jsonPaths.clear();
     FindJsonFile(jsonPath);
+    jsonAnalysis(jsonPaths.at(0));
 }
 
 QString pxcpJson::GetPageName(QByteArray json_data)

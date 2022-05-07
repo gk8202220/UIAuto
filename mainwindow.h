@@ -89,7 +89,6 @@ private slots:
 
     void on_display_text(const QModelIndex index); //选择的文字项
     void on_display_page(const QModelIndex index); //选择的文字项
-    void on_select_text(const QModelIndex index); //选中文字
     void on_lond_language_file(); //加载语言文件
     void on_select_language_file(int select); //选择语言文件
     void on_updata_select_text_list(); //更新选择的文字
@@ -116,6 +115,11 @@ private:
     bool CheckPointText(int touch_x, int touch_y); //判断是否选中到文字
     void SelectedText(QString id); //选中已有的文字
     void CreatTextItem(QPoint* point); //创建一个文字的控件
+    void CreatItem(QString componnet_type, QPoint point); //创建一个的控件
+    void CreatItemBattery(QPoint* point);
+    void SelectingItem(QString id); //选中的控件
+    void DislayView(QPainter *painter); //显示界面
+    void SaveSelectedItem(QString type, QString id);
     QJsonArray iconArray;
     QFile *file_c;
     QFile *file;

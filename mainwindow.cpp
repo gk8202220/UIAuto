@@ -162,35 +162,7 @@ void MainWindow::paintEvent(QPaintEvent * event)
     }
  
   
-    QStringList view_id_list = watch_view->GetViewId();
-    for each(QString id in view_id_list)
-    {
-        int draw_x = watch_view->X(id);
-        int draw_y = watch_view->Y(id); 
-        int width  = watch_view->Width(id);
-        int height = watch_view->Height(id);
-        QString fomat = watch_view->Fomat(id);
-        if (fomat == "Text")
-        {
-            font_t font_text;
-            font_text.title = watch_view->GetPriviewText(id);
-            font_text.param.font_size = watch_view->FontSize(id);
-            font_text.param.family = watch_view->Family(id);
-
-            QPoint point = watch_view->GetPoint(id, current_lan);
-            font_text.param.x = point.x();
-            font_text.param.y = point.y();
-            
-            draw_x = font_text.param.x;
-            draw_y = font_text.param.y;
-            language->DarwText(&painter, &font_text);
-        }
-        if (id == current_item_id)
-        {
-            //点击到当前的id，进行矩形的绘画
-            painter.drawRect(draw_x, draw_y, width, height);
-        }
-    }
+    DislayView(&painter); //画控件
 
     painter.end();
     ui->label_display->setPixmap(pix);
@@ -269,16 +241,18 @@ void MainWindow::dropEvent(QDropEvent *event)
            // qDebug() << event->
             if (event->source() == ui->listView_componnets)
             {
-                /*  控件的拖拽*/
-                qDebug() << "listView_componnets";
-                QString componnet_type =  ui->listView_componnets->currentIndex().data().toString();
-                if (componnet_type == "文本")
-                {
-                    QPoint point = event->pos();
-                    CreatTextItem(&point);
-                    
-                }
-                
+                /*  控件的拖拽添加*/
+              
+                QString componnet_type =  ui->listView_componnets->currentIndex().data().toString();     
+                qDebug() << "Add Item" << componnet_type;
+                QPoint point; //添加的位置
+                int label_x = ui->label_display->x();
+                int label_y = ui->label_display->y();
+                int x = event->pos().x() - label_x;
+                int y = event->pos().y() - label_y;
+                point.setX(x);
+                point.setY(y);
+                CreatItem(componnet_type, point);
               
 
                 
@@ -371,7 +345,7 @@ void MainWindow::dropEvent(QDropEvent *event)
                 // json->getBmpPaths(filePath);
               
                 json->FindPxcpJsonFile(filePath);
-                json->jsonAnalysis(path);
+               
                 iconArray = json->geticonArray(filePath);
                 initDisplay();
 
@@ -932,28 +906,7 @@ void MainWindow::getBmpPaths(QString path)
 
 void MainWindow::on_pushButton_clicked()
 {
-
-//    UI_time( ui->CB_Time->currentText());
-//    UI_Step( ui->CB_step->currentText());
-//    UI_blue( ui->CB_blu->currentText());
-//    UI_week( ui->CB_week->currentText(),ui->CB_week_en->currentText());
-//    UI_heart(ui->CB_heart->currentText());
-//    UI_data(ui->CB_data->currentText());
-//    UI_AMPM(ui->CB_ampm->currentText());
-//    UI_one(ui->CB_one->currentText());
-//    UI_charge(ui->CB_charge->currentText());
-//if(json->isOk())
-{
-   //显示效果图
-    //FormDraw *draw ;
-   // draw = new FormDraw();
-   // draw->setPath(json->geticonArray(filePath));
-   // draw->show();
-}
-    //draw->show();
-this->update();
-
-
+    this->update();
 }
 
 void MainWindow::on_CB_one_activated(const QString &arg1)
@@ -1133,11 +1086,6 @@ void MainWindow::on_display_page(const QModelIndex index)
  
 }
 
-void MainWindow::on_select_text(const QModelIndex index)
-{
-   
-   
-}
 void MainWindow::on_select_language_file(int select)
 {
     /* 语言切换*/
@@ -1196,7 +1144,7 @@ void MainWindow::on_updata_item_param()
 
         current_item.size.setWidth(width);
         current_item.size.setHeight(height);
-        if (current_item.fomat == "Text")
+        if (current_item.fomat == COMPONNET_FORMAT_TEXT)
         {
             int font_size = ui->spinBox_font->value();
             QString font_family = ui->fontComboBox->currentText();
@@ -1229,6 +1177,11 @@ void MainWindow::on_updata_item_param()
             }
             
         
+        }
+        else
+        {
+            current_item.point.setX(GetX());
+            current_item.point.setY(GetY());
         }
         watch_view->AppendItem(current_item_id, current_item);
         /*CodeJson* json = new CodeJson(this);
@@ -1312,7 +1265,7 @@ bool MainWindow::CheckPointText(int touch_x, int touch_y)
         else
         {
             
-            SelectedText(id);
+            SelectingItem(id);
             return true;
         }
     }
@@ -1334,7 +1287,7 @@ void MainWindow::SelectedText(QString id)
     qDebug() << "SelectedText" << current_select_text->title;
     font_page.text = current_select_text->title;
     */
-    current_item_id = id;
+
     QPoint point = watch_view->GetPoint(id, current_lan);
     int x = point.x();
     int y = point.y();
@@ -1353,7 +1306,6 @@ void MainWindow::SelectedText(QString id)
     QStringList text_list = language->GetText(select_text_list);
     ui->comboBox_texts->addItems(text_list);
     
-    qDebug()<< "id" << id << "chick" << texts;
 
 }
 
@@ -1370,10 +1322,8 @@ void MainWindow::CreatTextItem(QPoint *point)
     languageTextSelect->show();// 显示文本选择框
     
     item.text = "Text";
-    item.fomat = "Text";
-    
-    int label_x = ui->label_display->x();
-    int label_y = ui->label_display->y();
+    item.fomat = COMPONNET_FORMAT_TEXT;
+
     int font_size = ui->spinBox_font->value();
     int lineHeight = ui->spinBox_LineHeight->value();
     int spacing = ui->spinBox_spacing->value();
@@ -1382,8 +1332,9 @@ void MainWindow::CreatTextItem(QPoint *point)
     QRect rect = language->GetTextRect(item.text, font_size, font_family);
     int width = rect.width();
     int height = rect.height();
-    int x = point->x() - label_x;
-    int y = point->y() - label_y;
+
+    int x = point->x();
+    int y = point->y();
     item.size.setWidth(width);
     item.size.setHeight(height);
     /*  这里要添加推荐的坐标*/
@@ -1405,14 +1356,130 @@ void MainWindow::CreatTextItem(QPoint *point)
     ui->spinBox_cood_x->setValue(x);
     ui->spinBox_cood_y->setValue(y);
 
+
+}
+
+void MainWindow::CreatItem(QString componnet_type, QPoint point)
+{  
+    if (componnet_type == "文本")
+    { 
+        CreatTextItem(&point);
+
+    }
+    else if(componnet_type == "电池")
+    {
+        CreatItemBattery(&point);
+    }
+    SaveSelectedItem(componnet_type, current_item_id); //保存当前的控件ID
+}
+
+void MainWindow::CreatItemBattery(QPoint* point)
+{
+    ComponnetsItem item;
+    //添加id
+    item.id = watch_view->Count() + 1;
+    QString id = QString::number(item.id);
+    current_item_id = id;
+
+    item.fomat = COMPONNET_FORMAT_BETTARY;
+ 
+
+    int x = point->x();
+    int y = point->y();
+    int width  = 60;
+    int height = 60;
+
+    item.point = QPoint(x, y);
+    item.size.setWidth(width);
+    item.size.setHeight(height);
+    
+
+    select_text_list.clear(); //清除当前的文字列表
+    ui->comboBox_texts->clear();
+
+    watch_view->AppendItem(current_item_id, item); //添加新的控件
+    watch_view->SetCurrentItem(current_item_id);
+
+
+    ui->spinBox_width->setValue(width);
+    ui->spinBox_height->setValue(height);
+
+    ui->spinBox_cood_x->setValue(x);
+    ui->spinBox_cood_y->setValue(y);
+
+    watch_view->AppendItem(current_item_id, item); //添加新的控件
+    watch_view->SetCurrentItem(current_item_id);
+
+}
+
+void MainWindow::SelectingItem(QString id)
+{
+    current_item_id = id;
+    QString format = watch_view->Fomat(id);
+    if (format == COMPONNET_FORMAT_BETTARY)
+    {
+        QPoint point = watch_view->GetPoint(id, current_lan);
+        int x = point.x();
+        int y = point.y();
+        int width = watch_view->Width(id);
+        int height = watch_view->Height(id);
+
+        ui->spinBox_cood_x->setValue(x);
+        ui->spinBox_cood_y->setValue(y);
+        ui->spinBox_width->setValue(width);
+        ui->spinBox_height->setValue(height);
+    }
+    else if (format == COMPONNET_FORMAT_TEXT)
+    {
+        SelectedText(id);
+    }
+}
+
+void MainWindow::DislayView(QPainter* painter)
+{
+    QStringList view_id_list = watch_view->GetViewId();
+    for each (QString id in view_id_list)
+    {
+        int draw_x = watch_view->X(id);
+        int draw_y = watch_view->Y(id);
+        int width = watch_view->Width(id);
+        int height = watch_view->Height(id);
+        QString fomat = watch_view->Fomat(id);
+        if (fomat == COMPONNET_FORMAT_TEXT)
+        {
+            font_t font_text;
+            font_text.title = watch_view->GetPriviewText(id);
+            font_text.param.font_size = watch_view->FontSize(id);
+            font_text.param.family = watch_view->Family(id);
+
+            QPoint point = watch_view->GetPoint(id, current_lan);
+            font_text.param.x = point.x();
+            font_text.param.y = point.y();
+
+            draw_x = font_text.param.x;
+            draw_y = font_text.param.y;
+            language->DarwText(painter, &font_text);
+        }
+        else if (fomat == COMPONNET_FORMAT_BETTARY)
+        {
+            painter->setPen(QColor(50, 100, 50));
+            painter->drawRoundedRect(draw_x, draw_y, width, height, 10, 10);
+        }
+
+        if (id == current_item_id)
+        {
+            //点击到当前的id，进行矩形的绘画
+            painter->drawRect(draw_x, draw_y, width, height);
+        }
+    }
+}
+
+void MainWindow::SaveSelectedItem(QString type, QString id)
+{
     //添加到已选择的控件  
-    QString type = "文本";
-    //type.append("(" + id_str + ")");
-    QStandardItem* item_type = new QStandardItem(type);   
+    QStandardItem* item_type = new QStandardItem(type);
     int row_count = selected_items_model->rowCount();
-    //selected_items_model->appendRow(item_type);
     selected_items_model->setItem(row_count, 1, item_type);
-    selected_items_model->setItem(row_count , 0, new QStandardItem(id_str));
-    //ui->LV_selected_Items->setModel(selected_items_model);
+    selected_items_model->setItem(row_count, 0, new QStandardItem(id));
     ui->treeView_slelect_items->setModel(selected_items_model);
 }
