@@ -1,8 +1,20 @@
+﻿#pragma execution_character_set("UTF-8")
 #include "WatchView.h"
 
 WatchView::WatchView(QObject *parent)
 	: QObject(parent)
 {
+	 component_list = { "背景", "文本", "电池","时" , tr("秒") ,"年","月" ,"日","星期","心率","卡路里",\
+	"睡眠", "血压","里程", "蓝牙","按钮","标签" };
+	 component_id_list = { COMPONNET_FORMAT_BG, COMPONNET_FORMAT_TEXT,COMPONNET_FORMAT_BETTARY,COMPONNET_FORMAT_HOUR,\
+		COMPONNET_FORMAT_MINUTE, COMPONNET_FORMAT_SECOND, COMPONNET_FORMAT_YEAR, COMPONNET_FORMAT_MONTH, COMPONNET_FORMAT_DAY,\
+		COMPONNET_FORMAT_WEEK, COMPONNET_FORMAT_HEART, COMPONNET_FORMAT_CALORIES,\
+		COMPONNET_FORMAT_SLEEP, COMPONNET_FORMAT_BP, COMPONNET_FORMAT_DISTANCE, COMPONNET_FORMAT_BLE, COMPONNET_FORMAT_BUTTON, COMPONNET_FORMAT_LABEL };
+	 int count = component_list.size();
+	 for (int i = 0; i < count; i++)
+	 {
+		 componnet_id_map.insert(component_list.at(i), component_id_list.at(i));
+	 }
 }
 
 WatchView::~WatchView()
@@ -62,7 +74,7 @@ QString WatchView::Fomat(QString id)
 QStringList WatchView::GetTextList(QString id)
 {
 	SetCurrentItem(id);
-	return current_item.texts;
+	return current_item.element_list;
 }
 
 void WatchView::SetItem(ComponnetsItem item)
@@ -88,7 +100,7 @@ QPoint WatchView::GetPoint(QString id, Language_e lan)
 	{
 		if (current_item.text_point.contains(lan))
 		{
-			//�����ǰ�������ж�Ӧ������
+			//如果当前的语言有对应的坐标
 			language_offset	text_point = current_item.text_point.value(lan);
 			point.setX(text_point.x);
 			point.setY(text_point.y);
@@ -151,4 +163,9 @@ ComponnetsItem WatchView::GetCurrentItem(QString id)
 int WatchView::Count()
 {
 	return view_items_map.count();
+}
+
+QString WatchView::GetComponnetType(QString type)
+{
+	return componnet_id_map.value(type);
 }

@@ -22,29 +22,33 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     this->setAcceptDrops(true);
     json = new pxcpJson();
+    watch_view = new WatchView(this);
+
     ui->CB_old->setChecked(false);
 	ui->label_display->installEventFilter(this); //这行不能省
     language = Language::GetInstance();
     current_lan = (Language_e)ui->CB_language->currentIndex();
    // WatchComponentsWidget  watchComponentsWidget = new WatchComponentsWidget(this);
     QStandardItemModel  *components_model = new QStandardItemModel(this);
-    QStandardItem* item = new QStandardItem("文本");
-    QStandardItem* item1= new QStandardItem("电池");
-    components_model->setItem(0,0,item);
-    components_model->setItem(1, 0, item1);
+
+    int count = watch_view->component_list.size();
+    for (int i = 0; i < count; i++)
+    {
+        components_model->appendRow(new QStandardItem(watch_view->component_list.at(i)));
+    }
+
     ui->listView_componnets->setModel(components_model);
+   
     selected_items_model  = new QStandardItemModel(this);
     selected_items_model->setHorizontalHeaderItem(0, new QStandardItem("ID"));
     selected_items_model->setHorizontalHeaderItem(1, new QStandardItem("属性"));
     //文本选择界面
-    //  QStringList test = { "nihao","zhong" };
      languageTextSelect = new LanguageTextSelect();
      languageTextSelect->SetSelectedText(&select_text_list);
      QObject::connect(languageTextSelect, SIGNAL(updata_text()), this, SLOT(on_updata_select_text_list()));
-     watch_view = new WatchView(this);
+   
      vpWatchCode = new VpWatchCode(this);
-   // watchComponentsWidget.setGeometry(0, 0, 100, 100);
-   // watchComponentsWidget.show();
+
     if(ui->CB_FunSelect->currentIndex() == 2)
     {
         setPostionFun = "LCD_SetPosition(icon_16_";
@@ -1167,8 +1171,8 @@ void MainWindow::on_updata_item_param()
 
             current_item.font.param.font_size = font_size;
             current_item.font.param.family = font_family;
-            current_item.texts.clear();
-            current_item.texts.append( select_text_list);
+            current_item.element_list.clear();
+            current_item.element_list.append( select_text_list);
             qDebug() << "id"<< current_item_id << "updata" << text_point.x << current_lan;
             QString text = ui->comboBox_texts->currentText();
             if (!text.isEmpty())
@@ -1366,8 +1370,9 @@ void MainWindow::CreatItem(QString componnet_type, QPoint point)
         CreatTextItem(&point);
 
     }
-    else if(componnet_type == "电池")
+    else
     {
+        //    //else if(componnet_type == "电池")
         CreatItemBattery(&point);
     }
     SaveSelectedItem(componnet_type, current_item_id); //保存当前的控件ID
@@ -1383,7 +1388,6 @@ void MainWindow::CreatItemBattery(QPoint* point)
 
     item.fomat = COMPONNET_FORMAT_BETTARY;
  
-
     int x = point->x();
     int y = point->y();
     int width  = 60;
@@ -1416,7 +1420,11 @@ void MainWindow::SelectingItem(QString id)
 {
     current_item_id = id;
     QString format = watch_view->Fomat(id);
-    if (format == COMPONNET_FORMAT_BETTARY)
+     if (format == COMPONNET_FORMAT_TEXT)
+    {
+        SelectedText(id);
+    }
+     else //if (format == COMPONNET_FORMAT_BETTARY)
     {
         QPoint point = watch_view->GetPoint(id, current_lan);
         int x = point.x();
@@ -1428,10 +1436,6 @@ void MainWindow::SelectingItem(QString id)
         ui->spinBox_cood_y->setValue(y);
         ui->spinBox_width->setValue(width);
         ui->spinBox_height->setValue(height);
-    }
-    else if (format == COMPONNET_FORMAT_TEXT)
-    {
-        SelectedText(id);
     }
 }
 
@@ -1460,7 +1464,7 @@ void MainWindow::DislayView(QPainter* painter)
             draw_y = font_text.param.y;
             language->DarwText(painter, &font_text);
         }
-        else if (fomat == COMPONNET_FORMAT_BETTARY)
+        else //if (fomat == COMPONNET_FORMAT_BETTARY)
         {
             painter->setPen(QColor(50, 100, 50));
             painter->drawRoundedRect(draw_x, draw_y, width, height, 10, 10);

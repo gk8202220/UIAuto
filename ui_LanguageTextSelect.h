@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'LanguageTextSelect.ui'
 **
-** Created by: Qt User Interface Compiler version 5.12.3
+** Created by: Qt User Interface Compiler version 6.2.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -127,10 +127,10 @@ public:
 
     void retranslateUi(QWidget *LanguageTextSelect)
     {
-        LanguageTextSelect->setWindowTitle(QApplication::translate("LanguageTextSelect", "\346\226\207\345\255\227\351\200\211\346\213\251", nullptr));
-        label->setText(QApplication::translate("LanguageTextSelect", "\346\220\234\347\264\242", nullptr));
-        label_2->setText(QApplication::translate("LanguageTextSelect", "\345\267\262\351\200\211\346\213\251", nullptr));
-        PB_confirm->setText(QApplication::translate("LanguageTextSelect", "\347\241\256\345\256\232", nullptr));
+        LanguageTextSelect->setWindowTitle(QCoreApplication::translate("LanguageTextSelect", "\346\226\207\345\255\227\351\200\211\346\213\251", nullptr));
+        label->setText(QCoreApplication::translate("LanguageTextSelect", "\346\220\234\347\264\242", nullptr));
+        label_2->setText(QCoreApplication::translate("LanguageTextSelect", "\345\267\262\351\200\211\346\213\251", nullptr));
+        PB_confirm->setText(QCoreApplication::translate("LanguageTextSelect", "\347\241\256\345\256\232", nullptr));
     } // retranslateUi
 
 };

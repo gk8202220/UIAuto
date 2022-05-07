@@ -1,5 +1,6 @@
 #include "CodeJson.h"
 #include "Language.h"
+#include "WatchView.h"
 /*
 * 创建时间： 2022-05-04
 * 作者：朱振展
@@ -51,11 +52,11 @@ void CodeJson::FontParamToJson(QMap<QString, ComponnetsItem> *items_map)
 		ComponnetsItem item = items_map->value(id);
 		QString item_fomat = item.fomat; //类型
 		//QJsonObject item_obj;
-		if (item_fomat == "Text")
+		if (item_fomat == COMPONNET_FORMAT_TEXT)
 		{
 			/*文本*/
 			QJsonObject item_text_obj;
-			QStringList text_id = item.texts; 
+			QStringList text_id = item.element_list;
 			int width = item.size.width();
 			int height = item.size.height();
 			int x = item.point.x();
@@ -100,6 +101,28 @@ void CodeJson::FontParamToJson(QMap<QString, ComponnetsItem> *items_map)
 			
 			/* 一个控件ID 对应QStringList ,一个QString 有相对应的多国语言 */
 		}
+		else if (item_fomat == COMPONNET_FORMAT_BETTARY)
+		{
+			QJsonObject item_label_obj;
+			QStringList element_list = item.element_list;
+			int width = item.size.width();
+			int height = item.size.height();
+			int x = item.point.x();
+			int y = item.point.y();
+			item_label_obj.insert("id", id);
+			item_label_obj.insert("width", width);
+			item_label_obj.insert("height", height);
+			item_label_obj.insert("x", x);
+			item_label_obj.insert("y", y);
+			QJsonArray element_arry;
+			for each (QString element in element_list)
+			{
+				element_arry.append(element);
+			}
+			item_label_obj.insert("element", element_arry);
+			item_obj.insert("Bettary" + id, item_label_obj);
+		}
+
 	}
 	qDebug() << item_obj;
 }
