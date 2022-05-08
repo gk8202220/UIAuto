@@ -354,6 +354,7 @@
     <ClCompile Include="CodeJson.cpp" />
     <ClCompile Include="ComponnetsItem.cpp" />
     <ClCompile Include="formdraw.cpp" />
+    <ClCompile Include="ImageSelectWidget.cpp" />
     <ClCompile Include="Language.cpp" />
     <ClCompile Include="LanguageTextSelect.cpp" />
     <ClCompile Include="main.cpp" />
@@ -362,6 +363,7 @@
     <ClCompile Include="readexcel.cpp" />
     <ClCompile Include="VpWatchCode.cpp" />
     <ClCompile Include="WatchComponentsWidget.cpp" />
+    <ClCompile Include="WatchImage.cpp" />
     <ClCompile Include="WatchView.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -373,6 +375,7 @@
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
+    <QtMoc Include="WatchImage.h" />
     <QtMoc Include="VpWatchCode.h" />
     <QtMoc Include="WatchView.h" />
     <QtMoc Include="WatchComponentsWidget.h" />
@@ -381,11 +384,13 @@
     <ClInclude Include="ComponnetsItem.h" />
     <QtMoc Include="readexcel.h" />
     <QtMoc Include="LanguageTextSelect.h" />
+    <QtMoc Include="ImageSelectWidget.h" />
     <ClInclude Include="version.h" />
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="formdraw.ui">
     </QtUic>
+    <QtUic Include="ImageSelectWidget.ui" />
     <QtUic Include="LanguageTextSelect.ui" />
     <QtUic Include="mainwindow.ui">
     </QtUic>

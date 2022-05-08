@@ -71,7 +71,7 @@ QString WatchView::Fomat(QString id)
 	return current_item.fomat;
 }
 
-QStringList WatchView::GetTextList(QString id)
+QStringList WatchView::GetElementList(QString id)
 {
 	SetCurrentItem(id);
 	return current_item.element_list;
@@ -128,10 +128,10 @@ QPoint WatchView::GetPoint(QString id)
 	return point;
 }
 
-QString WatchView::GetPriviewText(QString id)
+QString WatchView::GetPriview(QString id)
 {
 	SetCurrentItem(id);
-	return current_item.text;
+	return current_item.current_element;
 }
 
 QString WatchView::Family(QString id)
