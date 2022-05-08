@@ -13,7 +13,7 @@ public:
 	QString fomat;	
 	QPoint point;
 	QSize size;
-	QString text;
+	QString current_element;
 	QRect Geometry;
 	int id;
 	font_t font;

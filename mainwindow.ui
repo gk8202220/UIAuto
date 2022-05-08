@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>989</width>
+    <width>1314</width>
     <height>865</height>
    </rect>
   </property>
@@ -27,227 +27,254 @@
    <bool>false</bool>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QGridLayout" name="gridLayout_6">
-    <item row="0" column="0" rowspan="2" colspan="2">
-     <layout class="QHBoxLayout" name="horizontalLayout_30"/>
-    </item>
-    <item row="2" column="3">
-     <widget class="QLineEdit" name="lineEdit">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>240</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="2">
-     <widget class="QTabWidget" name="tabWidget">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="currentIndex">
-       <number>4</number>
-      </property>
-      <property name="usesScrollButtons">
-       <bool>false</bool>
-      </property>
-      <widget class="QWidget" name="tab">
-       <attribute name="title">
-        <string>代码区</string>
-       </attribute>
-       <layout class="QGridLayout" name="gridLayout_3">
-        <item row="0" column="0">
-         <widget class="QTextBrowser" name="textBrowser">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="tab_2">
-       <attribute name="title">
-        <string>坐标</string>
-       </attribute>
-       <layout class="QGridLayout" name="gridLayout_4">
-        <item row="0" column="0">
-         <widget class="QTextBrowser" name="TB_Positon">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="tab_3">
-       <attribute name="title">
-        <string>头文件</string>
-       </attribute>
-       <layout class="QGridLayout" name="gridLayout_5">
-        <item row="0" column="0">
-         <widget class="QTextBrowser" name="TB_head"/>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="tab_4">
-       <attribute name="title">
-        <string>地址</string>
-       </attribute>
-       <widget class="QTextBrowser" name="TB_addr">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>10</y>
-          <width>891</width>
-          <height>801</height>
-         </rect>
+   <widget class="QLineEdit" name="lineEdit">
+    <property name="geometry">
+     <rect>
+      <x>189</x>
+      <y>10</y>
+      <width>240</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>240</width>
+      <height>20</height>
+     </size>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QListView" name="listView_page">
+    <property name="geometry">
+     <rect>
+      <x>189</x>
+      <y>38</y>
+      <width>280</width>
+      <height>831</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>280</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <family>微软雅黑 Light</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string>界面选择</string>
+    </property>
+    <property name="statusTip">
+     <string>界面选择</string>
+    </property>
+    <property name="whatsThis">
+     <string>界面选择</string>
+    </property>
+    <property name="accessibleName">
+     <string/>
+    </property>
+    <property name="sizeAdjustPolicy">
+     <enum>QAbstractScrollArea::AdjustToContentsOnFirstShow</enum>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>200</width>
+      <height>200</height>
+     </size>
+    </property>
+    <property name="textElideMode">
+     <enum>Qt::ElideNone</enum>
+    </property>
+    <property name="flow">
+     <enum>QListView::LeftToRight</enum>
+    </property>
+    <property name="gridSize">
+     <size>
+      <width>200</width>
+      <height>220</height>
+     </size>
+    </property>
+    <property name="viewMode">
+     <enum>QListView::IconMode</enum>
+    </property>
+   </widget>
+   <widget class="QTabWidget" name="tabWidget">
+    <property name="geometry">
+     <rect>
+      <x>9</x>
+      <y>38</y>
+      <width>174</width>
+      <height>841</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="tabPosition">
+     <enum>QTabWidget::West</enum>
+    </property>
+    <property name="tabShape">
+     <enum>QTabWidget::Triangular</enum>
+    </property>
+    <property name="currentIndex">
+     <number>2</number>
+    </property>
+    <property name="elideMode">
+     <enum>Qt::ElideNone</enum>
+    </property>
+    <property name="usesScrollButtons">
+     <bool>false</bool>
+    </property>
+    <property name="documentMode">
+     <bool>true</bool>
+    </property>
+    <property name="tabBarAutoHide">
+     <bool>true</bool>
+    </property>
+    <widget class="QWidget" name="tab">
+     <attribute name="title">
+      <string>代码区</string>
+     </attribute>
+     <layout class="QGridLayout" name="gridLayout_3">
+      <item row="0" column="0">
+       <widget class="QTextBrowser" name="textBrowser">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
         </property>
        </widget>
-      </widget>
-      <widget class="QWidget" name="tab_5">
-       <attribute name="title">
-        <string>多国语言</string>
-       </attribute>
-       <layout class="QGridLayout" name="gridLayout_2">
-        <item row="0" column="0" rowspan="4">
-         <widget class="QListView" name="listView_page">
-          <property name="font">
-           <font>
-            <family>微软雅黑 Light</family>
-            <pointsize>12</pointsize>
-           </font>
-          </property>
-          <property name="toolTip">
-           <string>界面选择</string>
-          </property>
-          <property name="statusTip">
-           <string>界面选择</string>
-          </property>
-          <property name="whatsThis">
-           <string>界面选择</string>
-          </property>
-          <property name="accessibleName">
-           <string/>
-          </property>
-          <property name="iconSize">
-           <size>
-            <width>200</width>
-            <height>200</height>
-           </size>
-          </property>
-          <property name="textElideMode">
-           <enum>Qt::ElideNone</enum>
-          </property>
-          <property name="flow">
-           <enum>QListView::LeftToRight</enum>
-          </property>
-          <property name="gridSize">
-           <size>
-            <width>200</width>
-            <height>220</height>
-           </size>
-          </property>
-          <property name="viewMode">
-           <enum>QListView::IconMode</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QLabel" name="label_20">
-          <property name="text">
-           <string>文字选择</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="3">
-         <widget class="QLabel" name="label_24">
-          <property name="text">
-           <string>具体文字显示</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1" rowspan="3">
-         <widget class="QListView" name="listView_Text"/>
-        </item>
-        <item row="1" column="2" colspan="2">
-         <widget class="QListView" name="listView_text_select">
-          <property name="selectionMode">
-           <enum>QAbstractItemView::ExtendedSelection</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="2">
-         <widget class="QLabel" name="label_47">
-          <property name="text">
-           <string>已选择控件</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="2" colspan="2">
-         <widget class="QTreeView" name="treeView_slelect_items">
-          <property name="textElideMode">
-           <enum>Qt::ElideMiddle</enum>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </widget>
-    </item>
-    <item row="3" column="3">
-     <widget class="QLabel" name="label_display">
-      <property name="minimumSize">
-       <size>
-        <width>360</width>
-        <height>360</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>454</width>
-        <height>454</height>
-       </size>
-      </property>
-      <property name="acceptDrops">
-       <bool>true</bool>
-      </property>
-      <property name="autoFillBackground">
-       <bool>false</bool>
-      </property>
-      <property name="styleSheet">
-       <string notr="true"/>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="textFormat">
-       <enum>Qt::PlainText</enum>
-      </property>
-      <property name="wordWrap">
-       <bool>false</bool>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QWidget" name="tab_2">
+     <attribute name="title">
+      <string>坐标</string>
+     </attribute>
+     <layout class="QGridLayout" name="gridLayout_4">
+      <item row="0" column="0">
+       <widget class="QTextBrowser" name="TB_Positon">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QWidget" name="tab_3">
+     <attribute name="title">
+      <string>头文件</string>
+     </attribute>
+     <layout class="QGridLayout" name="gridLayout_5">
+      <item row="0" column="0">
+       <widget class="QTextBrowser" name="TB_head"/>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QWidget" name="tab_4">
+     <attribute name="title">
+      <string>地址</string>
+     </attribute>
+     <widget class="QTextBrowser" name="TB_addr">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>891</width>
+        <height>801</height>
+       </rect>
       </property>
      </widget>
-    </item>
-   </layout>
+    </widget>
+    <widget class="QWidget" name="tab_5">
+     <attribute name="title">
+      <string>多国语言</string>
+     </attribute>
+     <layout class="QGridLayout" name="gridLayout_2"/>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>610</x>
+      <y>0</y>
+      <width>362</width>
+      <height>589</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_3">
+     <item>
+      <widget class="QLabel" name="label_47">
+       <property name="text">
+        <string>已选择控件</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QTreeView" name="treeView_slelect_items">
+       <property name="textElideMode">
+        <enum>Qt::ElideMiddle</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_display">
+       <property name="minimumSize">
+        <size>
+         <width>360</width>
+         <height>360</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>360</width>
+         <height>360</height>
+        </size>
+       </property>
+       <property name="acceptDrops">
+        <bool>true</bool>
+       </property>
+       <property name="autoFillBackground">
+        <bool>true</bool>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="textFormat">
+        <enum>Qt::PlainText</enum>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+       </property>
+       <property name="wordWrap">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
   </widget>
   <widget class="QDockWidget" name="dockWidget_3">
    <property name="minimumSize">
@@ -313,8 +340,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>316</width>
-        <height>574</height>
+        <width>494</width>
+        <height>640</height>
        </rect>
       </property>
       <attribute name="label">
@@ -1183,8 +1210,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>332</width>
-        <height>566</height>
+        <width>454</width>
+        <height>535</height>
        </rect>
       </property>
       <attribute name="label">
@@ -1762,22 +1789,6 @@
  <resources/>
  <connections>
   <connection>
-   <sender>listView_Text</sender>
-   <signal>clicked(QModelIndex)</signal>
-   <receiver>MainWindow</receiver>
-   <slot>on_display_text(QModelIndex)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>166</x>
-     <y>370</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>592</x>
-     <y>439</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>listView_page</sender>
    <signal>clicked(QModelIndex)</signal>
    <receiver>MainWindow</receiver>
@@ -1789,22 +1800,6 @@
     </hint>
     <hint type="destinationlabel">
      <x>592</x>
-     <y>439</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>listView_text_select</sender>
-   <signal>clicked(QModelIndex)</signal>
-   <receiver>MainWindow</receiver>
-   <slot>on_select_text(QModelIndex)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>307</x>
-     <y>456</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>646</x>
      <y>439</y>
     </hint>
    </hints>
@@ -1843,7 +1838,7 @@
   </connection>
   <connection>
    <sender>comboBox_texts</sender>
-   <signal>currentTextChanged(QString)</signal>
+   <signal>currentIndexChanged(int)</signal>
    <receiver>MainWindow</receiver>
    <slot>on_updata_item_param()</slot>
    <hints>

@@ -27,6 +27,7 @@
 #include "LanguageTextSelect.h"
 #include "WatchView.h"
 #include "VpWatchCode.h"
+#include "ImageSelectWidget.h"
 namespace Ui {
 class MainWindow;
 }
@@ -112,11 +113,11 @@ private:
     void saveBmpPaths(QString path);
     void DislayAddrParm(QString Image_title, QJsonArray image_arry);
     void LanguageProcess(); //多国语言处理
-    bool CheckPointText(int touch_x, int touch_y); //判断是否选中到文字
-    void SelectedText(QString id); //选中已有的文字
+    bool CheckPointText(QPoint touch); //判断是否选中到文字
+    //void SelectedText(QString id); //选中已有的文字
     void CreatTextItem(QPoint* point); //创建一个文字的控件
     void CreatItem(QString componnet_type, QPoint point); //创建一个的控件
-    void CreatItemBattery(QPoint* point);
+    void CreatItem(QString componnet_type, QPoint* point);
     void SelectingItem(QString id); //选中的控件
     void DislayView(QPainter *painter); //显示界面
     void SaveSelectedItem(QString type, QString id);
@@ -148,11 +149,12 @@ private:
 
     Language_e current_lan; //当前的语言
     LanguageTextSelect* languageTextSelect; // 文字选中界面
-    QStringList select_text_list;//当前选择的文本控件的ID
+    QStringList select_element_list;//当前选择的文本控件的ID
     QString current_item_id; //当前选择的控件
 
     WatchView *watch_view;
     VpWatchCode* vpWatchCode;
+    ImageSelectWidget* imageSelectWidget;
    
 };
 
