@@ -1,3 +1,0 @@
-1:setdel_icon1
-2:setdel_text1_hint_cn
-3:setdel_text1_hint_en
