@@ -13,4 +13,5 @@ public:
 private:
 	QMap<QString, QStringList> path_images_map;  //路径对应的图片
 	void LondingImage(QString path);
+	
 };

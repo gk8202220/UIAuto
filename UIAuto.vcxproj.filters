@@ -84,6 +84,9 @@
     <ClCompile Include="ImageSelectWidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Utils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="formdraw.h">
@@ -120,6 +123,9 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="ImageSelectWidget.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Utils.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

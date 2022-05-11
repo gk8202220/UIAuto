@@ -82,7 +82,6 @@ private slots:
 
     void on_CB_BP_activated(const QString &arg1);
 
-    void on_CB_FunSelect_activated(const QString &arg1);
 
     void on_CB_women_activated(const QString &arg1);
 

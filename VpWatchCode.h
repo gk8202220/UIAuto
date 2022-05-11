@@ -7,7 +7,13 @@ class VpWatchCode : public QObject
 	Q_OBJECT
 
 public:
-	VpWatchCode(QObject *parent);
+	//VpWatchCode(QObject *parent);
+	static VpWatchCode* getInstance()
+	{
+		static VpWatchCode vpWatchCode;
+		return &vpWatchCode;
+	}
+
 	~VpWatchCode();
 	void UI_time(QString title);
 	void UI_AMPM(QString title);
@@ -28,6 +34,8 @@ public:
 	void UI_Women(QString title);
 	void CodesetOld();
 	bool CodeIsOld();
-	QString setPostionFun;
-	QString WriteDataFun;
+	
+private:
+	QString setPostionFun = "LCD_SetXY(icon_16_";
+	QString WriteDataFun = "LCD_SetImage(icon_16_";
 };

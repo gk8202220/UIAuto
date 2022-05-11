@@ -1,9 +1,9 @@
 #include "VpWatchCode.h"
-
-VpWatchCode::VpWatchCode(QObject *parent)
-	: QObject(parent)
-{
-}
+#include <QDebug>
+//VpWatchCode::VpWatchCode(QObject *parent)
+//	: QObject(parent)
+//{
+//}
 
 VpWatchCode::~VpWatchCode()
 {
@@ -232,6 +232,7 @@ bool VpWatchCode::CodeIsOld()
     return false;
 }
 
+
 void VpWatchCode::UI_AMPM(QString title)
 {
     QString code_text;
@@ -292,7 +293,7 @@ void VpWatchCode::UI_one(QString title, int count)
 
     }
 
-
+    qDebug() << code_text;
 
 }
 

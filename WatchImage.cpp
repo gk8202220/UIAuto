@@ -13,6 +13,7 @@ void WatchImage::LondImage(QString path)
 {
 }
 
+
 void WatchImage::LondingImage(QString path)
 {
 	QDir dir(path);

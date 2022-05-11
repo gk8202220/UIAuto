@@ -54,7 +54,7 @@
     <PrimaryOutput>UIAuto</PrimaryOutput>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <PlatformToolSet>v142</PlatformToolSet>
+    <PlatformToolSet>v143</PlatformToolSet>
     <OutputDirectory>debug\</OutputDirectory>
     <ATLMinimizesCRunTimeLibraryUsage>false</ATLMinimizesCRunTimeLibraryUsage>
     <CharacterSet>NotSet</CharacterSet>
@@ -361,6 +361,7 @@
     <ClCompile Include="mainwindow.cpp" />
     <ClCompile Include="pxcpjson.cpp" />
     <ClCompile Include="readexcel.cpp" />
+    <ClCompile Include="Utils.cpp" />
     <ClCompile Include="VpWatchCode.cpp" />
     <ClCompile Include="WatchComponentsWidget.cpp" />
     <ClCompile Include="WatchImage.cpp" />
@@ -385,6 +386,7 @@
     <QtMoc Include="readexcel.h" />
     <QtMoc Include="LanguageTextSelect.h" />
     <QtMoc Include="ImageSelectWidget.h" />
+    <QtMoc Include="Utils.h" />
     <ClInclude Include="version.h" />
   </ItemGroup>
   <ItemGroup>

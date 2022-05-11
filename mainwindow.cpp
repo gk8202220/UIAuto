@@ -12,7 +12,7 @@
 #include "WatchComponentsWidget.h"
 #include "readexcel.h"
 #include "CodeJson.h"
-
+#include "Utils.h"
 #pragma execution_character_set("UTF-8")
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -49,39 +49,9 @@ MainWindow::MainWindow(QWidget *parent) :
      languageTextSelect = new LanguageTextSelect();
      languageTextSelect->SetSelectedText(&select_element_list);
      QObject::connect(languageTextSelect, SIGNAL(updata_text()), this, SLOT(on_updata_select_text_list()));
-     QObject::connect(imageSelectWidget, SIGNAL(updata_image()), this, SLOT(on_updata_select_text_list()));
+     QObject::connect(imageSelectWidget, SIGNAL(updata_image()), this, SLOT(on_updata_select_text_list()));    
 
-     
-     vpWatchCode = new VpWatchCode(this);
-
-    if(ui->CB_FunSelect->currentIndex() == 2)
-    {
-        setPostionFun = "LCD_SetPosition(icon_16_";
-        WriteDataFun ="LCD_DriverWriteDataFromExtFlash(icon_16_";
-
-    }
-    else if(ui->CB_FunSelect->currentIndex() == 1){
-        setPostionFun = "LCD_SetPositionType2(index,icon_16_";
-        WriteDataFun ="LCD_DriverWriteDataFromExtFlashType2(index,icon_16_";
-    }
-    else if(ui->CB_FunSelect->currentIndex() == 3){
-        setPostionFun = "Gui_PageClearBackgroundType2(index,icon_16_";
-        WriteDataFun ="LCD_DriverWriteDataFromExtFlashType2(index,icon_16_";
-    }
-    else if(ui->CB_FunSelect->currentIndex() == 0){
-        setPostionFun = "LCD_SetXY(icon_16_";
-        WriteDataFun ="LCD_SetImage(icon_16_";
-    }
-    else {
-        setPostionFun = "Gui_PageClearBackground(icon_16_";
-        WriteDataFun ="LCD_DriverWriteDataFromExtFlash(icon_16_";
-    }
-    if (ui->tabWidget->currentIndex() == 4)
-    {
-
-        //多国语言处理
-        LanguageProcess();
-    }
+    vpWatchCode = VpWatchCode::getInstance();
 	
 }
 
@@ -1000,35 +970,6 @@ void MainWindow::on_CB_BP_activated(const QString &arg1)
     vpWatchCode->UI_BP(arg1);
 }
 
-void MainWindow::on_CB_FunSelect_activated(const QString &arg1)
-{
-
-	if (ui->CB_FunSelect->currentIndex() == 2)
-	{
-		setPostionFun = "LCD_SetPosition(icon_16_";
-		WriteDataFun = "LCD_DriverWriteDataFromExtFlash(icon_16_";
-
-	}
-	else if (ui->CB_FunSelect->currentIndex() == 1) {
-		setPostionFun = "LCD_SetPositionType2(index,icon_16_";
-		WriteDataFun = "LCD_DriverWriteDataFromExtFlashType2(index,icon_16_";
-	}
-	else if (ui->CB_FunSelect->currentIndex() == 3) {
-		setPostionFun = "Gui_PageClearBackgroundType2(index,icon_16_";
-		WriteDataFun = "LCD_DriverWriteDataFromExtFlashType2(index,icon_16_";
-	}
-	else if (ui->CB_FunSelect->currentIndex() == 0) {
-		setPostionFun = "LCD_SetXY(icon_16_";
-		WriteDataFun = "LCD_SetImage(icon_16_";
-	}
-	else {
-		setPostionFun = "Gui_PageClearBackground(icon_16_";
-		WriteDataFun = "LCD_DriverWriteDataFromExtFlash(icon_16_";
-	}
-
-
-
-}
 
 void MainWindow::on_CB_women_activated(const QString &arg1)
 {
@@ -1135,7 +1076,7 @@ void MainWindow::on_updata_select_text_list()
             for (int i = 0; i < count; i++)
             {
                QString path = select_element_list.at(i);
-               QString name = QFileInfo(path).baseName();
+               QString name = Utils::GetBaseName(path);//QFileInfo(path).baseName();
                
                QString current = watch_view->GetPriview(current_item_id);
               
@@ -1231,6 +1172,8 @@ void MainWindow::on_updata_item_param()
         qDebug() << "GetPriview" << watch_view->GetPriview(current_item_id);
         
     }
+    CodeJson* josn1 = new CodeJson(this);
+    josn1->FontParamToJson(&watch_view->view_items_map);
     this->update();
 }
 void MainWindow::on_selected_item(QModelIndex index)
