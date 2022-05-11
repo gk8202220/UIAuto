@@ -15,4 +15,5 @@ public:
 		return &urils;
 	}
 	static QString GetBaseName(QString path);
+	static QStringList GetBaseName(QStringList paths);
 };

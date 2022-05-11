@@ -2,7 +2,7 @@
 #include "Language.h"
 #include "WatchView.h"
 #include "Utils.h"
-#include "ImageBinFun.h"
+
 /*
 * 创建时间： 2022-05-04
 * 作者：朱振展
@@ -43,6 +43,7 @@ void CodeJson::FontParamToJson(QMap<QString, ComponnetsItem> *items_map)
 
 	*/
 	code_string.clear();
+	code_addr_arry.clear();
 	Language *language = Language::GetInstance();
 	QJsonArray page_obj;
 	QString page = "界面";// font_page->Page;
@@ -131,6 +132,14 @@ void CodeJson::FontParamToJson(QMap<QString, ComponnetsItem> *items_map)
 			//page_obj.insert("Bettary" + id, item_label_obj);
 			page_obj.append(item_label_obj);
 			code_string+=GenerateCode(item_fomat, element_list);
+			//获取标题列表
+			vpWatchCode->GenerateAddrArry(element_list);
+			//路径获取名字
+			QStringList name_list = Utils::GetBaseName(element_list);
+			QStringList title_list;
+			title_list = imageBinFun->GetImageTitleList(name_list);
+			//生成地址数组
+			code_addr_arry += vpWatchCode->GenerateAddrArry(title_list);
 		}
 		
 	}
@@ -257,4 +266,9 @@ QString CodeJson::GetCode()
 {
 	
 	return code_string;
+}
+
+QString CodeJson::GetCodeAddrArry()
+{
+	return code_addr_arry;
 }

@@ -37,7 +37,7 @@ public:
 	void SetColorFormat(COLOR_FORMAT format); //设置4字节倒换
 	void GetUiPath(ui_path_t *path);
 	QString getImageFormat(QString image_file_name, IMAGE_FORMAT* image_format); //获取图片的类型
-
+	QStringList GetImageTitleList(QStringList Images);
 	
 private:
 	QMap<QString, QString>Image_Path_Map; //图片命名和路径

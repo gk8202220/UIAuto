@@ -165,9 +165,6 @@
     </QtUic>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="version.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ComponnetsItem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -178,9 +175,6 @@
       <Filter>Generated Files</Filter>
     </ClInclude>
     <ClInclude Include="minilzo\LZOCONF.H">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
-    <ClInclude Include="minilzo\lzodefs.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
     <ClInclude Include="minilzo\MINILZO.H">

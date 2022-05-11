@@ -96,6 +96,19 @@ QString ImageBinFun::getImageFormat(QString image_file_name, IMAGE_FORMAT *image
 	return image_title;
 }
 
+QStringList ImageBinFun::GetImageTitleList(QStringList Images)
+{
+	QStringList name_list;
+	IMAGE_FORMAT format;
+	
+	for each (QString name in Images)
+	{
+		QString title = getImageFormat(name, &format);
+		name_list.append(title);
+	}
+	return name_list;
+}
+
 bool ImageBinFun::minilzo_init(void)
 {
 

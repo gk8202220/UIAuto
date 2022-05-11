@@ -54,7 +54,7 @@
     <PrimaryOutput>UIAuto</PrimaryOutput>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <PlatformToolSet>v143</PlatformToolSet>
+    <PlatformToolSet>v142</PlatformToolSet>
     <OutputDirectory>debug\</OutputDirectory>
     <ATLMinimizesCRunTimeLibraryUsage>false</ATLMinimizesCRunTimeLibraryUsage>
     <CharacterSet>NotSet</CharacterSet>
@@ -104,7 +104,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <TargetName>UIAuto</TargetName>
     <IgnoreImportLibrary>true</IgnoreImportLibrary>
-    <IncludePath>E:\QTProject\UIAuto\minilzo;D:\QT5\6.2.4\msvc2019_64\include;$(IncludePath)</IncludePath>
+    <IncludePath>.\minilzo;D:\QT5\6.2.4\msvc2019_64\include;$(IncludePath)</IncludePath>
     <ExternalIncludePath>D:\QT5\6.2.4\msvc2019_64\include;$(ExternalIncludePath)</ExternalIncludePath>
     <LibraryPath>D:\QT5\6.2.4\msvc2019_64\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
@@ -396,11 +396,9 @@
     <ClInclude Include="ImageBinFun.h" />
     <QtMoc Include="ImageToBin.h" />
     <ClInclude Include="minilzo\LZOCONF.H" />
-    <ClInclude Include="minilzo\lzodefs.h" />
     <ClInclude Include="minilzo\MINILZO.H" />
     <ClInclude Include="minilzo\MinilzoTest.h" />
     <ClInclude Include="veepoolzo.h" />
-    <ClInclude Include="version.h" />
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="formdraw.ui">

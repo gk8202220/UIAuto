@@ -14,3 +14,14 @@ Utils::~Utils()
 	QString name = QFileInfo(path).baseName();
 	return name;
 }
+ QStringList Utils::GetBaseName(QStringList paths)
+ {
+	 QStringList name_list;
+	 for each (QString path  in paths)
+	 {
+		 QString name = QFileInfo(path).baseName();
+		 name_list.append(name);
+	 }
+	
+	 return name_list;
+ }
