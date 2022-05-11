@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'ImageSelectWidget.ui'
 **
-** Created by: Qt User Interface Compiler version 6.2.4
+** Created by: Qt User Interface Compiler version 5.12.3
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -38,7 +38,7 @@ public:
             ImageSelectWidget->setObjectName(QString::fromUtf8("ImageSelectWidget"));
         ImageSelectWidget->resize(560, 567);
         QFont font;
-        font.setFamilies({QString::fromUtf8("\345\276\256\350\275\257\351\233\205\351\273\221")});
+        font.setFamily(QString::fromUtf8("\345\276\256\350\275\257\351\233\205\351\273\221"));
         font.setPointSize(18);
         ImageSelectWidget->setFont(font);
         gridLayout = new QGridLayout(ImageSelectWidget);
@@ -64,7 +64,7 @@ public:
         LV_Image_Browse = new QListView(ImageSelectWidget);
         LV_Image_Browse->setObjectName(QString::fromUtf8("LV_Image_Browse"));
         QFont font1;
-        font1.setFamilies({QString::fromUtf8("\345\276\256\350\275\257\351\233\205\351\273\221")});
+        font1.setFamily(QString::fromUtf8("\345\276\256\350\275\257\351\233\205\351\273\221"));
         font1.setPointSize(16);
         LV_Image_Browse->setFont(font1);
         LV_Image_Browse->setEditTriggers(QAbstractItemView::NoEditTriggers);
@@ -93,9 +93,9 @@ public:
 
     void retranslateUi(QWidget *ImageSelectWidget)
     {
-        ImageSelectWidget->setWindowTitle(QCoreApplication::translate("ImageSelectWidget", "\350\265\204\346\272\220\346\265\217\350\247\210\345\231\250", nullptr));
-        label->setText(QCoreApplication::translate("ImageSelectWidget", "\346\220\234\347\264\242", nullptr));
-        PB_Confirm->setText(QCoreApplication::translate("ImageSelectWidget", "\347\241\256\345\256\232", nullptr));
+        ImageSelectWidget->setWindowTitle(QApplication::translate("ImageSelectWidget", "\350\265\204\346\272\220\346\265\217\350\247\210\345\231\250", nullptr));
+        label->setText(QApplication::translate("ImageSelectWidget", "\346\220\234\347\264\242", nullptr));
+        PB_Confirm->setText(QApplication::translate("ImageSelectWidget", "\347\241\256\345\256\232", nullptr));
     } // retranslateUi
 
 };

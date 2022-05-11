@@ -87,6 +87,21 @@
     <ClCompile Include="Utils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ImageBinFun.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CRCUNIT.CPP">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="minilzo\minilzo.c">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Veepoolzo.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageToBin.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="formdraw.h">
@@ -128,6 +143,9 @@
     <QtMoc Include="Utils.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="ImageToBin.h">
+      <Filter>Generated Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="formdraw.ui">
@@ -153,10 +171,36 @@
     <ClInclude Include="ComponnetsItem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ImageBinFun.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CRCUNIT.H">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="minilzo\LZOCONF.H">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="minilzo\lzodefs.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="minilzo\MINILZO.H">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="minilzo\MinilzoTest.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="veepoolzo.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <QtTranslation Include="uiauto_zh.ts">
       <Filter>Translation Files</Filter>
     </QtTranslation>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="minilzo\COPYING" />
+    <None Include="minilzo\Makefile" />
+    <None Include="minilzo\README.LZO" />
   </ItemGroup>
 </Project>

@@ -261,8 +261,10 @@ public:
         font.setPointSize(12);
         listView_page->setFont(font);
         listView_page->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContentsOnFirstShow);
+        listView_page->setDragEnabled(true);
         listView_page->setIconSize(QSize(200, 200));
         listView_page->setTextElideMode(Qt::ElideNone);
+        listView_page->setVerticalScrollMode(QAbstractItemView::ScrollPerItem);
         listView_page->setFlow(QListView::LeftToRight);
         listView_page->setGridSize(QSize(200, 220));
         listView_page->setViewMode(QListView::IconMode);
@@ -1073,8 +1075,8 @@ public:
         gridLayout_3->setObjectName(QString::fromUtf8("gridLayout_3"));
         textBrowser = new QTextBrowser(tab);
         textBrowser->setObjectName(QString::fromUtf8("textBrowser"));
-        sizePolicy.setHeightForWidth(textBrowser->sizePolicy().hasHeightForWidth());
-        textBrowser->setSizePolicy(sizePolicy);
+        sizePolicy4.setHeightForWidth(textBrowser->sizePolicy().hasHeightForWidth());
+        textBrowser->setSizePolicy(sizePolicy4);
 
         gridLayout_3->addWidget(textBrowser, 0, 0, 1, 1);
 
@@ -1155,7 +1157,7 @@ public:
 
         toolBox->setCurrentIndex(1);
         toolBox->layout()->setSpacing(0);
-        tabWidget->setCurrentIndex(1);
+        tabWidget->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(MainWindow);

@@ -166,6 +166,9 @@
       <property name="sizeAdjustPolicy">
        <enum>QAbstractScrollArea::AdjustToContentsOnFirstShow</enum>
       </property>
+      <property name="dragEnabled">
+       <bool>true</bool>
+      </property>
       <property name="iconSize">
        <size>
         <width>200</width>
@@ -174,6 +177,9 @@
       </property>
       <property name="textElideMode">
        <enum>Qt::ElideNone</enum>
+      </property>
+      <property name="verticalScrollMode">
+       <enum>QAbstractItemView::ScrollPerItem</enum>
       </property>
       <property name="flow">
        <enum>QListView::LeftToRight</enum>
@@ -1706,7 +1712,7 @@
         <enum>QTabWidget::Triangular</enum>
        </property>
        <property name="currentIndex">
-        <number>1</number>
+        <number>0</number>
        </property>
        <property name="elideMode">
         <enum>Qt::ElideNone</enum>
@@ -1728,7 +1734,7 @@
          <item row="0" column="0">
           <widget class="QTextBrowser" name="textBrowser">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
