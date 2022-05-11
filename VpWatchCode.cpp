@@ -9,7 +9,7 @@ VpWatchCode::~VpWatchCode()
 {
 }
 
-void VpWatchCode::UI_time(QString title)
+QString VpWatchCode::UI_time(QString title)
 {
     QString code_text;
     code_text.append("\n//***** 时间 ****//");
@@ -29,8 +29,9 @@ void VpWatchCode::UI_time(QString title)
     code_text.append("\t\tICON_" + title.toUpper() + "_WIDE," + "ICON_" + title.toUpper() + "_HIGH);");
     code_text.append(WriteDataFun + title.toLower() + "_addr[minute % 10],ICON_" + title.toUpper() + "_SIZE);");
     code_text.append("");
+    return code_text;
 }
-void VpWatchCode::UI_week(QString title, QString title_en)
+QString VpWatchCode::UI_week(QString title, QString title_en)
 {
     QString code_text;
     code_text.append("\n//***** 星期 ****//");
@@ -44,11 +45,22 @@ void VpWatchCode::UI_week(QString title, QString title_en)
     code_text.append("\t\tICON_" + title_en.toUpper() + "_WIDE," + "ICON_" + title_en.toUpper() + "_HIGH);");
     code_text.append("\t" + WriteDataFun + title_en.toLower() + "_addr[((week >= 1)?(week-1):week) % 7],ICON_" + title.toUpper() + "_SIZE);");
     code_text.append("}");
+    return code_text;
+
+}QString VpWatchCode::UI_week(QString title)
+{
+    QString code_text;
+    code_text.append("\n//***** 星期 ****//");
+    code_text.append("\t" + setPostionFun + title.toLower() + "_coord[0][0],icon_16_" + title.toLower() + "_coord[0][1],");
+    code_text.append("\t\tICON_" + title.toUpper() + "_WIDE," + "ICON_" + title.toUpper() + "_HIGH);");
+    code_text.append("\t" + WriteDataFun + title.toLower() + "_addr[((week >= 1)?(week-1):week) % 7],ICON_" + title.toUpper() + "_SIZE);");
+    code_text.append("");
+    return code_text;
 
 }
 
 //计步数
-void VpWatchCode::UI_Step(QString title)
+QString VpWatchCode::UI_Step(QString title)
 {
     QString code_text;
     code_text.append("\n//***** 计步 ****//");
@@ -75,20 +87,20 @@ void VpWatchCode::UI_Step(QString title)
     code_text.append("\t" + WriteDataFun + title.toLower() + "_addr[step_data[i]],ICON_" + title.toUpper() + "_SIZE);");
     code_text.append("}");
 
-
+    return code_text;
 }
 
-void VpWatchCode::UI_blue(QString title)
+QString VpWatchCode::UI_blue(QString title)
 {
     QString code_text;
     code_text.append("\n//***** 蓝牙 ****//");
     code_text.append(setPostionFun + title.toLower() + "_coord[0][0],icon_16_" + title.toLower() + "_coord[0][1],");
     code_text.append("\t\t\t\t\tICON_" + title.toUpper() + "_WIDE," + "ICON_" + title.toUpper() + "_HIGH);");
     code_text.append(WriteDataFun + title.toLower() + "_addr[ble_status % 2],ICON_" + title.toUpper() + "_SIZE);");
-
+    return code_text;
 }
 
-void VpWatchCode::UI_heart(QString title)
+QString VpWatchCode::UI_heart(QString title)
 {
     QString code_text;
     QString dot;
@@ -147,11 +159,11 @@ void VpWatchCode::UI_heart(QString title)
     code_text.append("\t\t" + WriteDataFun + title.toLower() + "_addr[heart_data[i]],ICON_" + title.toUpper() + "_SIZE);");
     code_text.append("\t}");
     code_text.append("}");
-
+    return code_text;
 
 }
 
-void VpWatchCode::UI_data(QString title)
+QString VpWatchCode::UI_data(QString title)
 {
     QString code_text;
     code_text.append("\n//***** 月份 ****//");
@@ -171,9 +183,10 @@ void VpWatchCode::UI_data(QString title)
     code_text.append("\t\t\t\tICON_" + title.toUpper() + "_WIDE," + "ICON_" + title.toUpper() + "_HIGH);");
     code_text.append(WriteDataFun + title.toLower() + "_addr[day % 10],ICON_" + title.toUpper() + "_SIZE);");
     code_text.append("");
+    return code_text;
 }
 //卡路里
-void VpWatchCode::UI_calories(QString title)
+QString VpWatchCode::UI_calories(QString title)
 {
     QString code_text;
     code_text.append("\n/***** 卡路里 ****/");
@@ -197,9 +210,10 @@ void VpWatchCode::UI_calories(QString title)
     code_text.append("\t\tICON_" + title.toUpper() + "_WIDE," + "ICON_" + title.toUpper() + "_HIGH);");
     code_text.append("\t" + WriteDataFun + title.toLower() + "_addr[calories_data[i] ],ICON_" + title.toUpper() + "_SIZE);");
     code_text.append("}");
+    return code_text;
 }
 //里程
-void VpWatchCode::UI_distance(QString title)
+QString VpWatchCode::UI_distance(QString title)
 {
     QString code_text;
     code_text.append("\n/***** 里程 ****/");
@@ -224,6 +238,7 @@ void VpWatchCode::UI_distance(QString title)
     code_text.append("\t\t\t\t\t\tICON_" + title.toUpper() + "_WIDE," + "ICON_" + title.toUpper() + "_HIGH);");
     code_text.append("\t\t" + WriteDataFun + title.toLower() + "_addr[distance_data[i]],ICON_" + title.toUpper() + "_SIZE);");
     code_text.append("\t}");
+    return code_text;
 
 }
 
@@ -233,7 +248,7 @@ bool VpWatchCode::CodeIsOld()
 }
 
 
-void VpWatchCode::UI_AMPM(QString title)
+QString VpWatchCode::UI_AMPM(QString title)
 {
     QString code_text;
     code_text.append("\n/***** 上下午 ****/");
@@ -272,10 +287,11 @@ void VpWatchCode::UI_AMPM(QString title)
     code_text.append("\t\t\t" + WriteDataFun + title.toLower() + "_addr[4],ICON_" + title.toUpper() + "_SIZE);");
     code_text.append("\t}");
     code_text.append("}");
+    return code_text;
 
 }
 
-void VpWatchCode::UI_one(QString title, int count)
+QString VpWatchCode::UI_one(QString title, int count)
 {
     QString code_text;
     code_text.append("\n\t\t/*****" + title + " ****/");
@@ -293,12 +309,11 @@ void VpWatchCode::UI_one(QString title, int count)
 
     }
 
-    qDebug() << code_text;
-
+     return code_text;
 }
 
 
-void VpWatchCode::UI_charge(QString title)
+QString VpWatchCode::UI_charge(QString title)
 {
     QString code_text;
     code_text.append("\n/***** 充电 ****/");
@@ -336,29 +351,29 @@ void VpWatchCode::UI_charge(QString title)
     code_text.append("        }");
     code_text.append("    }");
 
-
+    return code_text;
 }
 
-void VpWatchCode::UI_uint(QString title)
+QString VpWatchCode::UI_uint(QString title)
 {
     QString code_text;
     code_text.append("\n\t\t/***** 单位 ****/");
     code_text.append("\t\t" + setPostionFun + title.toLower() + "_coord[0][0],icon_16_" + title.toLower() + "_coord[0][1],");
     code_text.append("\t\t\t\t  ICON_" + title.toUpper() + "_WIDE," + "ICON_" + title.toUpper() + "_HIGH);");
     code_text.append("\t\t" + WriteDataFun + title.toLower() + "_addr[language % 2],ICON_" + title.toUpper() + "_SIZE);\n");
-
+    return code_text;
 }
-void VpWatchCode::UI_Women(QString title)
+QString VpWatchCode::UI_Women(QString title)
 {
     QString code_text;
     code_text.append("\n\t\t/***** 女性 ****/");
     code_text.append("\t\t" + setPostionFun + title.toLower() + "_coord[0][0],icon_16_" + title.toLower() + "_coord[0][1],");
     code_text.append("\t\t\t\t  ICON_" + title.toUpper() + "_WIDE," + "ICON_" + title.toUpper() + "_HIGH);");
     code_text.append("\t\t" + WriteDataFun + title.toLower() + "_addr[menstrual % 5],ICON_" + title.toUpper() + "_SIZE);\n");
-
+    return code_text;
 }
 //血压
-void VpWatchCode::UI_BP(QString title)
+QString VpWatchCode::UI_BP(QString title)
 {
     QString code_text;
     code_text.append("\n//***** 血压 ****//");
@@ -378,10 +393,10 @@ void VpWatchCode::UI_BP(QString title)
     code_text.append("\t\tICON_" + title.toUpper() + "_WIDE," + "ICON_" + title.toUpper() + "_HIGH);");
     code_text.append("\t" + WriteDataFun + title.toLower() + "_addr[bp_data[i]],ICON_" + title.toUpper() + "_SIZE);");
     code_text.append("}");
-
+    return code_text;
 }
 //显示三位的睡眠
-void VpWatchCode::UI_Sleep(QString title)
+QString VpWatchCode::UI_Sleep(QString title)
 {
     QString code_text;
     code_text.append("\n//***** 睡眠三位  ****//");
@@ -447,9 +462,10 @@ void VpWatchCode::UI_Sleep(QString title)
     code_text.append("\t\tICON_" + title.toUpper() + "_WIDE," + "ICON_" + title.toUpper() + "_HIGH);");
     code_text.append("\t" + WriteDataFun + title.toLower() + "_addr[light_sleep_data[i]],ICON_" + title.toUpper() + "_SIZE);");
     code_text.append("}");
+    return code_text;
 }
 //显示4位的睡眠
-void VpWatchCode::UI_Sleep_4(QString title)
+QString VpWatchCode::UI_Sleep_4(QString title)
 {
     QString code_text;
     code_text.append("\n//***** 睡眠 4位 ****//");
@@ -511,5 +527,6 @@ void VpWatchCode::UI_Sleep_4(QString title)
     code_text.append("\t\tICON_" + title.toUpper() + "_WIDE," + "ICON_" + title.toUpper() + "_HIGH);");
     code_text.append("\t" + WriteDataFun + title.toLower() + "_addr[light_sleep_data[i]],ICON_" + title.toUpper() + "_SIZE);");
     code_text.append("}");
+    return code_text;
 
 }

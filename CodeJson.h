@@ -16,8 +16,10 @@ public:
 	void FontParamToJson(QMap<QString, ComponnetsItem> *items_map);
 	QJsonObject language_root_obj; // 所有参数的json文件对象
 	void JsonToCode(QJsonObject language_root_obj);
+	QString GetCode();
 private:
-	void GenerateCode(QString type, QStringList element_list);
-	QString GetTitle(QString name);
+	QString GenerateCode(QString type, QStringList element_list);
+	
 	VpWatchCode* vpWatchCode;
+	QString code_string;
 };

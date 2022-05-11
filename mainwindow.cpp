@@ -1174,6 +1174,7 @@ void MainWindow::on_updata_item_param()
     }
     CodeJson* josn1 = new CodeJson(this);
     josn1->FontParamToJson(&watch_view->view_items_map);
+    ui->textBrowser->setText(josn1->GetCode());
     this->update();
 }
 void MainWindow::on_selected_item(QModelIndex index)

@@ -39,7 +39,9 @@ void CodeJson::FontParamToJson(QMap<QString, ComponnetsItem> *items_map)
 
 		}
 	language_root_obj ->page_obj -> text_obj
+
 	*/
+	code_string.clear();
 	Language *language = Language::GetInstance();
 	QJsonArray page_obj;
 	QString page = "界面";// font_page->Page;
@@ -127,7 +129,7 @@ void CodeJson::FontParamToJson(QMap<QString, ComponnetsItem> *items_map)
 			item_label_obj.insert("format", item_fomat);
 			//page_obj.insert("Bettary" + id, item_label_obj);
 			page_obj.append(item_label_obj);
-			GenerateCode(item_fomat, element_list);
+			code_string+=GenerateCode(item_fomat, element_list);
 		}
 		
 	}
@@ -135,7 +137,7 @@ void CodeJson::FontParamToJson(QMap<QString, ComponnetsItem> *items_map)
 	//page_obj.insert("界面", item_obj);
 	language_root_obj.insert("界面", page_obj);
 	
-	qDebug() << language_root_obj;
+	qDebug() << code_string;
 	//JsonToCode(language_root_obj);
 	
 }
@@ -167,19 +169,88 @@ void CodeJson::JsonToCode(QJsonObject language_root_obj)
 	
 }
 
-void CodeJson::GenerateCode(QString type, QStringList element_list)
+QString CodeJson::GenerateCode(QString type, QStringList element_list)
 {
-	if (element_list.isEmpty())return ;
+	QString code;
+	if (element_list.isEmpty())return code;
 	QString path  = element_list.at(0);
 	QString title = Utils::GetBaseName(path);
-	//if(type == COMPONNET_FORMAT_BG)
+	if(type == COMPONNET_FORMAT_BG)
 	{				
-		vpWatchCode->UI_one(title, element_list.count());
+		code = vpWatchCode->UI_one(title, element_list.count());
 	}
+	else if (type == COMPONNET_FORMAT_BETTARY)
+	{
+		code = vpWatchCode->UI_one(title, element_list.count());
+	}
+	else if (type == COMPONNET_FORMAT_CALORIES)
+	{
+		code = vpWatchCode->UI_calories(title);
+	}
+	else if (type == COMPONNET_FORMAT_HOUR)
+	{
+		code = vpWatchCode->UI_time(title);
+	}
+	else if (type == COMPONNET_FORMAT_MINUTE)
+	{
+		code = vpWatchCode->UI_time(title);
+	}
+	else if (type == COMPONNET_FORMAT_SECOND)
+	{
+		code = vpWatchCode->UI_time(title);
+	}
+	else if (type == COMPONNET_FORMAT_YEAR)
+	{
+		code = vpWatchCode->UI_data(title);
+	}
+	else if (type == COMPONNET_FORMAT_MONTH)
+	{
+		code = vpWatchCode->UI_data(title);
+	}
+	else if (type == COMPONNET_FORMAT_DAY)
+	{
+		code = vpWatchCode->UI_data(title);
+	}
+	else if (type == COMPONNET_FORMAT_WEEK)
+	{
+		code = vpWatchCode->UI_week(title);
+	}
+	else if (type == COMPONNET_FORMAT_HEART)
+	{
+		code = vpWatchCode->UI_heart(title);
+	}
+	else if (type == COMPONNET_FORMAT_SLEEP)
+	{
+		code = vpWatchCode->UI_Sleep(title);
+	}
+	else if (type == COMPONNET_FORMAT_BP)
+	{
+		code = vpWatchCode->UI_BP(title);
+	}
+	else if (type == COMPONNET_FORMAT_DISTANCE)
+	{
+		code = vpWatchCode->UI_distance(title);
+	}
+	else if (type == COMPONNET_FORMAT_BLE)
+	{
+		code = vpWatchCode->UI_blue(title);
+	}
+	else if (type == COMPONNET_FORMAT_BUTTON)
+	{
+		code = vpWatchCode->UI_one(title, element_list.count());
+	}
+	else if (type == COMPONNET_FORMAT_LABEL)
+	{
+		code = vpWatchCode->UI_one(title, element_list.count());
+	}
+	
+
+	return code;
+
 }
 
-QString CodeJson::GetTitle(QString name)
+QString CodeJson::GetCode()
 {
 	
-	return QString();
+	return code_string;
 }

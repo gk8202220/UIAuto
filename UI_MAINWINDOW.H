@@ -24,6 +24,7 @@
 #include <QtWidgets/QListView>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QSpinBox>
 #include <QtWidgets/QTabWidget>
 #include <QtWidgets/QTextBrowser>
@@ -38,27 +39,15 @@ class Ui_MainWindow
 {
 public:
     QWidget *centralWidget;
+    QGridLayout *gridLayout_6;
     QLineEdit *lineEdit;
-    QListView *listView_page;
-    QTabWidget *tabWidget;
-    QWidget *tab;
-    QGridLayout *gridLayout_3;
-    QTextBrowser *textBrowser;
-    QWidget *tab_2;
-    QGridLayout *gridLayout_4;
-    QTextBrowser *TB_Positon;
-    QWidget *tab_3;
-    QGridLayout *gridLayout_5;
-    QTextBrowser *TB_head;
-    QWidget *tab_4;
-    QTextBrowser *TB_addr;
-    QWidget *tab_5;
-    QGridLayout *gridLayout_2;
-    QWidget *widget;
+    QVBoxLayout *verticalLayout_4;
     QVBoxLayout *verticalLayout_3;
     QLabel *label_47;
     QTreeView *treeView_slelect_items;
     QLabel *label_display;
+    QSpacerItem *verticalSpacer;
+    QListView *listView_page;
     QDockWidget *dockWidget_3;
     QWidget *dockWidgetContents_4;
     QToolBox *toolBox;
@@ -167,6 +156,23 @@ public:
     QLabel *label_34;
     QSpinBox *spinBox_LineHeight;
     QListView *listView_componnets;
+    QDockWidget *dockWidget;
+    QWidget *dockWidgetContents;
+    QGridLayout *gridLayout_9;
+    QTabWidget *tabWidget;
+    QWidget *tab;
+    QGridLayout *gridLayout_3;
+    QTextBrowser *textBrowser;
+    QWidget *tab_2;
+    QGridLayout *gridLayout_4;
+    QTextBrowser *TB_Positon;
+    QWidget *tab_3;
+    QGridLayout *gridLayout_5;
+    QTextBrowser *TB_head;
+    QWidget *tab_4;
+    QTextBrowser *TB_addr;
+    QWidget *tab_5;
+    QGridLayout *gridLayout_2;
 
     void setupUi(QMainWindow *MainWindow)
     {
@@ -180,18 +186,75 @@ public:
         MainWindow->setAutoFillBackground(false);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
+        gridLayout_6 = new QGridLayout(centralWidget);
+        gridLayout_6->setSpacing(6);
+        gridLayout_6->setContentsMargins(11, 11, 11, 11);
+        gridLayout_6->setObjectName(QString::fromUtf8("gridLayout_6"));
         lineEdit = new QLineEdit(centralWidget);
         lineEdit->setObjectName(QString::fromUtf8("lineEdit"));
-        lineEdit->setGeometry(QRect(189, 10, 240, 20));
         QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(lineEdit->sizePolicy().hasHeightForWidth());
         lineEdit->setSizePolicy(sizePolicy);
         lineEdit->setMaximumSize(QSize(240, 20));
+
+        gridLayout_6->addWidget(lineEdit, 0, 0, 1, 1);
+
+        verticalLayout_4 = new QVBoxLayout();
+        verticalLayout_4->setSpacing(6);
+        verticalLayout_4->setObjectName(QString::fromUtf8("verticalLayout_4"));
+        verticalLayout_3 = new QVBoxLayout();
+        verticalLayout_3->setSpacing(6);
+        verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
+        label_47 = new QLabel(centralWidget);
+        label_47->setObjectName(QString::fromUtf8("label_47"));
+        QSizePolicy sizePolicy1(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(label_47->sizePolicy().hasHeightForWidth());
+        label_47->setSizePolicy(sizePolicy1);
+
+        verticalLayout_3->addWidget(label_47);
+
+        treeView_slelect_items = new QTreeView(centralWidget);
+        treeView_slelect_items->setObjectName(QString::fromUtf8("treeView_slelect_items"));
+        sizePolicy1.setHeightForWidth(treeView_slelect_items->sizePolicy().hasHeightForWidth());
+        treeView_slelect_items->setSizePolicy(sizePolicy1);
+        treeView_slelect_items->setTextElideMode(Qt::ElideMiddle);
+
+        verticalLayout_3->addWidget(treeView_slelect_items);
+
+
+        verticalLayout_4->addLayout(verticalLayout_3);
+
+        label_display = new QLabel(centralWidget);
+        label_display->setObjectName(QString::fromUtf8("label_display"));
+        label_display->setMinimumSize(QSize(360, 360));
+        label_display->setMaximumSize(QSize(360, 360));
+        label_display->setAcceptDrops(true);
+        label_display->setAutoFillBackground(true);
+        label_display->setStyleSheet(QString::fromUtf8(""));
+        label_display->setTextFormat(Qt::PlainText);
+        label_display->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+        label_display->setWordWrap(true);
+
+        verticalLayout_4->addWidget(label_display);
+
+        verticalSpacer = new QSpacerItem(20, 228, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout_4->addItem(verticalSpacer);
+
+
+        gridLayout_6->addLayout(verticalLayout_4, 0, 1, 2, 1);
+
         listView_page = new QListView(centralWidget);
         listView_page->setObjectName(QString::fromUtf8("listView_page"));
-        listView_page->setGeometry(QRect(189, 38, 280, 831));
+        QSizePolicy sizePolicy2(QSizePolicy::Fixed, QSizePolicy::Expanding);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(listView_page->sizePolicy().hasHeightForWidth());
+        listView_page->setSizePolicy(sizePolicy2);
         listView_page->setMinimumSize(QSize(280, 0));
         QFont font;
         font.setFamilies({QString::fromUtf8("\345\276\256\350\275\257\351\233\205\351\273\221 Light")});
@@ -203,104 +266,8 @@ public:
         listView_page->setFlow(QListView::LeftToRight);
         listView_page->setGridSize(QSize(200, 220));
         listView_page->setViewMode(QListView::IconMode);
-        tabWidget = new QTabWidget(centralWidget);
-        tabWidget->setObjectName(QString::fromUtf8("tabWidget"));
-        tabWidget->setGeometry(QRect(9, 38, 174, 841));
-        QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Expanding);
-        sizePolicy1.setHorizontalStretch(0);
-        sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(tabWidget->sizePolicy().hasHeightForWidth());
-        tabWidget->setSizePolicy(sizePolicy1);
-        tabWidget->setTabPosition(QTabWidget::West);
-        tabWidget->setTabShape(QTabWidget::Triangular);
-        tabWidget->setElideMode(Qt::ElideNone);
-        tabWidget->setUsesScrollButtons(false);
-        tabWidget->setDocumentMode(true);
-        tabWidget->setTabBarAutoHide(true);
-        tab = new QWidget();
-        tab->setObjectName(QString::fromUtf8("tab"));
-        gridLayout_3 = new QGridLayout(tab);
-        gridLayout_3->setSpacing(6);
-        gridLayout_3->setContentsMargins(11, 11, 11, 11);
-        gridLayout_3->setObjectName(QString::fromUtf8("gridLayout_3"));
-        textBrowser = new QTextBrowser(tab);
-        textBrowser->setObjectName(QString::fromUtf8("textBrowser"));
-        sizePolicy.setHeightForWidth(textBrowser->sizePolicy().hasHeightForWidth());
-        textBrowser->setSizePolicy(sizePolicy);
 
-        gridLayout_3->addWidget(textBrowser, 0, 0, 1, 1);
-
-        tabWidget->addTab(tab, QString());
-        tab_2 = new QWidget();
-        tab_2->setObjectName(QString::fromUtf8("tab_2"));
-        gridLayout_4 = new QGridLayout(tab_2);
-        gridLayout_4->setSpacing(6);
-        gridLayout_4->setContentsMargins(11, 11, 11, 11);
-        gridLayout_4->setObjectName(QString::fromUtf8("gridLayout_4"));
-        TB_Positon = new QTextBrowser(tab_2);
-        TB_Positon->setObjectName(QString::fromUtf8("TB_Positon"));
-        sizePolicy.setHeightForWidth(TB_Positon->sizePolicy().hasHeightForWidth());
-        TB_Positon->setSizePolicy(sizePolicy);
-
-        gridLayout_4->addWidget(TB_Positon, 0, 0, 1, 1);
-
-        tabWidget->addTab(tab_2, QString());
-        tab_3 = new QWidget();
-        tab_3->setObjectName(QString::fromUtf8("tab_3"));
-        gridLayout_5 = new QGridLayout(tab_3);
-        gridLayout_5->setSpacing(6);
-        gridLayout_5->setContentsMargins(11, 11, 11, 11);
-        gridLayout_5->setObjectName(QString::fromUtf8("gridLayout_5"));
-        TB_head = new QTextBrowser(tab_3);
-        TB_head->setObjectName(QString::fromUtf8("TB_head"));
-
-        gridLayout_5->addWidget(TB_head, 0, 0, 1, 1);
-
-        tabWidget->addTab(tab_3, QString());
-        tab_4 = new QWidget();
-        tab_4->setObjectName(QString::fromUtf8("tab_4"));
-        TB_addr = new QTextBrowser(tab_4);
-        TB_addr->setObjectName(QString::fromUtf8("TB_addr"));
-        TB_addr->setGeometry(QRect(10, 10, 891, 801));
-        tabWidget->addTab(tab_4, QString());
-        tab_5 = new QWidget();
-        tab_5->setObjectName(QString::fromUtf8("tab_5"));
-        gridLayout_2 = new QGridLayout(tab_5);
-        gridLayout_2->setSpacing(6);
-        gridLayout_2->setContentsMargins(11, 11, 11, 11);
-        gridLayout_2->setObjectName(QString::fromUtf8("gridLayout_2"));
-        tabWidget->addTab(tab_5, QString());
-        widget = new QWidget(centralWidget);
-        widget->setObjectName(QString::fromUtf8("widget"));
-        widget->setGeometry(QRect(610, 0, 362, 589));
-        verticalLayout_3 = new QVBoxLayout(widget);
-        verticalLayout_3->setSpacing(6);
-        verticalLayout_3->setContentsMargins(11, 11, 11, 11);
-        verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
-        verticalLayout_3->setContentsMargins(0, 0, 0, 0);
-        label_47 = new QLabel(widget);
-        label_47->setObjectName(QString::fromUtf8("label_47"));
-
-        verticalLayout_3->addWidget(label_47);
-
-        treeView_slelect_items = new QTreeView(widget);
-        treeView_slelect_items->setObjectName(QString::fromUtf8("treeView_slelect_items"));
-        treeView_slelect_items->setTextElideMode(Qt::ElideMiddle);
-
-        verticalLayout_3->addWidget(treeView_slelect_items);
-
-        label_display = new QLabel(widget);
-        label_display->setObjectName(QString::fromUtf8("label_display"));
-        label_display->setMinimumSize(QSize(360, 360));
-        label_display->setMaximumSize(QSize(360, 360));
-        label_display->setAcceptDrops(true);
-        label_display->setAutoFillBackground(true);
-        label_display->setStyleSheet(QString::fromUtf8(""));
-        label_display->setTextFormat(Qt::PlainText);
-        label_display->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
-        label_display->setWordWrap(true);
-
-        verticalLayout_3->addWidget(label_display);
+        gridLayout_6->addWidget(listView_page, 1, 0, 1, 1);
 
         MainWindow->setCentralWidget(centralWidget);
         dockWidget_3 = new QDockWidget(MainWindow);
@@ -321,7 +288,7 @@ public:
         toolBox->setLineWidth(0);
         page = new QWidget();
         page->setObjectName(QString::fromUtf8("page"));
-        page->setGeometry(QRect(0, 0, 494, 640));
+        page->setGeometry(QRect(0, 0, 316, 574));
         gridLayout_8 = new QGridLayout(page);
         gridLayout_8->setSpacing(6);
         gridLayout_8->setContentsMargins(11, 11, 11, 11);
@@ -468,11 +435,11 @@ public:
 
         CB_calories = new QComboBox(page);
         CB_calories->setObjectName(QString::fromUtf8("CB_calories"));
-        QSizePolicy sizePolicy2(QSizePolicy::Preferred, QSizePolicy::Fixed);
-        sizePolicy2.setHorizontalStretch(0);
-        sizePolicy2.setVerticalStretch(0);
-        sizePolicy2.setHeightForWidth(CB_calories->sizePolicy().hasHeightForWidth());
-        CB_calories->setSizePolicy(sizePolicy2);
+        QSizePolicy sizePolicy3(QSizePolicy::Preferred, QSizePolicy::Fixed);
+        sizePolicy3.setHorizontalStretch(0);
+        sizePolicy3.setVerticalStretch(0);
+        sizePolicy3.setHeightForWidth(CB_calories->sizePolicy().hasHeightForWidth());
+        CB_calories->setSizePolicy(sizePolicy3);
         CB_calories->setMinimumSize(QSize(220, 20));
         CB_calories->setMaximumSize(QSize(130, 16777215));
 
@@ -780,7 +747,7 @@ public:
         toolBox->addItem(page, QString::fromUtf8("\346\216\247\344\273\266"));
         page_2 = new QWidget();
         page_2->setObjectName(QString::fromUtf8("page_2"));
-        page_2->setGeometry(QRect(0, 0, 454, 535));
+        page_2->setGeometry(QRect(0, 0, 332, 566));
         gridLayout_7 = new QGridLayout(page_2);
         gridLayout_7->setSpacing(6);
         gridLayout_7->setContentsMargins(11, 11, 11, 11);
@@ -1070,11 +1037,92 @@ public:
         toolBox->addItem(page_2, QString::fromUtf8("\346\226\207\345\255\227"));
         listView_componnets = new QListView(dockWidgetContents_4);
         listView_componnets->setObjectName(QString::fromUtf8("listView_componnets"));
-        listView_componnets->setGeometry(QRect(9, 9, 256, 192));
+        listView_componnets->setGeometry(QRect(9, 9, 291, 192));
         listView_componnets->setDragEnabled(true);
         listView_componnets->setDefaultDropAction(Qt::ActionMask);
         dockWidget_3->setWidget(dockWidgetContents_4);
         MainWindow->addDockWidget(Qt::RightDockWidgetArea, dockWidget_3);
+        dockWidget = new QDockWidget(MainWindow);
+        dockWidget->setObjectName(QString::fromUtf8("dockWidget"));
+        QSizePolicy sizePolicy4(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        sizePolicy4.setHorizontalStretch(0);
+        sizePolicy4.setVerticalStretch(0);
+        sizePolicy4.setHeightForWidth(dockWidget->sizePolicy().hasHeightForWidth());
+        dockWidget->setSizePolicy(sizePolicy4);
+        dockWidgetContents = new QWidget();
+        dockWidgetContents->setObjectName(QString::fromUtf8("dockWidgetContents"));
+        gridLayout_9 = new QGridLayout(dockWidgetContents);
+        gridLayout_9->setSpacing(6);
+        gridLayout_9->setContentsMargins(11, 11, 11, 11);
+        gridLayout_9->setObjectName(QString::fromUtf8("gridLayout_9"));
+        tabWidget = new QTabWidget(dockWidgetContents);
+        tabWidget->setObjectName(QString::fromUtf8("tabWidget"));
+        sizePolicy4.setHeightForWidth(tabWidget->sizePolicy().hasHeightForWidth());
+        tabWidget->setSizePolicy(sizePolicy4);
+        tabWidget->setTabPosition(QTabWidget::West);
+        tabWidget->setTabShape(QTabWidget::Triangular);
+        tabWidget->setElideMode(Qt::ElideNone);
+        tabWidget->setUsesScrollButtons(false);
+        tabWidget->setDocumentMode(true);
+        tabWidget->setTabBarAutoHide(true);
+        tab = new QWidget();
+        tab->setObjectName(QString::fromUtf8("tab"));
+        gridLayout_3 = new QGridLayout(tab);
+        gridLayout_3->setSpacing(6);
+        gridLayout_3->setContentsMargins(11, 11, 11, 11);
+        gridLayout_3->setObjectName(QString::fromUtf8("gridLayout_3"));
+        textBrowser = new QTextBrowser(tab);
+        textBrowser->setObjectName(QString::fromUtf8("textBrowser"));
+        sizePolicy.setHeightForWidth(textBrowser->sizePolicy().hasHeightForWidth());
+        textBrowser->setSizePolicy(sizePolicy);
+
+        gridLayout_3->addWidget(textBrowser, 0, 0, 1, 1);
+
+        tabWidget->addTab(tab, QString());
+        tab_2 = new QWidget();
+        tab_2->setObjectName(QString::fromUtf8("tab_2"));
+        gridLayout_4 = new QGridLayout(tab_2);
+        gridLayout_4->setSpacing(6);
+        gridLayout_4->setContentsMargins(11, 11, 11, 11);
+        gridLayout_4->setObjectName(QString::fromUtf8("gridLayout_4"));
+        TB_Positon = new QTextBrowser(tab_2);
+        TB_Positon->setObjectName(QString::fromUtf8("TB_Positon"));
+        sizePolicy4.setHeightForWidth(TB_Positon->sizePolicy().hasHeightForWidth());
+        TB_Positon->setSizePolicy(sizePolicy4);
+
+        gridLayout_4->addWidget(TB_Positon, 0, 0, 1, 1);
+
+        tabWidget->addTab(tab_2, QString());
+        tab_3 = new QWidget();
+        tab_3->setObjectName(QString::fromUtf8("tab_3"));
+        gridLayout_5 = new QGridLayout(tab_3);
+        gridLayout_5->setSpacing(6);
+        gridLayout_5->setContentsMargins(11, 11, 11, 11);
+        gridLayout_5->setObjectName(QString::fromUtf8("gridLayout_5"));
+        TB_head = new QTextBrowser(tab_3);
+        TB_head->setObjectName(QString::fromUtf8("TB_head"));
+
+        gridLayout_5->addWidget(TB_head, 0, 0, 1, 1);
+
+        tabWidget->addTab(tab_3, QString());
+        tab_4 = new QWidget();
+        tab_4->setObjectName(QString::fromUtf8("tab_4"));
+        TB_addr = new QTextBrowser(tab_4);
+        TB_addr->setObjectName(QString::fromUtf8("TB_addr"));
+        TB_addr->setGeometry(QRect(10, 10, 891, 801));
+        tabWidget->addTab(tab_4, QString());
+        tab_5 = new QWidget();
+        tab_5->setObjectName(QString::fromUtf8("tab_5"));
+        gridLayout_2 = new QGridLayout(tab_5);
+        gridLayout_2->setSpacing(6);
+        gridLayout_2->setContentsMargins(11, 11, 11, 11);
+        gridLayout_2->setObjectName(QString::fromUtf8("gridLayout_2"));
+        tabWidget->addTab(tab_5, QString());
+
+        gridLayout_9->addWidget(tabWidget, 0, 0, 1, 1);
+
+        dockWidget->setWidget(dockWidgetContents);
+        MainWindow->addDockWidget(Qt::LeftDockWidgetArea, dockWidget);
         QWidget::setTabOrder(LE_distance, CB_Time);
         QWidget::setTabOrder(CB_Time, CB_week);
         QWidget::setTabOrder(CB_week, CB_week_en);
@@ -1105,9 +1153,9 @@ public:
         QObject::connect(treeView_slelect_items, SIGNAL(clicked(QModelIndex)), MainWindow, SLOT(on_selected_item(QModelIndex)));
         QObject::connect(spinBox_font, SIGNAL(valueChanged(int)), MainWindow, SLOT(on_updata_item_param()));
 
-        tabWidget->setCurrentIndex(2);
         toolBox->setCurrentIndex(1);
         toolBox->layout()->setSpacing(0);
+        tabWidget->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -1117,6 +1165,8 @@ public:
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "\347\273\264\344\272\277\351\255\204\344\270\223\345\261\236 \344\275\234\350\200\205:\346\234\261\346\214\257\345\261\225  V2.1 \350\201\224\347\263\273:442446835", nullptr));
         lineEdit->setText(QString());
+        label_47->setText(QCoreApplication::translate("MainWindow", "\345\267\262\351\200\211\346\213\251\346\216\247\344\273\266", nullptr));
+        label_display->setText(QString());
 #if QT_CONFIG(tooltip)
         listView_page->setToolTip(QCoreApplication::translate("MainWindow", "\347\225\214\351\235\242\351\200\211\346\213\251", nullptr));
 #endif // QT_CONFIG(tooltip)
@@ -1129,13 +1179,6 @@ public:
 #if QT_CONFIG(accessibility)
         listView_page->setAccessibleName(QString());
 #endif // QT_CONFIG(accessibility)
-        tabWidget->setTabText(tabWidget->indexOf(tab), QCoreApplication::translate("MainWindow", "\344\273\243\347\240\201\345\214\272", nullptr));
-        tabWidget->setTabText(tabWidget->indexOf(tab_2), QCoreApplication::translate("MainWindow", "\345\235\220\346\240\207", nullptr));
-        tabWidget->setTabText(tabWidget->indexOf(tab_3), QCoreApplication::translate("MainWindow", "\345\244\264\346\226\207\344\273\266", nullptr));
-        tabWidget->setTabText(tabWidget->indexOf(tab_4), QCoreApplication::translate("MainWindow", "\345\234\260\345\235\200", nullptr));
-        tabWidget->setTabText(tabWidget->indexOf(tab_5), QCoreApplication::translate("MainWindow", "\345\244\232\345\233\275\350\257\255\350\250\200", nullptr));
-        label_47->setText(QCoreApplication::translate("MainWindow", "\345\267\262\351\200\211\346\213\251\346\216\247\344\273\266", nullptr));
-        label_display->setText(QString());
         dockWidget_3->setWindowTitle(QCoreApplication::translate("MainWindow", "\345\261\236\346\200\247", nullptr));
         label_8->setText(QCoreApplication::translate("MainWindow", "\344\270\212\344\270\213\345\215\210", nullptr));
         label->setText(QCoreApplication::translate("MainWindow", "\346\227\266\351\227\264", nullptr));
@@ -1210,6 +1253,11 @@ public:
         label_13->setText(QCoreApplication::translate("MainWindow", "HEX", nullptr));
         label_34->setText(QCoreApplication::translate("MainWindow", "\350\241\214\351\253\230", nullptr));
         toolBox->setItemText(toolBox->indexOf(page_2), QCoreApplication::translate("MainWindow", "\346\226\207\345\255\227", nullptr));
+        tabWidget->setTabText(tabWidget->indexOf(tab), QCoreApplication::translate("MainWindow", "\344\273\243\347\240\201\345\214\272", nullptr));
+        tabWidget->setTabText(tabWidget->indexOf(tab_2), QCoreApplication::translate("MainWindow", "\345\235\220\346\240\207", nullptr));
+        tabWidget->setTabText(tabWidget->indexOf(tab_3), QCoreApplication::translate("MainWindow", "\345\244\264\346\226\207\344\273\266", nullptr));
+        tabWidget->setTabText(tabWidget->indexOf(tab_4), QCoreApplication::translate("MainWindow", "\345\234\260\345\235\200", nullptr));
+        tabWidget->setTabText(tabWidget->indexOf(tab_5), QCoreApplication::translate("MainWindow", "\345\244\232\345\233\275\350\257\255\350\250\200", nullptr));
     } // retranslateUi
 
 };
