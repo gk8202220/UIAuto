@@ -247,6 +247,21 @@ bool VpWatchCode::CodeIsOld()
     return false;
 }
 
+QString VpWatchCode::GenerateAddrArry(QStringList images)
+{
+    QString gui_flash_addr;
+    for each (image_info_t image_info in images)
+    {
+
+        //qDebug() << "ICON_" + image_info.name.toUpper() + "_ADDR  " + QString::number(image_addr_count);
+        gui_flash_addr.append("#define ICON_" + image_info.name.toUpper() + "_ADDR  " + QString::number(image_addr_count));
+        gui_flash_addr.append("\n");
+        //qDebug() << ">>>>>>>" << image_addr_count;
+        image_addr_count += image_info.size;
+    }
+    return gui_flash_addr;
+}
+
 
 QString VpWatchCode::UI_AMPM(QString title)
 {

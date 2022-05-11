@@ -36,6 +36,8 @@ public:
 	void SetCompress(COMPRESS_FORMAT format); //设置压缩
 	void SetColorFormat(COLOR_FORMAT format); //设置4字节倒换
 	void GetUiPath(ui_path_t *path);
+	QString getImageFormat(QString image_file_name, IMAGE_FORMAT* image_format); //获取图片的类型
+
 	
 private:
 	QMap<QString, QString>Image_Path_Map; //图片命名和路径
@@ -54,7 +56,6 @@ private:
 
 	void jsonfile(QString file);
 	image_info_t getImageBinForFormat(IMAGE_FORMAT image_format, QString icon_name); //分类型转为bin
-	QString getImageFormat(QString image_file_name, IMAGE_FORMAT* image_format); //获取图片的类型
 	void SameImageSave(QStringList imageList, QString last_image_title);
 
 	bool minilzo_init(void); 

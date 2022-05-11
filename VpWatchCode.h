@@ -33,7 +33,7 @@ public:
 	QString UI_distance(QString title);
 	QString UI_Women(QString title);
 	bool CodeIsOld();
-	
+	QString GenerateAddrArry(QStringList images); //打印地址数组
 private:
 	QString setPostionFun = "LCD_SetXY(icon_16_";
 	QString WriteDataFun = "LCD_SetImage(icon_16_";

@@ -2,7 +2,7 @@
 #include "Language.h"
 #include "WatchView.h"
 #include "Utils.h"
-
+#include "ImageBinFun.h"
 /*
 * 创建时间： 2022-05-04
 * 作者：朱振展
@@ -14,6 +14,7 @@ CodeJson::CodeJson(QObject *parent)
 	: QObject(parent)
 {
 	vpWatchCode = VpWatchCode::getInstance();
+	imageBinFun = new ImageBinFun();
 }
 
 CodeJson::~CodeJson()
@@ -174,7 +175,10 @@ QString CodeJson::GenerateCode(QString type, QStringList element_list)
 	QString code;
 	if (element_list.isEmpty())return code;
 	QString path  = element_list.at(0);
-	QString title = Utils::GetBaseName(path);
+	QString image_name = Utils::GetBaseName(path);
+	//通过文件获取标题
+	IMAGE_FORMAT image_format;
+	QString title = imageBinFun->getImageFormat(image_name, &image_format);
 	if(type == COMPONNET_FORMAT_BG)
 	{				
 		code = vpWatchCode->UI_one(title, element_list.count());

@@ -22,4 +22,5 @@ private:
 	
 	VpWatchCode* vpWatchCode;
 	QString code_string;
+	ImageBinFun* imageBinFun;
 };
