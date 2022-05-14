@@ -25,3 +25,19 @@ Utils::~Utils()
 	
 	 return name_list;
  }
+
+ void Utils::CalcNumberPoints(QSize srcsize, QPoint src_point, QList<QPoint>* points, int digit, int interval)
+ {
+	 int src_x = src_point.x();
+	 for (int i = 0; i < digit; i++)
+	 {
+		 QPoint point = src_point;
+		 int width = srcsize.width();
+		 point.setX(src_x + (width+ interval) * i); //根据图片的宽度自动偏移
+		 points->append(src_point);
+	 }
+	
+	
+
+	 points->append(src_point);
+ }

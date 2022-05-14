@@ -88,7 +88,31 @@ void WatchView::SetCurrentItem(QString id)
 	{
 		current_item = view_items_map.value(id);
 	}
+	else if (view_number_items_map.contains(id))
+	{
 
+	}
+
+}
+
+COMPONNET_TYPE_E WatchView::Type(QString id)
+{
+	COMPONNET_TYPE_E type = COMPONNET_TYPE_GENERAL;
+	QString fomat = this->Fomat(id);
+	if (fomat == COMPONNET_FORMAT_TEXT)
+	{
+		type = COMPONNET_TYPE_TEXT;
+
+	}
+	else if (fomat == COMPONNET_FORMAT_CALORIES || fomat == COMPONNET_FORMAT_HOUR || fomat == COMPONNET_FORMAT_MINUTE
+		|| fomat == COMPONNET_FORMAT_SECOND || fomat == COMPONNET_FORMAT_YEAR || fomat == COMPONNET_FORMAT_MONTH
+		|| fomat == COMPONNET_FORMAT_DAY || fomat == COMPONNET_FORMAT_BP || fomat == COMPONNET_FORMAT_HEART
+		|| fomat == COMPONNET_FORMAT_HEART || fomat == COMPONNET_FORMAT_DISTANCE
+		|| fomat == COMPONNET_FORMAT_SLEEP)
+	{
+		type = COMPONNET_TYPE_NUMBER;
+	}
+	return type;
 }
 
 
@@ -145,6 +169,8 @@ void WatchView::AppendItem(QString id, ComponnetsItem item)
 	view_items_map.insert(id, item);
 }
 
+
+
 QStringList WatchView::GetViewId()
 {
 	return view_items_map.keys();
@@ -168,4 +194,30 @@ int WatchView::Count()
 QString WatchView::GetComponnetType(QString type)
 {
 	return componnet_id_map.value(type);
+}
+
+int WatchView::Digit(QString fomat)
+{
+	int digit = 2;
+	if (fomat == COMPONNET_FORMAT_HOUR || fomat == COMPONNET_FORMAT_MINUTE
+		|| fomat == COMPONNET_FORMAT_SECOND || fomat == COMPONNET_FORMAT_DAY
+		 || fomat == COMPONNET_FORMAT_MONTH)
+	{
+		digit = 2;
+	}
+	else if (fomat == COMPONNET_FORMAT_BP || fomat == COMPONNET_FORMAT_HEART
+		|| fomat == COMPONNET_FORMAT_DISTANCE
+		|| fomat == COMPONNET_FORMAT_SLEEP)
+	{
+		digit = 3;
+	}
+	else if (fomat == COMPONNET_FORMAT_CALORIES || fomat == COMPONNET_FORMAT_YEAR)
+	{
+		digit = 4;
+	}
+	else if (fomat == COMPONNET_FORMAT_STEP)
+	{
+		digit = 5;
+	}
+	return digit;
 }

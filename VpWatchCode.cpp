@@ -247,13 +247,13 @@ bool VpWatchCode::CodeIsOld()
     return false;
 }
 
-QString VpWatchCode::GenerateAddrArry(QStringList images)
+QString VpWatchCode::GenerateAddrArry(QString title, QStringList images)
 {
    
     QString gui_flash_addr;
     if (images.isEmpty())return gui_flash_addr;
     int count = images.size();
-    QString tiles1 = "const uint32_t icon_16_" + images.at(0) + "_addr";
+    QString tiles1 = "\nconst uint32_t icon_16_" + images.at(0) + "_addr";
     tiles1.append("[" + QString::number(images.count()) + "] = " + "\n{");
     gui_flash_addr.append(tiles1);
     for each (QString title in images)
@@ -268,6 +268,28 @@ QString VpWatchCode::GenerateAddrArry(QStringList images)
         gui_flash_addr.append("\n};");
    
     return gui_flash_addr;
+}
+
+QString  VpWatchCode::GeneratePosition(QString title, QList<QPoint> position)
+{
+   
+    QString code_positon;
+    QString head_positon;
+    if (position.isEmpty())return code_positon;
+
+    //code_positon.append("\n/***** position coord ****/\n");
+    int count = position.count();
+    code_positon.append("const uint16_t icon_16_" + title.toLower() + "_coord["+ QString::number(count)+"][2] = \n{\n");
+    for each (QPoint point in position)
+    {
+        QString X = QString::number(point.x());
+        QString Y = QString::number(point.y());
+        code_positon.append("{" + X + "," + Y + "},");
+    }  
+    
+    code_positon.append(" \n};\n");
+    head_positon.append("extern const uint16_t icon_16_" + title.toLower() + "_coord[" + QString::number(count) + "][2];\n");
+
 }
 
 

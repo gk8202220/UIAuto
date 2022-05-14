@@ -1,7 +1,7 @@
 #pragma once
 
 #include <QObject>
-
+#include <QPoint>
 class VpWatchCode : public QObject
 {
 	Q_OBJECT
@@ -33,7 +33,8 @@ public:
 	QString UI_distance(QString title);
 	QString UI_Women(QString title);
 	bool CodeIsOld();
-	QString GenerateAddrArry(QStringList images); //打印地址数组
+	QString GenerateAddrArry(QString title, QStringList images); //打印地址数组
+	QString VpWatchCode::GeneratePosition(QString title,QList<QPoint> position); //生成位置信息
 	
 private:
 	QString setPostionFun = "LCD_SetXY(icon_16_";

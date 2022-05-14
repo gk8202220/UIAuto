@@ -41,13 +41,13 @@ public:
     QWidget *centralWidget;
     QGridLayout *gridLayout_6;
     QLineEdit *lineEdit;
+    QListView *listView_page;
     QVBoxLayout *verticalLayout_4;
     QVBoxLayout *verticalLayout_3;
     QLabel *label_47;
     QTreeView *treeView_slelect_items;
     QLabel *label_display;
     QSpacerItem *verticalSpacer;
-    QListView *listView_page;
     QDockWidget *dockWidget_3;
     QWidget *dockWidgetContents_4;
     QToolBox *toolBox;
@@ -117,35 +117,30 @@ public:
     QComboBox *CB_FunSelect;
     QWidget *page_2;
     QGridLayout *gridLayout_7;
-    QVBoxLayout *verticalLayout_2;
+    QHBoxLayout *horizontalLayout_24;
+    QLabel *label_31;
+    QFontComboBox *fontComboBox;
+    QHBoxLayout *horizontalLayout_31;
+    QLabel *label_33;
+    QSpinBox *spinBox_spacing;
+    QHBoxLayout *horizontalLayout_28;
+    QLabel *label_24;
+    QComboBox *comboBox_number;
     QHBoxLayout *horizontalLayout_21;
     QLabel *label_25;
     QLabel *label_22;
     QSpinBox *spinBox_cood_x;
     QLabel *label_23;
     QSpinBox *spinBox_cood_y;
-    QHBoxLayout *horizontalLayout_23;
-    QLabel *label_28;
-    QHBoxLayout *horizontalLayout_20;
-    QLabel *label_26;
-    QSpinBox *spinBox_width;
-    QLabel *label_27;
-    QSpinBox *spinBox_height;
-    QHBoxLayout *horizontalLayout_24;
-    QLabel *label_31;
-    QFontComboBox *fontComboBox;
-    QHBoxLayout *horizontalLayout_33;
-    QLabel *label_21;
-    QComboBox *CB_language;
     QHBoxLayout *horizontalLayout_43;
     QLabel *label_29;
     QSpinBox *spinBox_font;
     QHBoxLayout *horizontalLayout_22;
     QComboBox *comboBox_texts;
     QPushButton *PB_lond_font;
-    QHBoxLayout *horizontalLayout_31;
-    QLabel *label_33;
-    QSpinBox *spinBox_spacing;
+    QHBoxLayout *horizontalLayout_33;
+    QLabel *label_21;
+    QComboBox *CB_language;
     QHBoxLayout *horizontalLayout_27;
     QHBoxLayout *horizontalLayout_25;
     QLabel *label_30;
@@ -155,6 +150,14 @@ public:
     QHBoxLayout *horizontalLayout_32;
     QLabel *label_34;
     QSpinBox *spinBox_LineHeight;
+    QHBoxLayout *horizontalLayout_23;
+    QLabel *label_28;
+    QHBoxLayout *horizontalLayout_20;
+    QLabel *label_26;
+    QSpinBox *spinBox_width;
+    QLabel *label_27;
+    QSpinBox *spinBox_height;
+    QSpacerItem *verticalSpacer_2;
     QListView *listView_componnets;
     QDockWidget *dockWidget;
     QWidget *dockWidgetContents;
@@ -184,6 +187,8 @@ public:
         icon.addFile(QString::fromUtf8("C:/Users/Administrator/Desktop/1.jpg"), QSize(), QIcon::Normal, QIcon::Off);
         MainWindow->setWindowIcon(icon);
         MainWindow->setAutoFillBackground(false);
+        MainWindow->setStyleSheet(QString::fromUtf8("background-color: rgb(46, 47, 48);\n"
+"color: rgb(255, 255, 255);"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         gridLayout_6 = new QGridLayout(centralWidget);
@@ -201,60 +206,13 @@ public:
 
         gridLayout_6->addWidget(lineEdit, 0, 0, 1, 1);
 
-        verticalLayout_4 = new QVBoxLayout();
-        verticalLayout_4->setSpacing(6);
-        verticalLayout_4->setObjectName(QString::fromUtf8("verticalLayout_4"));
-        verticalLayout_3 = new QVBoxLayout();
-        verticalLayout_3->setSpacing(6);
-        verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
-        label_47 = new QLabel(centralWidget);
-        label_47->setObjectName(QString::fromUtf8("label_47"));
-        QSizePolicy sizePolicy1(QSizePolicy::Fixed, QSizePolicy::Fixed);
-        sizePolicy1.setHorizontalStretch(0);
-        sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(label_47->sizePolicy().hasHeightForWidth());
-        label_47->setSizePolicy(sizePolicy1);
-
-        verticalLayout_3->addWidget(label_47);
-
-        treeView_slelect_items = new QTreeView(centralWidget);
-        treeView_slelect_items->setObjectName(QString::fromUtf8("treeView_slelect_items"));
-        sizePolicy1.setHeightForWidth(treeView_slelect_items->sizePolicy().hasHeightForWidth());
-        treeView_slelect_items->setSizePolicy(sizePolicy1);
-        treeView_slelect_items->setTextElideMode(Qt::ElideMiddle);
-
-        verticalLayout_3->addWidget(treeView_slelect_items);
-
-
-        verticalLayout_4->addLayout(verticalLayout_3);
-
-        label_display = new QLabel(centralWidget);
-        label_display->setObjectName(QString::fromUtf8("label_display"));
-        label_display->setMinimumSize(QSize(360, 360));
-        label_display->setMaximumSize(QSize(360, 360));
-        label_display->setAcceptDrops(true);
-        label_display->setAutoFillBackground(true);
-        label_display->setStyleSheet(QString::fromUtf8(""));
-        label_display->setTextFormat(Qt::PlainText);
-        label_display->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
-        label_display->setWordWrap(true);
-
-        verticalLayout_4->addWidget(label_display);
-
-        verticalSpacer = new QSpacerItem(20, 228, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        verticalLayout_4->addItem(verticalSpacer);
-
-
-        gridLayout_6->addLayout(verticalLayout_4, 0, 1, 2, 1);
-
         listView_page = new QListView(centralWidget);
         listView_page->setObjectName(QString::fromUtf8("listView_page"));
-        QSizePolicy sizePolicy2(QSizePolicy::Fixed, QSizePolicy::Expanding);
-        sizePolicy2.setHorizontalStretch(0);
-        sizePolicy2.setVerticalStretch(0);
-        sizePolicy2.setHeightForWidth(listView_page->sizePolicy().hasHeightForWidth());
-        listView_page->setSizePolicy(sizePolicy2);
+        QSizePolicy sizePolicy1(QSizePolicy::Fixed, QSizePolicy::Expanding);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(listView_page->sizePolicy().hasHeightForWidth());
+        listView_page->setSizePolicy(sizePolicy1);
         listView_page->setMinimumSize(QSize(280, 0));
         QFont font;
         font.setFamilies({QString::fromUtf8("\345\276\256\350\275\257\351\233\205\351\273\221 Light")});
@@ -271,6 +229,55 @@ public:
 
         gridLayout_6->addWidget(listView_page, 1, 0, 1, 1);
 
+        verticalLayout_4 = new QVBoxLayout();
+        verticalLayout_4->setSpacing(6);
+        verticalLayout_4->setObjectName(QString::fromUtf8("verticalLayout_4"));
+        verticalLayout_3 = new QVBoxLayout();
+        verticalLayout_3->setSpacing(6);
+        verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
+        label_47 = new QLabel(centralWidget);
+        label_47->setObjectName(QString::fromUtf8("label_47"));
+        QSizePolicy sizePolicy2(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(label_47->sizePolicy().hasHeightForWidth());
+        label_47->setSizePolicy(sizePolicy2);
+
+        verticalLayout_3->addWidget(label_47);
+
+
+        verticalLayout_4->addLayout(verticalLayout_3);
+
+        treeView_slelect_items = new QTreeView(centralWidget);
+        treeView_slelect_items->setObjectName(QString::fromUtf8("treeView_slelect_items"));
+        sizePolicy.setHeightForWidth(treeView_slelect_items->sizePolicy().hasHeightForWidth());
+        treeView_slelect_items->setSizePolicy(sizePolicy);
+        treeView_slelect_items->setTextElideMode(Qt::ElideMiddle);
+
+        verticalLayout_4->addWidget(treeView_slelect_items);
+
+        label_display = new QLabel(centralWidget);
+        label_display->setObjectName(QString::fromUtf8("label_display"));
+        label_display->setMinimumSize(QSize(360, 360));
+        label_display->setMaximumSize(QSize(360, 360));
+        label_display->setAcceptDrops(true);
+        label_display->setAutoFillBackground(false);
+        label_display->setStyleSheet(QString::fromUtf8(""));
+        label_display->setFrameShape(QFrame::Box);
+        label_display->setFrameShadow(QFrame::Sunken);
+        label_display->setTextFormat(Qt::PlainText);
+        label_display->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+        label_display->setWordWrap(true);
+
+        verticalLayout_4->addWidget(label_display);
+
+        verticalSpacer = new QSpacerItem(20, 228, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout_4->addItem(verticalSpacer);
+
+
+        gridLayout_6->addLayout(verticalLayout_4, 0, 1, 2, 1);
+
         MainWindow->setCentralWidget(centralWidget);
         dockWidget_3 = new QDockWidget(MainWindow);
         dockWidget_3->setObjectName(QString::fromUtf8("dockWidget_3"));
@@ -285,12 +292,14 @@ public:
         toolBox->setMaximumSize(QSize(350, 800));
         toolBox->setLayoutDirection(Qt::LeftToRight);
         toolBox->setAutoFillBackground(false);
-        toolBox->setFrameShape(QFrame::Box);
-        toolBox->setFrameShadow(QFrame::Raised);
+        toolBox->setStyleSheet(QString::fromUtf8("background-color: rgb(46, 47, 48);\n"
+"color: rgb(255, 255, 255);"));
+        toolBox->setFrameShape(QFrame::WinPanel);
+        toolBox->setFrameShadow(QFrame::Sunken);
         toolBox->setLineWidth(0);
         page = new QWidget();
         page->setObjectName(QString::fromUtf8("page"));
-        page->setGeometry(QRect(0, 0, 316, 574));
+        page->setGeometry(QRect(0, -25, 320, 574));
         gridLayout_8 = new QGridLayout(page);
         gridLayout_8->setSpacing(6);
         gridLayout_8->setContentsMargins(11, 11, 11, 11);
@@ -749,14 +758,77 @@ public:
         toolBox->addItem(page, QString::fromUtf8("\346\216\247\344\273\266"));
         page_2 = new QWidget();
         page_2->setObjectName(QString::fromUtf8("page_2"));
-        page_2->setGeometry(QRect(0, 0, 332, 566));
+        page_2->setGeometry(QRect(0, 0, 328, 562));
         gridLayout_7 = new QGridLayout(page_2);
         gridLayout_7->setSpacing(6);
         gridLayout_7->setContentsMargins(11, 11, 11, 11);
         gridLayout_7->setObjectName(QString::fromUtf8("gridLayout_7"));
-        verticalLayout_2 = new QVBoxLayout();
-        verticalLayout_2->setSpacing(6);
-        verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
+        horizontalLayout_24 = new QHBoxLayout();
+        horizontalLayout_24->setSpacing(6);
+        horizontalLayout_24->setObjectName(QString::fromUtf8("horizontalLayout_24"));
+        label_31 = new QLabel(page_2);
+        label_31->setObjectName(QString::fromUtf8("label_31"));
+        QSizePolicy sizePolicy4(QSizePolicy::Maximum, QSizePolicy::Preferred);
+        sizePolicy4.setHorizontalStretch(0);
+        sizePolicy4.setVerticalStretch(0);
+        sizePolicy4.setHeightForWidth(label_31->sizePolicy().hasHeightForWidth());
+        label_31->setSizePolicy(sizePolicy4);
+
+        horizontalLayout_24->addWidget(label_31);
+
+        fontComboBox = new QFontComboBox(page_2);
+        fontComboBox->setObjectName(QString::fromUtf8("fontComboBox"));
+
+        horizontalLayout_24->addWidget(fontComboBox);
+
+
+        gridLayout_7->addLayout(horizontalLayout_24, 5, 0, 1, 1);
+
+        horizontalLayout_31 = new QHBoxLayout();
+        horizontalLayout_31->setSpacing(6);
+        horizontalLayout_31->setObjectName(QString::fromUtf8("horizontalLayout_31"));
+        label_33 = new QLabel(page_2);
+        label_33->setObjectName(QString::fromUtf8("label_33"));
+        sizePolicy4.setHeightForWidth(label_33->sizePolicy().hasHeightForWidth());
+        label_33->setSizePolicy(sizePolicy4);
+
+        horizontalLayout_31->addWidget(label_33);
+
+        spinBox_spacing = new QSpinBox(page_2);
+        spinBox_spacing->setObjectName(QString::fromUtf8("spinBox_spacing"));
+        spinBox_spacing->setMinimumSize(QSize(100, 0));
+        spinBox_spacing->setFocusPolicy(Qt::ClickFocus);
+        spinBox_spacing->setButtonSymbols(QAbstractSpinBox::PlusMinus);
+        spinBox_spacing->setCorrectionMode(QAbstractSpinBox::CorrectToNearestValue);
+        spinBox_spacing->setKeyboardTracking(false);
+        spinBox_spacing->setValue(0);
+
+        horizontalLayout_31->addWidget(spinBox_spacing);
+
+
+        gridLayout_7->addLayout(horizontalLayout_31, 7, 0, 1, 1);
+
+        horizontalLayout_28 = new QHBoxLayout();
+        horizontalLayout_28->setSpacing(6);
+        horizontalLayout_28->setObjectName(QString::fromUtf8("horizontalLayout_28"));
+        label_24 = new QLabel(page_2);
+        label_24->setObjectName(QString::fromUtf8("label_24"));
+        QSizePolicy sizePolicy5(QSizePolicy::Maximum, QSizePolicy::Maximum);
+        sizePolicy5.setHorizontalStretch(0);
+        sizePolicy5.setVerticalStretch(0);
+        sizePolicy5.setHeightForWidth(label_24->sizePolicy().hasHeightForWidth());
+        label_24->setSizePolicy(sizePolicy5);
+
+        horizontalLayout_28->addWidget(label_24);
+
+        comboBox_number = new QComboBox(page_2);
+        comboBox_number->setObjectName(QString::fromUtf8("comboBox_number"));
+
+        horizontalLayout_28->addWidget(comboBox_number);
+
+
+        gridLayout_7->addLayout(horizontalLayout_28, 2, 0, 1, 1);
+
         horizontalLayout_21 = new QHBoxLayout();
         horizontalLayout_21->setSpacing(6);
         horizontalLayout_21->setObjectName(QString::fromUtf8("horizontalLayout_21"));
@@ -776,6 +848,7 @@ public:
         spinBox_cood_x->setObjectName(QString::fromUtf8("spinBox_cood_x"));
         spinBox_cood_x->setMinimumSize(QSize(100, 0));
         spinBox_cood_x->setFocusPolicy(Qt::ClickFocus);
+        spinBox_cood_x->setStyleSheet(QString::fromUtf8("background-color: rgb(46, 47, 48);"));
         spinBox_cood_x->setButtonSymbols(QAbstractSpinBox::PlusMinus);
         spinBox_cood_x->setCorrectionMode(QAbstractSpinBox::CorrectToNearestValue);
         spinBox_cood_x->setKeyboardTracking(false);
@@ -803,13 +876,157 @@ public:
         horizontalLayout_21->addWidget(spinBox_cood_y);
 
 
-        verticalLayout_2->addLayout(horizontalLayout_21);
+        gridLayout_7->addLayout(horizontalLayout_21, 0, 0, 1, 1);
+
+        horizontalLayout_43 = new QHBoxLayout();
+        horizontalLayout_43->setSpacing(6);
+        horizontalLayout_43->setObjectName(QString::fromUtf8("horizontalLayout_43"));
+        label_29 = new QLabel(page_2);
+        label_29->setObjectName(QString::fromUtf8("label_29"));
+        sizePolicy4.setHeightForWidth(label_29->sizePolicy().hasHeightForWidth());
+        label_29->setSizePolicy(sizePolicy4);
+
+        horizontalLayout_43->addWidget(label_29);
+
+        spinBox_font = new QSpinBox(page_2);
+        spinBox_font->setObjectName(QString::fromUtf8("spinBox_font"));
+        spinBox_font->setMinimumSize(QSize(100, 0));
+        spinBox_font->setFocusPolicy(Qt::ClickFocus);
+        spinBox_font->setButtonSymbols(QAbstractSpinBox::PlusMinus);
+        spinBox_font->setCorrectionMode(QAbstractSpinBox::CorrectToNearestValue);
+        spinBox_font->setKeyboardTracking(false);
+        spinBox_font->setValue(16);
+
+        horizontalLayout_43->addWidget(spinBox_font);
+
+
+        gridLayout_7->addLayout(horizontalLayout_43, 6, 0, 1, 1);
+
+        horizontalLayout_22 = new QHBoxLayout();
+        horizontalLayout_22->setSpacing(6);
+        horizontalLayout_22->setObjectName(QString::fromUtf8("horizontalLayout_22"));
+        comboBox_texts = new QComboBox(page_2);
+        comboBox_texts->setObjectName(QString::fromUtf8("comboBox_texts"));
+
+        horizontalLayout_22->addWidget(comboBox_texts);
+
+        PB_lond_font = new QPushButton(page_2);
+        PB_lond_font->setObjectName(QString::fromUtf8("PB_lond_font"));
+
+        horizontalLayout_22->addWidget(PB_lond_font);
+
+
+        gridLayout_7->addLayout(horizontalLayout_22, 3, 0, 1, 1);
+
+        horizontalLayout_33 = new QHBoxLayout();
+        horizontalLayout_33->setSpacing(6);
+        horizontalLayout_33->setObjectName(QString::fromUtf8("horizontalLayout_33"));
+        label_21 = new QLabel(page_2);
+        label_21->setObjectName(QString::fromUtf8("label_21"));
+        sizePolicy4.setHeightForWidth(label_21->sizePolicy().hasHeightForWidth());
+        label_21->setSizePolicy(sizePolicy4);
+
+        horizontalLayout_33->addWidget(label_21);
+
+        CB_language = new QComboBox(page_2);
+        CB_language->addItem(QString());
+        CB_language->addItem(QString());
+        CB_language->addItem(QString());
+        CB_language->addItem(QString());
+        CB_language->addItem(QString());
+        CB_language->addItem(QString());
+        CB_language->addItem(QString());
+        CB_language->addItem(QString());
+        CB_language->addItem(QString());
+        CB_language->addItem(QString());
+        CB_language->addItem(QString());
+        CB_language->addItem(QString());
+        CB_language->addItem(QString());
+        CB_language->addItem(QString());
+        CB_language->addItem(QString());
+        CB_language->addItem(QString());
+        CB_language->addItem(QString());
+        CB_language->addItem(QString());
+        CB_language->addItem(QString());
+        CB_language->addItem(QString());
+        CB_language->addItem(QString());
+        CB_language->addItem(QString());
+        CB_language->addItem(QString());
+        CB_language->addItem(QString());
+        CB_language->addItem(QString());
+        CB_language->addItem(QString());
+        CB_language->addItem(QString());
+        CB_language->setObjectName(QString::fromUtf8("CB_language"));
+
+        horizontalLayout_33->addWidget(CB_language);
+
+
+        gridLayout_7->addLayout(horizontalLayout_33, 4, 0, 1, 1);
+
+        horizontalLayout_27 = new QHBoxLayout();
+        horizontalLayout_27->setSpacing(6);
+        horizontalLayout_27->setObjectName(QString::fromUtf8("horizontalLayout_27"));
+        horizontalLayout_25 = new QHBoxLayout();
+        horizontalLayout_25->setSpacing(6);
+        horizontalLayout_25->setObjectName(QString::fromUtf8("horizontalLayout_25"));
+        label_30 = new QLabel(page_2);
+        label_30->setObjectName(QString::fromUtf8("label_30"));
+
+        horizontalLayout_25->addWidget(label_30);
+
+
+        horizontalLayout_27->addLayout(horizontalLayout_25);
+
+        horizontalLayout_26 = new QHBoxLayout();
+        horizontalLayout_26->setSpacing(6);
+        horizontalLayout_26->setObjectName(QString::fromUtf8("horizontalLayout_26"));
+        lineEdit_2 = new QLineEdit(page_2);
+        lineEdit_2->setObjectName(QString::fromUtf8("lineEdit_2"));
+
+        horizontalLayout_26->addWidget(lineEdit_2);
+
+        label_13 = new QLabel(page_2);
+        label_13->setObjectName(QString::fromUtf8("label_13"));
+
+        horizontalLayout_26->addWidget(label_13);
+
+
+        horizontalLayout_27->addLayout(horizontalLayout_26);
+
+
+        gridLayout_7->addLayout(horizontalLayout_27, 8, 0, 1, 1);
+
+        horizontalLayout_32 = new QHBoxLayout();
+        horizontalLayout_32->setSpacing(6);
+        horizontalLayout_32->setObjectName(QString::fromUtf8("horizontalLayout_32"));
+        label_34 = new QLabel(page_2);
+        label_34->setObjectName(QString::fromUtf8("label_34"));
+        sizePolicy4.setHeightForWidth(label_34->sizePolicy().hasHeightForWidth());
+        label_34->setSizePolicy(sizePolicy4);
+
+        horizontalLayout_32->addWidget(label_34);
+
+        spinBox_LineHeight = new QSpinBox(page_2);
+        spinBox_LineHeight->setObjectName(QString::fromUtf8("spinBox_LineHeight"));
+        spinBox_LineHeight->setMinimumSize(QSize(100, 0));
+        spinBox_LineHeight->setFocusPolicy(Qt::ClickFocus);
+        spinBox_LineHeight->setButtonSymbols(QAbstractSpinBox::PlusMinus);
+        spinBox_LineHeight->setCorrectionMode(QAbstractSpinBox::CorrectToNearestValue);
+        spinBox_LineHeight->setKeyboardTracking(false);
+        spinBox_LineHeight->setValue(0);
+
+        horizontalLayout_32->addWidget(spinBox_LineHeight);
+
+
+        gridLayout_7->addLayout(horizontalLayout_32, 9, 0, 1, 1);
 
         horizontalLayout_23 = new QHBoxLayout();
         horizontalLayout_23->setSpacing(6);
         horizontalLayout_23->setObjectName(QString::fromUtf8("horizontalLayout_23"));
         label_28 = new QLabel(page_2);
         label_28->setObjectName(QString::fromUtf8("label_28"));
+        sizePolicy4.setHeightForWidth(label_28->sizePolicy().hasHeightForWidth());
+        label_28->setSizePolicy(sizePolicy4);
         label_28->setMaximumSize(QSize(50, 30));
 
         horizontalLayout_23->addWidget(label_28);
@@ -857,186 +1074,13 @@ public:
         horizontalLayout_23->addLayout(horizontalLayout_20);
 
 
-        verticalLayout_2->addLayout(horizontalLayout_23);
+        gridLayout_7->addLayout(horizontalLayout_23, 1, 0, 1, 1);
 
-        horizontalLayout_24 = new QHBoxLayout();
-        horizontalLayout_24->setSpacing(6);
-        horizontalLayout_24->setObjectName(QString::fromUtf8("horizontalLayout_24"));
-        label_31 = new QLabel(page_2);
-        label_31->setObjectName(QString::fromUtf8("label_31"));
+        verticalSpacer_2 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
-        horizontalLayout_24->addWidget(label_31);
+        gridLayout_7->addItem(verticalSpacer_2, 10, 0, 1, 1);
 
-        fontComboBox = new QFontComboBox(page_2);
-        fontComboBox->setObjectName(QString::fromUtf8("fontComboBox"));
-
-        horizontalLayout_24->addWidget(fontComboBox);
-
-
-        verticalLayout_2->addLayout(horizontalLayout_24);
-
-        horizontalLayout_33 = new QHBoxLayout();
-        horizontalLayout_33->setSpacing(6);
-        horizontalLayout_33->setObjectName(QString::fromUtf8("horizontalLayout_33"));
-        label_21 = new QLabel(page_2);
-        label_21->setObjectName(QString::fromUtf8("label_21"));
-
-        horizontalLayout_33->addWidget(label_21);
-
-        CB_language = new QComboBox(page_2);
-        CB_language->addItem(QString());
-        CB_language->addItem(QString());
-        CB_language->addItem(QString());
-        CB_language->addItem(QString());
-        CB_language->addItem(QString());
-        CB_language->addItem(QString());
-        CB_language->addItem(QString());
-        CB_language->addItem(QString());
-        CB_language->addItem(QString());
-        CB_language->addItem(QString());
-        CB_language->addItem(QString());
-        CB_language->addItem(QString());
-        CB_language->addItem(QString());
-        CB_language->addItem(QString());
-        CB_language->addItem(QString());
-        CB_language->addItem(QString());
-        CB_language->addItem(QString());
-        CB_language->addItem(QString());
-        CB_language->addItem(QString());
-        CB_language->addItem(QString());
-        CB_language->addItem(QString());
-        CB_language->addItem(QString());
-        CB_language->addItem(QString());
-        CB_language->addItem(QString());
-        CB_language->addItem(QString());
-        CB_language->addItem(QString());
-        CB_language->addItem(QString());
-        CB_language->setObjectName(QString::fromUtf8("CB_language"));
-
-        horizontalLayout_33->addWidget(CB_language);
-
-
-        verticalLayout_2->addLayout(horizontalLayout_33);
-
-        horizontalLayout_43 = new QHBoxLayout();
-        horizontalLayout_43->setSpacing(6);
-        horizontalLayout_43->setObjectName(QString::fromUtf8("horizontalLayout_43"));
-        label_29 = new QLabel(page_2);
-        label_29->setObjectName(QString::fromUtf8("label_29"));
-
-        horizontalLayout_43->addWidget(label_29);
-
-        spinBox_font = new QSpinBox(page_2);
-        spinBox_font->setObjectName(QString::fromUtf8("spinBox_font"));
-        spinBox_font->setMinimumSize(QSize(100, 0));
-        spinBox_font->setFocusPolicy(Qt::ClickFocus);
-        spinBox_font->setButtonSymbols(QAbstractSpinBox::PlusMinus);
-        spinBox_font->setCorrectionMode(QAbstractSpinBox::CorrectToNearestValue);
-        spinBox_font->setKeyboardTracking(false);
-        spinBox_font->setValue(16);
-
-        horizontalLayout_43->addWidget(spinBox_font);
-
-
-        verticalLayout_2->addLayout(horizontalLayout_43);
-
-        horizontalLayout_22 = new QHBoxLayout();
-        horizontalLayout_22->setSpacing(6);
-        horizontalLayout_22->setObjectName(QString::fromUtf8("horizontalLayout_22"));
-        comboBox_texts = new QComboBox(page_2);
-        comboBox_texts->setObjectName(QString::fromUtf8("comboBox_texts"));
-
-        horizontalLayout_22->addWidget(comboBox_texts);
-
-        PB_lond_font = new QPushButton(page_2);
-        PB_lond_font->setObjectName(QString::fromUtf8("PB_lond_font"));
-
-        horizontalLayout_22->addWidget(PB_lond_font);
-
-
-        verticalLayout_2->addLayout(horizontalLayout_22);
-
-        horizontalLayout_31 = new QHBoxLayout();
-        horizontalLayout_31->setSpacing(6);
-        horizontalLayout_31->setObjectName(QString::fromUtf8("horizontalLayout_31"));
-        label_33 = new QLabel(page_2);
-        label_33->setObjectName(QString::fromUtf8("label_33"));
-
-        horizontalLayout_31->addWidget(label_33);
-
-        spinBox_spacing = new QSpinBox(page_2);
-        spinBox_spacing->setObjectName(QString::fromUtf8("spinBox_spacing"));
-        spinBox_spacing->setMinimumSize(QSize(100, 0));
-        spinBox_spacing->setFocusPolicy(Qt::ClickFocus);
-        spinBox_spacing->setButtonSymbols(QAbstractSpinBox::PlusMinus);
-        spinBox_spacing->setCorrectionMode(QAbstractSpinBox::CorrectToNearestValue);
-        spinBox_spacing->setKeyboardTracking(false);
-        spinBox_spacing->setValue(0);
-
-        horizontalLayout_31->addWidget(spinBox_spacing);
-
-
-        verticalLayout_2->addLayout(horizontalLayout_31);
-
-        horizontalLayout_27 = new QHBoxLayout();
-        horizontalLayout_27->setSpacing(6);
-        horizontalLayout_27->setObjectName(QString::fromUtf8("horizontalLayout_27"));
-        horizontalLayout_25 = new QHBoxLayout();
-        horizontalLayout_25->setSpacing(6);
-        horizontalLayout_25->setObjectName(QString::fromUtf8("horizontalLayout_25"));
-        label_30 = new QLabel(page_2);
-        label_30->setObjectName(QString::fromUtf8("label_30"));
-
-        horizontalLayout_25->addWidget(label_30);
-
-
-        horizontalLayout_27->addLayout(horizontalLayout_25);
-
-        horizontalLayout_26 = new QHBoxLayout();
-        horizontalLayout_26->setSpacing(6);
-        horizontalLayout_26->setObjectName(QString::fromUtf8("horizontalLayout_26"));
-        lineEdit_2 = new QLineEdit(page_2);
-        lineEdit_2->setObjectName(QString::fromUtf8("lineEdit_2"));
-
-        horizontalLayout_26->addWidget(lineEdit_2);
-
-        label_13 = new QLabel(page_2);
-        label_13->setObjectName(QString::fromUtf8("label_13"));
-
-        horizontalLayout_26->addWidget(label_13);
-
-
-        horizontalLayout_27->addLayout(horizontalLayout_26);
-
-
-        verticalLayout_2->addLayout(horizontalLayout_27);
-
-        horizontalLayout_32 = new QHBoxLayout();
-        horizontalLayout_32->setSpacing(6);
-        horizontalLayout_32->setObjectName(QString::fromUtf8("horizontalLayout_32"));
-        label_34 = new QLabel(page_2);
-        label_34->setObjectName(QString::fromUtf8("label_34"));
-
-        horizontalLayout_32->addWidget(label_34);
-
-        spinBox_LineHeight = new QSpinBox(page_2);
-        spinBox_LineHeight->setObjectName(QString::fromUtf8("spinBox_LineHeight"));
-        spinBox_LineHeight->setMinimumSize(QSize(100, 0));
-        spinBox_LineHeight->setFocusPolicy(Qt::ClickFocus);
-        spinBox_LineHeight->setButtonSymbols(QAbstractSpinBox::PlusMinus);
-        spinBox_LineHeight->setCorrectionMode(QAbstractSpinBox::CorrectToNearestValue);
-        spinBox_LineHeight->setKeyboardTracking(false);
-        spinBox_LineHeight->setValue(0);
-
-        horizontalLayout_32->addWidget(spinBox_LineHeight);
-
-
-        verticalLayout_2->addLayout(horizontalLayout_32);
-
-
-        gridLayout_7->addLayout(verticalLayout_2, 0, 0, 1, 1);
-
-        toolBox->addItem(page_2, QString::fromUtf8("\346\226\207\345\255\227"));
+        toolBox->addItem(page_2, QString::fromUtf8("\350\256\276\347\275\256"));
         listView_componnets = new QListView(dockWidgetContents_4);
         listView_componnets->setObjectName(QString::fromUtf8("listView_componnets"));
         listView_componnets->setGeometry(QRect(9, 9, 291, 192));
@@ -1046,11 +1090,12 @@ public:
         MainWindow->addDockWidget(Qt::RightDockWidgetArea, dockWidget_3);
         dockWidget = new QDockWidget(MainWindow);
         dockWidget->setObjectName(QString::fromUtf8("dockWidget"));
-        QSizePolicy sizePolicy4(QSizePolicy::Expanding, QSizePolicy::Expanding);
-        sizePolicy4.setHorizontalStretch(0);
-        sizePolicy4.setVerticalStretch(0);
-        sizePolicy4.setHeightForWidth(dockWidget->sizePolicy().hasHeightForWidth());
-        dockWidget->setSizePolicy(sizePolicy4);
+        QSizePolicy sizePolicy6(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        sizePolicy6.setHorizontalStretch(0);
+        sizePolicy6.setVerticalStretch(0);
+        sizePolicy6.setHeightForWidth(dockWidget->sizePolicy().hasHeightForWidth());
+        dockWidget->setSizePolicy(sizePolicy6);
+        dockWidget->setAutoFillBackground(false);
         dockWidgetContents = new QWidget();
         dockWidgetContents->setObjectName(QString::fromUtf8("dockWidgetContents"));
         gridLayout_9 = new QGridLayout(dockWidgetContents);
@@ -1059,8 +1104,8 @@ public:
         gridLayout_9->setObjectName(QString::fromUtf8("gridLayout_9"));
         tabWidget = new QTabWidget(dockWidgetContents);
         tabWidget->setObjectName(QString::fromUtf8("tabWidget"));
-        sizePolicy4.setHeightForWidth(tabWidget->sizePolicy().hasHeightForWidth());
-        tabWidget->setSizePolicy(sizePolicy4);
+        sizePolicy6.setHeightForWidth(tabWidget->sizePolicy().hasHeightForWidth());
+        tabWidget->setSizePolicy(sizePolicy6);
         tabWidget->setTabPosition(QTabWidget::West);
         tabWidget->setTabShape(QTabWidget::Triangular);
         tabWidget->setElideMode(Qt::ElideNone);
@@ -1075,8 +1120,8 @@ public:
         gridLayout_3->setObjectName(QString::fromUtf8("gridLayout_3"));
         textBrowser = new QTextBrowser(tab);
         textBrowser->setObjectName(QString::fromUtf8("textBrowser"));
-        sizePolicy4.setHeightForWidth(textBrowser->sizePolicy().hasHeightForWidth());
-        textBrowser->setSizePolicy(sizePolicy4);
+        sizePolicy6.setHeightForWidth(textBrowser->sizePolicy().hasHeightForWidth());
+        textBrowser->setSizePolicy(sizePolicy6);
 
         gridLayout_3->addWidget(textBrowser, 0, 0, 1, 1);
 
@@ -1089,8 +1134,8 @@ public:
         gridLayout_4->setObjectName(QString::fromUtf8("gridLayout_4"));
         TB_Positon = new QTextBrowser(tab_2);
         TB_Positon->setObjectName(QString::fromUtf8("TB_Positon"));
-        sizePolicy4.setHeightForWidth(TB_Positon->sizePolicy().hasHeightForWidth());
-        TB_Positon->setSizePolicy(sizePolicy4);
+        sizePolicy6.setHeightForWidth(TB_Positon->sizePolicy().hasHeightForWidth());
+        TB_Positon->setSizePolicy(sizePolicy6);
 
         gridLayout_4->addWidget(TB_Positon, 0, 0, 1, 1);
 
@@ -1167,8 +1212,6 @@ public:
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "\347\273\264\344\272\277\351\255\204\344\270\223\345\261\236 \344\275\234\350\200\205:\346\234\261\346\214\257\345\261\225  V2.1 \350\201\224\347\263\273:442446835", nullptr));
         lineEdit->setText(QString());
-        label_47->setText(QCoreApplication::translate("MainWindow", "\345\267\262\351\200\211\346\213\251\346\216\247\344\273\266", nullptr));
-        label_display->setText(QString());
 #if QT_CONFIG(tooltip)
         listView_page->setToolTip(QCoreApplication::translate("MainWindow", "\347\225\214\351\235\242\351\200\211\346\213\251", nullptr));
 #endif // QT_CONFIG(tooltip)
@@ -1181,6 +1224,8 @@ public:
 #if QT_CONFIG(accessibility)
         listView_page->setAccessibleName(QString());
 #endif // QT_CONFIG(accessibility)
+        label_47->setText(QCoreApplication::translate("MainWindow", "\345\267\262\351\200\211\346\213\251\346\216\247\344\273\266", nullptr));
+        label_display->setText(QString());
         dockWidget_3->setWindowTitle(QCoreApplication::translate("MainWindow", "\345\261\236\346\200\247", nullptr));
         label_8->setText(QCoreApplication::translate("MainWindow", "\344\270\212\344\270\213\345\215\210", nullptr));
         label->setText(QCoreApplication::translate("MainWindow", "\346\227\266\351\227\264", nullptr));
@@ -1211,14 +1256,15 @@ public:
         CB_FunSelect->setItemText(4, QCoreApplication::translate("MainWindow", "Gui_PageClearBackgroundType2(index,\357\274\211", nullptr));
 
         toolBox->setItemText(toolBox->indexOf(page), QCoreApplication::translate("MainWindow", "\346\216\247\344\273\266", nullptr));
+        label_31->setText(QCoreApplication::translate("MainWindow", "\345\255\227\344\275\223", nullptr));
+        fontComboBox->setCurrentText(QCoreApplication::translate("MainWindow", "OPPOSans M", nullptr));
+        label_33->setText(QCoreApplication::translate("MainWindow", "\345\255\227\351\227\264\350\267\235", nullptr));
+        label_24->setText(QCoreApplication::translate("MainWindow", "\344\275\215\346\225\260", nullptr));
         label_25->setText(QCoreApplication::translate("MainWindow", "\345\235\220\346\240\207", nullptr));
         label_22->setText(QCoreApplication::translate("MainWindow", "X:", nullptr));
         label_23->setText(QCoreApplication::translate("MainWindow", "Y:", nullptr));
-        label_28->setText(QCoreApplication::translate("MainWindow", "\345\260\272\345\257\270", nullptr));
-        label_26->setText(QCoreApplication::translate("MainWindow", "\345\256\275\345\272\246:", nullptr));
-        label_27->setText(QCoreApplication::translate("MainWindow", "\351\253\230\345\272\246:", nullptr));
-        label_31->setText(QCoreApplication::translate("MainWindow", "\345\255\227\344\275\223", nullptr));
-        fontComboBox->setCurrentText(QCoreApplication::translate("MainWindow", "OPPOSans M", nullptr));
+        label_29->setText(QCoreApplication::translate("MainWindow", "\345\255\227\345\217\267", nullptr));
+        PB_lond_font->setText(QCoreApplication::translate("MainWindow", "+", nullptr));
         label_21->setText(QCoreApplication::translate("MainWindow", "\350\257\255\350\250\200", nullptr));
         CB_language->setItemText(0, QCoreApplication::translate("MainWindow", "\344\270\255\346\226\207", nullptr));
         CB_language->setItemText(1, QCoreApplication::translate("MainWindow", "\350\213\261\346\226\207", nullptr));
@@ -1248,13 +1294,13 @@ public:
         CB_language->setItemText(25, QCoreApplication::translate("MainWindow", "\347\221\236\345\205\270", nullptr));
         CB_language->setItemText(26, QCoreApplication::translate("MainWindow", "\350\215\267\345\205\260", nullptr));
 
-        label_29->setText(QCoreApplication::translate("MainWindow", "\345\255\227\345\217\267", nullptr));
-        PB_lond_font->setText(QCoreApplication::translate("MainWindow", "\345\212\240\350\275\275\345\255\227\345\272\223", nullptr));
-        label_33->setText(QCoreApplication::translate("MainWindow", "\345\255\227\351\227\264\350\267\235", nullptr));
         label_30->setText(QCoreApplication::translate("MainWindow", "\351\242\234\350\211\262", nullptr));
         label_13->setText(QCoreApplication::translate("MainWindow", "HEX", nullptr));
         label_34->setText(QCoreApplication::translate("MainWindow", "\350\241\214\351\253\230", nullptr));
-        toolBox->setItemText(toolBox->indexOf(page_2), QCoreApplication::translate("MainWindow", "\346\226\207\345\255\227", nullptr));
+        label_28->setText(QCoreApplication::translate("MainWindow", "\345\260\272\345\257\270", nullptr));
+        label_26->setText(QCoreApplication::translate("MainWindow", "\345\256\275\345\272\246:", nullptr));
+        label_27->setText(QCoreApplication::translate("MainWindow", "\351\253\230\345\272\246:", nullptr));
+        toolBox->setItemText(toolBox->indexOf(page_2), QCoreApplication::translate("MainWindow", "\350\256\276\347\275\256", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab), QCoreApplication::translate("MainWindow", "\344\273\243\347\240\201\345\214\272", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QCoreApplication::translate("MainWindow", "\345\235\220\346\240\207", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab_3), QCoreApplication::translate("MainWindow", "\345\244\264\346\226\207\344\273\266", nullptr));

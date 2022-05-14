@@ -15,10 +15,17 @@
 #define COMPONNET_FORMAT_SLEEP		"sleep"
 #define COMPONNET_FORMAT_BP			"BP"
 #define COMPONNET_FORMAT_DISTANCE	"Distance"
+#define COMPONNET_FORMAT_STEP		"Step"
 #define COMPONNET_FORMAT_BLE		"BLE"
 #define COMPONNET_FORMAT_BUTTON		"Button"
 #define COMPONNET_FORMAT_LABEL		"label"
+typedef enum
+{
+	COMPONNET_TYPE_GENERAL,
+	COMPONNET_TYPE_TEXT,
+	COMPONNET_TYPE_NUMBER,
 
+}COMPONNET_TYPE_E;
 #include <QObject>
 #include <QMap>
 #include "ComponnetsItem.h"
@@ -41,19 +48,24 @@ public:
 	QStringList GetElementList(QString id);
 	void SetItem(ComponnetsItem item);
 	void SetCurrentItem(QString id);
-	ComponnetsItem current_item;
-	QMap<QString, ComponnetsItem> view_items_map;
+	COMPONNET_TYPE_E Type(QString id); //获取控件的类型
 	QPoint GetPoint(QString id, Language_e lan);
 	QPoint GetPoint(QString id);
 	QString GetPriview(QString id);
 	QString Family(QString id);
 	void AppendItem(QString id, ComponnetsItem item);
+
 	QStringList GetViewId();
 	bool contains(QString id);
 	ComponnetsItem GetCurrentItem(QString id);
 	int Count();
-	QStringList component_list;
+
 	QString GetComponnetType(QString type);
+	QStringList component_list;
+	ComponnetsItem current_item;
+	QMap<QString, ComponnetsItem> view_items_map;
+	QMap<QString, NumberComponnetsItem> view_number_items_map;
+	int Digit(QString fomat); //获取该类型有多少位数
 private:
 	QStringList component_id_list;
 	QMap<QString, QString> componnet_id_map;

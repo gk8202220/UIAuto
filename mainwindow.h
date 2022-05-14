@@ -28,6 +28,7 @@
 #include "WatchView.h"
 #include "VpWatchCode.h"
 #include "ImageSelectWidget.h"
+#include "WatchNamberView.h"
 namespace Ui {
 class MainWindow;
 }
@@ -116,6 +117,7 @@ private:
     //void SelectedText(QString id); //选中已有的文字
     void CreatTextItem(QPoint* point); //创建一个文字的控件
     void CreatItem(QString componnet_type, QPoint point); //创建一个的控件
+    void CreatNumber(QString componnet_type, QPoint *point); //创建一个数字的控件
     void CreatItem(QString componnet_type, QPoint* point);
     void SelectingItem(QString id); //选中的控件
     void DislayView(QPainter *painter); //显示界面
@@ -154,6 +156,7 @@ private:
     WatchView *watch_view;
     VpWatchCode* vpWatchCode;
     ImageSelectWidget* imageSelectWidget;
+    WatchNamberView* watchNamberView;
    
 };
 

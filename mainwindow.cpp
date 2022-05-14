@@ -52,6 +52,7 @@ MainWindow::MainWindow(QWidget *parent) :
      QObject::connect(imageSelectWidget, SIGNAL(updata_image()), this, SLOT(on_updata_select_text_list()));    
 
     vpWatchCode = VpWatchCode::getInstance();
+    watchNamberView = new WatchNamberView(this);
 	
 }
 
@@ -65,9 +66,9 @@ void MainWindow::dragEnterEvent(QDragEnterEvent *event)
 }
 bool MainWindow::eventFilter(QObject *watched, QEvent *event)   //用过滤器eventFilter（）拦截QLabel中的QEvent::Paint事件
 {
-	if (watched == ui->label_display && event->type() == QEvent::Paint)
+	//if (watched == ui->label_display && event->type() == QEvent::Paint)
 		//paint();
-	this->update();
+	//this->update();
    
 
 	return QWidget::eventFilter(watched, event);
@@ -111,7 +112,7 @@ void MainWindow::mouseMoveEvent(QMouseEvent* event)
 void MainWindow::paintEvent(QPaintEvent * event)
 {
 
-	QPainter paint(this);   
+	//QPainter paint(this);   
     
     QPainter painter;
 
@@ -134,63 +135,63 @@ void MainWindow::paintEvent(QPaintEvent * event)
     painter.end();
  
     ui->label_display->setPixmap(pix);
-    
-	if (!iconArray.isEmpty())
-	{
-		for (int i = 0; i< iconArray.size(); i++)
-		{
-			//qDebug() << "aaa";
+ //   
+	//if (!iconArray.isEmpty())
+	//{
+	//	for (int i = 0; i< iconArray.size(); i++)
+	//	{
+	//		//qDebug() << "aaa";
 
-			QJsonObject  rectInfo = iconArray.at(i).toObject();
-			int x = rectInfo.value("x").toInt() + ui->label_display->x();
-			int y = rectInfo.value("y").toInt() + ui->label_display->y();
-			//显示大背景
-			if (x == 0 && y == 0)
-			{
-				QString filePath1 = rectInfo.value("path").toString();
-				if (!filePath1.isEmpty())
-				{
-					
-					//QImage *image = new QImage(filePath1);
-					//paint.drawImage(x, y, *image);
-					if (x == 240 && y == 240)
-					{
-						continue;
-					}
-					paint.drawPixmap(x, y, QPixmap(filePath1));
-					break;
+	//		QJsonObject  rectInfo = iconArray.at(i).toObject();
+	//		int x = rectInfo.value("x").toInt() + ui->label_display->x();
+	//		int y = rectInfo.value("y").toInt() + ui->label_display->y();
+	//		//显示大背景
+	//		if (x == 0 && y == 0)
+	//		{
+	//			QString filePath1 = rectInfo.value("path").toString();
+	//			if (!filePath1.isEmpty())
+	//			{
+	//				
+	//				//QImage *image = new QImage(filePath1);
+	//				//paint.drawImage(x, y, *image);
+	//				if (x == 240 && y == 240)
+	//				{
+	//					continue;
+	//				}
+	//				paint.drawPixmap(x, y, QPixmap(filePath1));
+	//				break;
 
-				}
-			}
+	//			}
+	//		}
 
-		}
-		for (int i = 0; i< iconArray.size(); i++)
-		{
+	//	}
+	//	for (int i = 0; i< iconArray.size(); i++)
+	//	{
 
 
-			QJsonObject  rectInfo = iconArray.at(i).toObject();
-			int x = rectInfo.value("x").toInt() + ui->label_display->x();;
-			int y = rectInfo.value("y").toInt() + ui->label_display->y();;
-			if (x == ui->label_display->x() && y == ui->label_display->y())
-			{
-				continue;
-			}
-			// int height =rectInfo.value("height").toInt();
-			// int width = rectInfo.value("width").toInt();
-			QString filePath1 = rectInfo.value("path").toString();
-			//qDebug() << "*********显示切图*********";
-			//qDebug()<<"x = "<< x << ",y =  " << y  << ",parh = " << filePath1;
-			/*QImage *image = new QImage(filePath1);
-			if (!image->isNull())
-			{
-				paint.drawImage(x, y, *image);
-			}*/
-			
-			paint.drawPixmap(x, y, QPixmap(filePath1));
-				
-		}
+	//		QJsonObject  rectInfo = iconArray.at(i).toObject();
+	//		int x = rectInfo.value("x").toInt() + ui->label_display->x();;
+	//		int y = rectInfo.value("y").toInt() + ui->label_display->y();;
+	//		if (x == ui->label_display->x() && y == ui->label_display->y())
+	//		{
+	//			continue;
+	//		}
+	//		// int height =rectInfo.value("height").toInt();
+	//		// int width = rectInfo.value("width").toInt();
+	//		QString filePath1 = rectInfo.value("path").toString();
+	//		//qDebug() << "*********显示切图*********";
+	//		//qDebug()<<"x = "<< x << ",y =  " << y  << ",parh = " << filePath1;
+	//		/*QImage *image = new QImage(filePath1);
+	//		if (!image->isNull())
+	//		{
+	//			paint.drawImage(x, y, *image);
+	//		}*/
+	//		
+	//		paint.drawPixmap(x, y, QPixmap(filePath1));
+	//			
+	//	}
 
-	}
+	//}
 }
 
 void MainWindow::dropEvent(QDropEvent *event)
@@ -1158,18 +1159,25 @@ void MainWindow::on_updata_item_param()
                 {
                     //如果显示的图片没有设置高度则用第一张作为高度的设置
                     QImage image(current_element);
+                   
                     if (!image.isNull())
                     {
                         current_item.size = image.size();
-                    }
-                   
-                   
+                       
+                    }                                     
                 }
-            }
-        
+                if (watch_view->Type(current_item_id) == COMPONNET_TYPE_NUMBER)
+                {
+                    //数字的要进行坐标的初步计算
+                    int digit = watch_view->Digit(current_item.fomat); //获取对应数字的位数
+                    int interval = 0;
+                    Utils::CalcNumberPoints(current_item.size, current_item.point, &current_item.points, digit, interval);
+                }
+            }   
+
         }
         watch_view->AppendItem(current_item_id, current_item);
-        qDebug() << "GetPriview" << watch_view->GetPriview(current_item_id);
+        //qDebug() << "GetPriview" << watch_view->GetPriview(current_item_id);
         
     }
     CodeJson* josn1 = new CodeJson(this);
@@ -1180,7 +1188,7 @@ void MainWindow::on_updata_item_param()
 }
 void MainWindow::on_selected_item(QModelIndex index)
 {
-      int row =   index.row();
+      int row =  index.row();
       QModelIndex row_index = ui->treeView_slelect_items->model()->index(row, 0);
       QString select_id = row_index.data().toString();
       SelectingItem(select_id);
@@ -1341,6 +1349,47 @@ void MainWindow::CreatItem(QString componnet_type, QPoint point)
     SaveSelectedItem(componnet_type, current_item_id); //保存当前的控件ID
 }
 
+void MainWindow::CreatNumber(QString componnet_type, QPoint *point)
+{
+    ComponnetsItem item;
+    //添加id
+    item.id = watch_view->Count() + 1;
+    QString id = QString::number(item.id);
+    current_item_id = id;
+
+    item.fomat = watch_view->GetComponnetType(componnet_type);// COMPONNET_FORMAT_BETTARY;
+    //选择图片
+    select_element_list.clear(); //清除当前的文字列表
+    ui->comboBox_texts->clear();
+    imageSelectWidget->setSelectedImage(&select_element_list);
+    imageSelectWidget->show();
+    //设置默认参数
+    int x = point->x();
+    int y = point->y();
+    int width = 0;
+    int height = 0;
+
+    //item.point = QPoint(x, y);
+    //item.size.setWidth(width);
+    //item.size.setHeight(height);
+
+
+    select_element_list.clear(); //清除当前的文字列表
+    ui->comboBox_texts->clear();
+
+    watch_view->AppendItem(current_item_id, item); //添加新的控件
+    watch_view->SetCurrentItem(current_item_id);
+
+
+    ui->spinBox_width->setValue(width);
+    ui->spinBox_height->setValue(height);
+
+    ui->spinBox_cood_x->setValue(x);
+    ui->spinBox_cood_y->setValue(y);
+
+
+}
+
 void MainWindow::CreatItem(QString componnet_type, QPoint* point)
 {
     ComponnetsItem item;
@@ -1379,8 +1428,7 @@ void MainWindow::CreatItem(QString componnet_type, QPoint* point)
     ui->spinBox_cood_x->setValue(x);
     ui->spinBox_cood_y->setValue(y);
 
-    watch_view->AppendItem(current_item_id, item); //添加新的控件
-    watch_view->SetCurrentItem(current_item_id);
+
 
 }
 

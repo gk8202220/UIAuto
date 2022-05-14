@@ -1,7 +1,8 @@
 #pragma once
 
 #include <QObject>
-
+#include <QSize>
+#include <QPoint>
 class Utils : public QObject
 {
 	Q_OBJECT
@@ -16,4 +17,5 @@ public:
 	}
 	static QString GetBaseName(QString path);
 	static QStringList GetBaseName(QStringList paths);
+	static void CalcNumberPoints(QSize srcsize, QPoint src_point, QList<QPoint>* points, int digit, int interval);
 };

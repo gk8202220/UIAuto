@@ -113,6 +113,7 @@ void CodeJson::FontParamToJson(QMap<QString, ComponnetsItem> *items_map)
 		{
 			QJsonObject item_label_obj;
 			QStringList element_list = item.element_list;
+			if (element_list.isEmpty())return;
 			int width = item.size.width();
 			int height = item.size.height();
 			int x = item.point.x();
@@ -131,15 +132,17 @@ void CodeJson::FontParamToJson(QMap<QString, ComponnetsItem> *items_map)
 			item_label_obj.insert("format", item_fomat);
 			//page_obj.insert("Bettary" + id, item_label_obj);
 			page_obj.append(item_label_obj);
-			code_string+=GenerateCode(item_fomat, element_list);
+			code_string += GenerateCode(item_fomat, element_list);
 			//获取标题列表
-			vpWatchCode->GenerateAddrArry(element_list);
+			//vpWatchCode->GenerateAddrArry(element_list);
+			IMAGE_FORMAT image_format;
+			QString title = imageBinFun->getImageFormat(element_list.at(0), &image_format);
 			//路径获取名字
 			QStringList name_list = Utils::GetBaseName(element_list);
 			QStringList title_list;
 			title_list = imageBinFun->GetImageTitleList(name_list);
 			//生成地址数组
-			code_addr_arry += vpWatchCode->GenerateAddrArry(title_list);
+			code_addr_arry += vpWatchCode->GenerateAddrArry(title, name_list);
 		}
 		
 	}
@@ -147,7 +150,7 @@ void CodeJson::FontParamToJson(QMap<QString, ComponnetsItem> *items_map)
 	//page_obj.insert("界面", item_obj);
 	language_root_obj.insert("界面", page_obj);
 	
-	qDebug() << code_string;
+	//qDebug() << code_string;
 	//JsonToCode(language_root_obj);
 	
 }
