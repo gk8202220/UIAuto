@@ -17,5 +17,5 @@ public:
 	}
 	static QString GetBaseName(QString path);
 	static QStringList GetBaseName(QStringList paths);
-	static void CalcNumberPoints(QSize srcsize, QPoint src_point, QList<QPoint>* points, int digit, int interval);
+	static void CalcNumberPoints(QSize srcsize, QPoint src_point, QMap<int, QPoint>* points, int digit, int interval);
 };

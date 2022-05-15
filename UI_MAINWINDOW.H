@@ -252,6 +252,7 @@ public:
         treeView_slelect_items->setObjectName(QString::fromUtf8("treeView_slelect_items"));
         sizePolicy.setHeightForWidth(treeView_slelect_items->sizePolicy().hasHeightForWidth());
         treeView_slelect_items->setSizePolicy(sizePolicy);
+        treeView_slelect_items->setStyleSheet(QString::fromUtf8("background-color: qlineargradient(spread:pad, x1:0.213, y1:0.126, x2:1, y2:1, stop:0 rgba(0, 136, 255, 255), stop:1 rgba(255, 255, 255, 255));"));
         treeView_slelect_items->setTextElideMode(Qt::ElideMiddle);
 
         verticalLayout_4->addWidget(treeView_slelect_items);
@@ -299,7 +300,7 @@ public:
         toolBox->setLineWidth(0);
         page = new QWidget();
         page->setObjectName(QString::fromUtf8("page"));
-        page->setGeometry(QRect(0, -25, 320, 574));
+        page->setGeometry(QRect(0, 0, 518, 759));
         gridLayout_8 = new QGridLayout(page);
         gridLayout_8->setSpacing(6);
         gridLayout_8->setContentsMargins(11, 11, 11, 11);
@@ -758,7 +759,7 @@ public:
         toolBox->addItem(page, QString::fromUtf8("\346\216\247\344\273\266"));
         page_2 = new QWidget();
         page_2->setObjectName(QString::fromUtf8("page_2"));
-        page_2->setGeometry(QRect(0, 0, 328, 562));
+        page_2->setGeometry(QRect(0, 0, 476, 517));
         gridLayout_7 = new QGridLayout(page_2);
         gridLayout_7->setSpacing(6);
         gridLayout_7->setContentsMargins(11, 11, 11, 11);
@@ -1083,7 +1084,10 @@ public:
         toolBox->addItem(page_2, QString::fromUtf8("\350\256\276\347\275\256"));
         listView_componnets = new QListView(dockWidgetContents_4);
         listView_componnets->setObjectName(QString::fromUtf8("listView_componnets"));
-        listView_componnets->setGeometry(QRect(9, 9, 291, 192));
+        listView_componnets->setGeometry(QRect(9, 9, 321, 192));
+        listView_componnets->setContextMenuPolicy(Qt::NoContextMenu);
+        listView_componnets->setFrameShape(QFrame::Box);
+        listView_componnets->setFrameShadow(QFrame::Plain);
         listView_componnets->setDragEnabled(true);
         listView_componnets->setDefaultDropAction(Qt::ActionMask);
         dockWidget_3->setWidget(dockWidgetContents_4);
@@ -1258,7 +1262,7 @@ public:
         toolBox->setItemText(toolBox->indexOf(page), QCoreApplication::translate("MainWindow", "\346\216\247\344\273\266", nullptr));
         label_31->setText(QCoreApplication::translate("MainWindow", "\345\255\227\344\275\223", nullptr));
         fontComboBox->setCurrentText(QCoreApplication::translate("MainWindow", "OPPOSans M", nullptr));
-        label_33->setText(QCoreApplication::translate("MainWindow", "\345\255\227\351\227\264\350\267\235", nullptr));
+        label_33->setText(QCoreApplication::translate("MainWindow", "\351\227\264\350\267\235", nullptr));
         label_24->setText(QCoreApplication::translate("MainWindow", "\344\275\215\346\225\260", nullptr));
         label_25->setText(QCoreApplication::translate("MainWindow", "\345\235\220\346\240\207", nullptr));
         label_22->setText(QCoreApplication::translate("MainWindow", "X:", nullptr));

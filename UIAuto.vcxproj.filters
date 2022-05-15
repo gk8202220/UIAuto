@@ -102,9 +102,6 @@
     <ClCompile Include="ImageToBin.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClCompile Include="WatchNamberView.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="formdraw.h">
@@ -148,9 +145,6 @@
     </QtMoc>
     <QtMoc Include="ImageToBin.h">
       <Filter>Generated Files</Filter>
-    </QtMoc>
-    <QtMoc Include="WatchNamberView.h">
-      <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>

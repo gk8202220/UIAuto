@@ -54,7 +54,7 @@
     <PrimaryOutput>UIAuto</PrimaryOutput>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <PlatformToolSet>v143</PlatformToolSet>
+    <PlatformToolSet>v142</PlatformToolSet>
     <OutputDirectory>debug\</OutputDirectory>
     <ATLMinimizesCRunTimeLibraryUsage>false</ATLMinimizesCRunTimeLibraryUsage>
     <CharacterSet>NotSet</CharacterSet>
@@ -370,7 +370,6 @@
     <ClCompile Include="VpWatchCode.cpp" />
     <ClCompile Include="WatchComponentsWidget.cpp" />
     <ClCompile Include="WatchImage.cpp" />
-    <ClCompile Include="WatchNamberView.cpp" />
     <ClCompile Include="WatchView.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -382,7 +381,6 @@
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="WatchNamberView.h" />
     <QtMoc Include="WatchImage.h" />
     <QtMoc Include="VpWatchCode.h" />
     <QtMoc Include="WatchView.h" />

@@ -51,10 +51,11 @@ public:
 	COMPONNET_TYPE_E Type(QString id); //获取控件的类型
 	QPoint GetPoint(QString id, Language_e lan);
 	QPoint GetPoint(QString id);
+	QMap<int, QPoint>* GetPoints(QString id);
 	QString GetPriview(QString id);
 	QString Family(QString id);
 	void AppendItem(QString id, ComponnetsItem item);
-
+	QMap<int, QStringList>* GetElementLists(QString id);
 	QStringList GetViewId();
 	bool contains(QString id);
 	ComponnetsItem GetCurrentItem(QString id);
@@ -64,9 +65,11 @@ public:
 	QStringList component_list;
 	ComponnetsItem current_item;
 	QMap<QString, ComponnetsItem> view_items_map;
-	QMap<QString, NumberComponnetsItem> view_number_items_map;
 	int Digit(QString fomat); //获取该类型有多少位数
+	QString DigitToString(int digit);
+	int DigitToInt(QString digit);
 private:
 	QStringList component_id_list;
 	QMap<QString, QString> componnet_id_map;
+	QMap<int, QString> digit_string_map;
 };

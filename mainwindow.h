@@ -28,7 +28,7 @@
 #include "WatchView.h"
 #include "VpWatchCode.h"
 #include "ImageSelectWidget.h"
-#include "WatchNamberView.h"
+
 namespace Ui {
 class MainWindow;
 }
@@ -92,7 +92,7 @@ private slots:
     void on_display_page(const QModelIndex index); //选择的文字项
     void on_lond_language_file(); //加载语言文件
     void on_select_language_file(int select); //选择语言文件
-    void on_updata_select_text_list(); //更新选择的文字
+    void on_updata_select_content_list(); //更新选择的文字
     void on_updata_item_param(); //更新控件的参数
     void on_selected_item(QModelIndex index); //选择已经存在的控件
 private:
@@ -150,13 +150,13 @@ private:
 
     Language_e current_lan; //当前的语言
     LanguageTextSelect* languageTextSelect; // 文字选中界面
-    QStringList select_element_list;//当前选择的文本控件的ID
+    QStringList select_element_list;//当前选择的图片或者文字的ID
     QString current_item_id; //当前选择的控件
 
     WatchView *watch_view;
     VpWatchCode* vpWatchCode;
     ImageSelectWidget* imageSelectWidget;
-    WatchNamberView* watchNamberView;
+  
    
 };
 

@@ -25,7 +25,7 @@ MainWindow::MainWindow(QWidget *parent) :
     watch_view = new WatchView(this);
 
     ui->CB_old->setChecked(false);
-	ui->label_display->installEventFilter(this); //
+	ui->label_display->installEventFilter(this); 
   
    
     language = Language::GetInstance();
@@ -48,11 +48,11 @@ MainWindow::MainWindow(QWidget *parent) :
     //文本选择界面
      languageTextSelect = new LanguageTextSelect();
      languageTextSelect->SetSelectedText(&select_element_list);
-     QObject::connect(languageTextSelect, SIGNAL(updata_text()), this, SLOT(on_updata_select_text_list()));
-     QObject::connect(imageSelectWidget, SIGNAL(updata_image()), this, SLOT(on_updata_select_text_list()));    
+     QObject::connect(languageTextSelect, SIGNAL(updata_text()), this, SLOT(on_updata_select_content_list()));
+     QObject::connect(imageSelectWidget, SIGNAL(updata_image()), this, SLOT(on_updata_select_content_list()));
 
     vpWatchCode = VpWatchCode::getInstance();
-    watchNamberView = new WatchNamberView(this);
+   
 	
 }
 
@@ -1060,7 +1060,7 @@ void MainWindow::on_select_language_file(int select)
 
     }
 }
-void MainWindow::on_updata_select_text_list()
+void MainWindow::on_updata_select_content_list()
 {
     ui->comboBox_texts->clear();
     
@@ -1089,7 +1089,7 @@ void MainWindow::on_updata_select_text_list()
         
     }   
    
-   // qDebug() << "on_updata_select_text_list" << select_element_list;
+   // qDebug() << "on_updata_select_content_list" << select_element_list;
     on_updata_item_param(); //更新参数
   
     
@@ -1103,7 +1103,8 @@ void MainWindow::on_updata_item_param()
         /*尺寸*/
         int width = ui->spinBox_width->value();
         int height = ui->spinBox_height->value();
-
+        int interval = ui->spinBox_spacing->value();
+        current_item.interval = interval;
         current_item.size.setWidth(width);
         current_item.size.setHeight(height);
         if (current_item.fomat == COMPONNET_FORMAT_TEXT)
@@ -1147,6 +1148,7 @@ void MainWindow::on_updata_item_param()
             current_item.element_list.clear();
             current_item.element_list.append(select_element_list);
             int index  = ui->comboBox_texts->currentIndex();
+            QString cur_digit = ui->comboBox_number->currentData().toString(); //当前的位数
             if (!select_element_list.isEmpty() && (index != -1))
             {
                 QString current_element = select_element_list.at(index);
@@ -1170,8 +1172,31 @@ void MainWindow::on_updata_item_param()
                 {
                     //数字的要进行坐标的初步计算
                     int digit = watch_view->Digit(current_item.fomat); //获取对应数字的位数
-                    int interval = 0;
-                    Utils::CalcNumberPoints(current_item.size, current_item.point, &current_item.points, digit, interval);
+                   
+                    Utils::CalcNumberPoints(current_item.size, current_item.point, &current_item.points, digit, current_item.interval);
+                    qDebug() << "points" << current_item.points.values();
+
+                    if (current_item.element_lists.count() == 0)
+                    {
+                        //如果完全没有切图,则按位数保存选择的同样切图
+                        for (int i = digit - 1; i >= 0 ; i--)
+                        {
+                            current_item.element_lists.insert(i, select_element_list);//根据万，千，百，十，个，的顺序保存
+                            
+                        }           
+
+                    }
+                    else
+                    {
+                        //如果有切图,则按对应的位数保存
+                        if (!cur_digit.isEmpty())
+                        {
+                            int int_digit = watch_view->DigitToInt(cur_digit);
+                            current_item.element_lists.insert(int_digit, select_element_list);//根据万，千，百，十，个，的顺序保存
+                        }
+                        
+                        
+                    }
                 }
             }   
 
@@ -1397,7 +1422,7 @@ void MainWindow::CreatItem(QString componnet_type, QPoint* point)
     item.id = watch_view->Count() + 1;
     QString id = QString::number(item.id);
     current_item_id = id;
-
+    item.count = 1;
     item.fomat = watch_view->GetComponnetType(componnet_type);// COMPONNET_FORMAT_BETTARY;
     //选择图片
     select_element_list.clear(); //清除当前的文字列表
@@ -1409,19 +1434,26 @@ void MainWindow::CreatItem(QString componnet_type, QPoint* point)
     int y = point->y();
     int width  = 0;
     int height = 0;
-
+    item.interval = 0;
     item.point = QPoint(x, y);
     item.size.setWidth(width);
     item.size.setHeight(height);
-    
-
-    select_element_list.clear(); //清除当前的文字列表
-    ui->comboBox_texts->clear();
-
+  
     watch_view->AppendItem(current_item_id, item); //添加新的控件
     watch_view->SetCurrentItem(current_item_id);
-
-
+    ui->comboBox_number->clear();
+    if (watch_view->Type(id) == COMPONNET_TYPE_NUMBER)
+    {
+        item.count = watch_view->Digit(item.fomat);
+        //数字的话，还得显示位数选择
+        for (int i = item.count - 1; i >= 0; i --)
+        {
+            ui->comboBox_number->addItem(watch_view->DigitToString(i));//根据万，千，百，十，个，的显示
+        }
+        
+    }
+    select_element_list.clear(); //清除当前的文字列表
+    ui->comboBox_texts->clear();
     ui->spinBox_width->setValue(width);
     ui->spinBox_height->setValue(height);
 
@@ -1458,7 +1490,7 @@ void MainWindow::SelectingItem(QString id)
         ui->spinBox_height->setValue(height);
         //ui->comboBox_texts->clear();
 
-        on_updata_select_text_list();
+        on_updata_select_content_list();
     }
 }
 
@@ -1492,17 +1524,47 @@ void MainWindow::DislayView(QPainter* painter)
         else //if (fomat == COMPONNET_FORMAT_BETTARY)
         {
            
-           // 
-            QString image_path = watch_view->GetPriview(id);
-            if (image_path.isEmpty())
+            if (watch_view->Type(id) == COMPONNET_TYPE_NUMBER)
             {
-                painter->setPen(QColor(255, 100, 255));
-                painter->drawRoundedRect(rect, 10, 10);
+               //拿每个位数的第一张进行显示
+                QMap<int, QStringList>* elem_lists =  watch_view->GetElementLists(id);
+                QMap<int, QPoint>* elem_points = watch_view->GetPoints(id);
+                int digit_count = elem_lists->count(); //多少位数
+                int digit = 0;
+                for each (QStringList element in elem_lists->values())
+                {
+                    QPoint point = elem_points->value(digit);
+                 
+                    QRect rect(point.x(), point.y(), width, height);
+                    QString image_path = element.at(0); //只拿第一张
+                    if (image_path.isEmpty())
+                    {
+                        painter->setPen(QColor(255, 100, 255));
+                        painter->drawRoundedRect(rect, 10, 10);
+                    }
+                    else
+                    {
+                        painter->drawImage(point, QImage(image_path));
+                    }
+                    digit++;
+                }
+                
             }
             else
             {
-                painter->drawImage(point, QImage(image_path));
+                QString image_path = watch_view->GetPriview(id);
+                if (image_path.isEmpty())
+                {
+                    painter->setPen(QColor(255, 100, 255));
+                    painter->drawRoundedRect(rect, 10, 10);
+                }
+                else
+                {
+                    painter->drawImage(point, QImage(image_path));
+                }
             }
+
+           
            
         }
 

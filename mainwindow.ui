@@ -142,6 +142,9 @@ color: rgb(255, 255, 255);</string>
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: qlineargradient(spread:pad, x1:0.213, y1:0.126, x2:1, y2:1, stop:0 rgba(0, 136, 255, 255), stop:1 rgba(255, 255, 255, 255));</string>
+        </property>
         <property name="textElideMode">
          <enum>Qt::ElideMiddle</enum>
         </property>
@@ -275,8 +278,8 @@ color: rgb(255, 255, 255);</string>
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>320</width>
-        <height>574</height>
+        <width>518</width>
+        <height>759</height>
        </rect>
       </property>
       <attribute name="label">
@@ -1145,8 +1148,8 @@ color: rgb(255, 255, 255);</string>
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>328</width>
-        <height>562</height>
+        <width>476</width>
+        <height>517</height>
        </rect>
       </property>
       <attribute name="label">
@@ -1754,9 +1757,18 @@ color: rgb(255, 255, 255);</string>
       <rect>
        <x>9</x>
        <y>9</y>
-       <width>291</width>
+       <width>321</width>
        <height>192</height>
       </rect>
+     </property>
+     <property name="contextMenuPolicy">
+      <enum>Qt::NoContextMenu</enum>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::Box</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Plain</enum>
      </property>
      <property name="dragEnabled">
       <bool>true</bool>

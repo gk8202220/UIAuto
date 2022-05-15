@@ -15,6 +15,11 @@ WatchView::WatchView(QObject *parent)
 	 {
 		 componnet_id_map.insert(component_list.at(i), component_id_list.at(i));
 	 }
+	 digit_string_map.insert(0, "个位数");
+	 digit_string_map.insert(1, "十位数");
+	 digit_string_map.insert(2, "百位数");
+	 digit_string_map.insert(3, "千位数");
+	 digit_string_map.insert(4, "万位数");
 }
 
 WatchView::~WatchView()
@@ -88,10 +93,7 @@ void WatchView::SetCurrentItem(QString id)
 	{
 		current_item = view_items_map.value(id);
 	}
-	else if (view_number_items_map.contains(id))
-	{
-
-	}
+	
 
 }
 
@@ -152,6 +154,12 @@ QPoint WatchView::GetPoint(QString id)
 	return point;
 }
 
+QMap<int, QPoint>* WatchView::GetPoints(QString id)
+{
+	SetCurrentItem(id);
+	return &current_item.points;
+}
+
 QString WatchView::GetPriview(QString id)
 {
 	SetCurrentItem(id);
@@ -167,6 +175,12 @@ QString WatchView::Family(QString id)
 void WatchView::AppendItem(QString id, ComponnetsItem item)
 {
 	view_items_map.insert(id, item);
+}
+
+QMap<int, QStringList>* WatchView::GetElementLists(QString id)
+{
+	SetCurrentItem(id);
+	return &current_item.element_lists;
 }
 
 
@@ -220,4 +234,15 @@ int WatchView::Digit(QString fomat)
 		digit = 5;
 	}
 	return digit;
+}
+
+QString WatchView::DigitToString(int digit)
+{
+	return digit_string_map.value(digit);
+}
+
+int WatchView::DigitToInt(QString digit)
+{
+	
+	return digit_string_map.key(digit);
 }
