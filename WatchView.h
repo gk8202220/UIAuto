@@ -44,6 +44,7 @@ public:
 	int LineHeight(QString id);
 	int X(QString id);
 	int Y(QString id);
+	int interval(QString id);
 	QString Fomat(QString id);
 	QStringList GetElementList(QString id);
 	void SetItem(ComponnetsItem item);

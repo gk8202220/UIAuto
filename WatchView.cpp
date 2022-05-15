@@ -4,17 +4,18 @@
 WatchView::WatchView(QObject *parent)
 	: QObject(parent)
 {
-	 component_list = { "背景", "文本", "电池","时" , tr("秒") ,"年","月" ,"日","星期","心率","卡路里",\
-	"睡眠", "血压","里程", "蓝牙","按钮","标签" };
+	 component_list = { "背景", "文本", "电池","时" ,"分", "秒" ,"年","月" ,"日","星期","心率","卡路里",\
+	"睡眠", "血压","里程", "步数", "蓝牙","按钮","标签" };
 	 component_id_list = { COMPONNET_FORMAT_BG, COMPONNET_FORMAT_TEXT,COMPONNET_FORMAT_BETTARY,COMPONNET_FORMAT_HOUR,\
 		COMPONNET_FORMAT_MINUTE, COMPONNET_FORMAT_SECOND, COMPONNET_FORMAT_YEAR, COMPONNET_FORMAT_MONTH, COMPONNET_FORMAT_DAY,\
 		COMPONNET_FORMAT_WEEK, COMPONNET_FORMAT_HEART, COMPONNET_FORMAT_CALORIES,\
-		COMPONNET_FORMAT_SLEEP, COMPONNET_FORMAT_BP, COMPONNET_FORMAT_DISTANCE, COMPONNET_FORMAT_BLE, COMPONNET_FORMAT_BUTTON, COMPONNET_FORMAT_LABEL };
+		COMPONNET_FORMAT_SLEEP, COMPONNET_FORMAT_BP, COMPONNET_FORMAT_DISTANCE, COMPONNET_FORMAT_STEP, COMPONNET_FORMAT_BLE, COMPONNET_FORMAT_BUTTON, COMPONNET_FORMAT_LABEL };
 	 int count = component_list.size();
 	 for (int i = 0; i < count; i++)
 	 {
 		 componnet_id_map.insert(component_list.at(i), component_id_list.at(i));
 	 }
+	 qDebug() << componnet_id_map;
 	 digit_string_map.insert(0, "个位数");
 	 digit_string_map.insert(1, "十位数");
 	 digit_string_map.insert(2, "百位数");
@@ -70,6 +71,12 @@ int WatchView::Y(QString id)
 	
 }
 
+int WatchView::interval(QString id)
+{
+	SetCurrentItem(id);
+	return current_item.interval;
+}
+
 QString WatchView::Fomat(QString id)
 {
 	SetCurrentItem(id);
@@ -108,7 +115,7 @@ COMPONNET_TYPE_E WatchView::Type(QString id)
 	}
 	else if (fomat == COMPONNET_FORMAT_CALORIES || fomat == COMPONNET_FORMAT_HOUR || fomat == COMPONNET_FORMAT_MINUTE
 		|| fomat == COMPONNET_FORMAT_SECOND || fomat == COMPONNET_FORMAT_YEAR || fomat == COMPONNET_FORMAT_MONTH
-		|| fomat == COMPONNET_FORMAT_DAY || fomat == COMPONNET_FORMAT_BP || fomat == COMPONNET_FORMAT_HEART
+		|| fomat == COMPONNET_FORMAT_DAY || fomat == COMPONNET_FORMAT_BP || fomat == COMPONNET_FORMAT_STEP
 		|| fomat == COMPONNET_FORMAT_HEART || fomat == COMPONNET_FORMAT_DISTANCE
 		|| fomat == COMPONNET_FORMAT_SLEEP)
 	{

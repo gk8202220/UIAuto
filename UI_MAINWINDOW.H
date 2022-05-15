@@ -181,7 +181,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(1314, 865);
+        MainWindow->resize(1389, 865);
         MainWindow->setMinimumSize(QSize(56, 50));
         QIcon icon;
         icon.addFile(QString::fromUtf8("C:/Users/Administrator/Desktop/1.jpg"), QSize(), QIcon::Normal, QIcon::Off);
@@ -252,7 +252,6 @@ public:
         treeView_slelect_items->setObjectName(QString::fromUtf8("treeView_slelect_items"));
         sizePolicy.setHeightForWidth(treeView_slelect_items->sizePolicy().hasHeightForWidth());
         treeView_slelect_items->setSizePolicy(sizePolicy);
-        treeView_slelect_items->setStyleSheet(QString::fromUtf8("background-color: qlineargradient(spread:pad, x1:0.213, y1:0.126, x2:1, y2:1, stop:0 rgba(0, 136, 255, 255), stop:1 rgba(255, 255, 255, 255));"));
         treeView_slelect_items->setTextElideMode(Qt::ElideMiddle);
 
         verticalLayout_4->addWidget(treeView_slelect_items);
@@ -1203,6 +1202,7 @@ public:
         QObject::connect(spinBox_height, SIGNAL(valueChanged(int)), MainWindow, SLOT(on_updata_item_param()));
         QObject::connect(treeView_slelect_items, SIGNAL(clicked(QModelIndex)), MainWindow, SLOT(on_selected_item(QModelIndex)));
         QObject::connect(spinBox_font, SIGNAL(valueChanged(int)), MainWindow, SLOT(on_updata_item_param()));
+        QObject::connect(spinBox_spacing, SIGNAL(valueChanged(int)), MainWindow, SLOT(on_updata_item_param()));
 
         toolBox->setCurrentIndex(1);
         toolBox->layout()->setSpacing(0);

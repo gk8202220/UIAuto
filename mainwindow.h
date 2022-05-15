@@ -51,8 +51,6 @@ protected:
 private slots:
     void on_pushButton_clicked();
 
-    void getBmpAddr(QString path);
-
     void on_CB_one_activated(const QString &arg1);
 
     void on_CB_Time_activated(const QString &arg1);
@@ -107,10 +105,10 @@ private:
     void dispaly_BP(QString icon_data,QString icon_person,QString icon_no,QString icon_error);
     void write_code(QString data);
     void writePosiAndData(QString tile);
-    void getBmpPaths(QString path);
+
     int  GetX();
     int  GetY();
-    void saveBmpPaths(QString path);
+
     void DislayAddrParm(QString Image_title, QJsonArray image_arry);
     void LanguageProcess(); //多国语言处理
     bool CheckPointText(QPoint touch); //判断是否选中到文字

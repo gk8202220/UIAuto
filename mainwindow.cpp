@@ -135,63 +135,6 @@ void MainWindow::paintEvent(QPaintEvent * event)
     painter.end();
  
     ui->label_display->setPixmap(pix);
- //   
-	//if (!iconArray.isEmpty())
-	//{
-	//	for (int i = 0; i< iconArray.size(); i++)
-	//	{
-	//		//qDebug() << "aaa";
-
-	//		QJsonObject  rectInfo = iconArray.at(i).toObject();
-	//		int x = rectInfo.value("x").toInt() + ui->label_display->x();
-	//		int y = rectInfo.value("y").toInt() + ui->label_display->y();
-	//		//显示大背景
-	//		if (x == 0 && y == 0)
-	//		{
-	//			QString filePath1 = rectInfo.value("path").toString();
-	//			if (!filePath1.isEmpty())
-	//			{
-	//				
-	//				//QImage *image = new QImage(filePath1);
-	//				//paint.drawImage(x, y, *image);
-	//				if (x == 240 && y == 240)
-	//				{
-	//					continue;
-	//				}
-	//				paint.drawPixmap(x, y, QPixmap(filePath1));
-	//				break;
-
-	//			}
-	//		}
-
-	//	}
-	//	for (int i = 0; i< iconArray.size(); i++)
-	//	{
-
-
-	//		QJsonObject  rectInfo = iconArray.at(i).toObject();
-	//		int x = rectInfo.value("x").toInt() + ui->label_display->x();;
-	//		int y = rectInfo.value("y").toInt() + ui->label_display->y();;
-	//		if (x == ui->label_display->x() && y == ui->label_display->y())
-	//		{
-	//			continue;
-	//		}
-	//		// int height =rectInfo.value("height").toInt();
-	//		// int width = rectInfo.value("width").toInt();
-	//		QString filePath1 = rectInfo.value("path").toString();
-	//		//qDebug() << "*********显示切图*********";
-	//		//qDebug()<<"x = "<< x << ",y =  " << y  << ",parh = " << filePath1;
-	//		/*QImage *image = new QImage(filePath1);
-	//		if (!image->isNull())
-	//		{
-	//			paint.drawImage(x, y, *image);
-	//		}*/
-	//		
-	//		paint.drawPixmap(x, y, QPixmap(filePath1));
-	//			
-	//	}
-
-	//}
 }
 
 void MainWindow::dropEvent(QDropEvent *event)
@@ -281,61 +224,8 @@ void MainWindow::dropEvent(QDropEvent *event)
                 }
 
                 return;
-            }
-            // readexcel *excel = new readexcel(this);
-            //excel->read(file_path); 
-            
-            return;
-            if (!info.isDir())
-            {
-                QMessageBox::warning(this, "Error", tr("The Path is Error!"));
-                return;
-            }
-            if (ui->tabWidget->currentIndex() == 3)
-            {
-                //专门获取地址
-                getBmpAddr(filePath);
-            }
-
-            else
-            {
-
-                if (ui->CB_old->isChecked())
-                {
-                    file = new QFile(filePath + "/gui_flash_param.h");
-                    file_c = new QFile(filePath + "/gui_flash_param.c");
-                }
-
-                ui->lineEdit->setText(filePath);
-                if (ui->CB_old->isChecked())
-                {
-                    //if (!file->open(QIODevice::WriteOnly))
-                        //QMessageBox::warning(this, "警告", "请检测gui_flash_param.h路径!");
-                    //if (!file_c->open(QIODevice::WriteOnly))
-                        //QMessageBox::warning(this, "警告", "请检测gui_flash_param.h路径!");
-                }
-                // json->getBmpPaths(filePath);
-              
-                json->FindPxcpJsonFile(filePath);
-               
-                iconArray = json->geticonArray(filePath);
-                initDisplay();
-
-                //mainDisplay(filePath);
-                //getBmpPaths(filePath);
-                saveBmpPaths(filePath);
-
-                display();
-                if (ui->CB_old->isChecked())
-                {
-                    file->close();
-                    file_c->close();
-                }
-
-            }
-           
-
-
+            }           
+   
         }
 
     }
@@ -483,100 +373,6 @@ void MainWindow::LanguageProcess()
    ui->listView_page->setModel(page_item_model);
 
    
-}
-void MainWindow::saveBmpPaths(QString path)
-{
-    Image_Path_Map.clear();
-    titleList.clear();  
-   //bmpbin.clear();
-    ui->TB_Positon->append("\n/**********" + QFileInfo(path).fileName() + "**********/\n");
-    ui->TB_head->append("\n/**********" + QFileInfo(path).fileName() + "**********/\n");
-    getBmpPaths(filePath);
-   // qDebug() << "saveBmpPaths" << QFileInfo(path).fileName();
-    if (Image_Path_Map.isEmpty())
-    {
-        qDebug() << "get image error !";
-    }
-    else
-    {
-        QString last_image_title; //相同大小类型的切图以前下划线的前两个作为区分
-        QStringList imageList;
-        foreach(QString key, Image_Path_Map.keys())
-        {
-            QStringList imageNameList = key.split("_");  //切分图片命名
-            QString image_title;
-            if (imageNameList.at(0).contains("zz"))
-            {
-                //指针图片
-                image_title = imageNameList.at(1) + "_" + imageNameList.at(2); //去掉zz字母
-            }
-            else
-            {
-                //正常图片
-                image_title = imageNameList.at(0) + "_" + imageNameList.at(1);
-            }
-
-            if (last_image_title != image_title)
-            {
-
-                if (!last_image_title.isEmpty() && !imageList.isEmpty())
-                {
-
-                    //保存前两位的标题（035main_data4）和对应的所有切图（s035main_data4_mlg_00","s035main_data4_mlg_01","s035main_data4_mlg_02","s035main_data4_mlg_03","s035main_data4_mlg_04"）
-                    QJsonArray iconArray;
-                    foreach(QString name, imageList)
-                    {
-                        iconArray.append(QJsonValue(name));
-                    }
-
-                    titleList.append(last_image_title);
-                    Title_Image_json.insert(last_image_title, iconArray); //保存title 对应所有image 的json
-                    imageList.clear();
-
-                }
-                last_image_title = image_title;
-            
-            }
-            imageList.append(key);
-            //qDebug() << Image_Path_Map.value(key);
-        }
-        //最后一次也要添加
-        if (!last_image_title.isEmpty() && !imageList.isEmpty())
-        {
-
-            //保存前两位的标题（035main_data4）和对应的所有切图（s035main_data4_mlg_00","s035main_data4_mlg_01","s035main_data4_mlg_02","s035main_data4_mlg_03","s035main_data4_mlg_04"）
-            QJsonArray iconArray;
-            foreach(QString name, imageList)
-            {
-                iconArray.append(QJsonValue(name));
-
-            }           
-            titleList.append(last_image_title);
-           // qDebug() << last_image_title << iconArray;
-            Title_Image_json.insert(last_image_title, iconArray); //保存title image 的json
-            imageList.clear();
-
-        }
-        // 保存json完成
-        QJsonDocument doc;
-        doc.setObject(Title_Image_json);
-        iconModel = new QStandardItemModel(this);
-        //qDebug() << doc.toJson(QJsonDocument::Compact);
-
-        //设置切图类型的选择
-        //取每个类型第一个切图进行坐标的获取
-        int index = 0;
-        for each (QString  icontitel in titleList)
-        {
-
-            QString iconfilepath = Image_Path_Map.value(Title_Image_json.value(icontitel).toArray().at(0).toString());
-            DislayAddrParm(icontitel, Title_Image_json.value(icontitel).toArray());
-            QStandardItem* item = new QStandardItem(QIcon(iconfilepath), icontitel);
-            iconModel->setItem(index, 0, item);
-            index++;
-
-        }
-    }
 }
 int addr_count = 0;
 
@@ -742,139 +538,8 @@ int MainWindow::GetY()
     return ui->spinBox_cood_y->value();;
 }
 
-void MainWindow::getBmpAddr(QString path)
-{
-
-	QDir dir(path);
-	QString last_icon;
-
-	foreach(QFileInfo fileInfo, dir.entryInfoList(QDir::Dirs | QDir::Files, QDir::DirsFirst))
-	{
-
-		if (fileInfo.isDir())
-		{
-			//目录遍历
-			if (fileInfo.fileName() == "." || fileInfo.fileName() == "..")continue;
-			getBmpAddr(fileInfo.absoluteFilePath());
-
-		}
-		else
-		{
-			QImage image(fileInfo.filePath());
-			if (fileInfo.suffix() == "bmp" || fileInfo.suffix() == "png")
-			{
-				QString icon_src = fileInfo.baseName().toUpper();
-				QString icon = "ICON_" + fileInfo.baseName().toUpper() + "_ADDR";
-				QStringList icon_split = icon_src.split("_");
-				if (icon_split.size() < 2)continue;
-				QByteArray data;
-				QString addr;
-				QString name1 = icon_split.at(0);
-				QString name2;
-				//qDebug() << "SSSSSS "<<name1;
-				if (name1 == "ZZ" || name1 == "ZZZ")
-				{
-					name2 = icon_split.at(1) + "_" + icon_split.at(2);
-				}
-				else
-				{
-					name2 = icon_split.at(0) + "_" + icon_split.at(1);
-				}
-				if ((name2) != last_icon)
-				{
-					qint16 size = 1;
-					last_icon = name2;
-					addr += "\n#define ";
-					addr += "ICON_";
-					addr += last_icon;
-					addr += "_SIZE ";
-					addr += QString::number(image.width() * image
-						.height() * 2);
-					addr += "\n";
-
-					addr += "#define ";
-					addr += "ICON_";
-					addr += last_icon;
-					addr += "_WIDE ";
-					addr += QString::number(image.width()); ;
-					addr += "\n";
-
-					addr += "#define ";
-					addr += "ICON_";
-					addr += last_icon;
-					addr += "_HIGH ";
-					addr += QString::number(image.height()); ;
-					addr += "\n\n";
-					qDebug() << last_icon;
-				}
-
-				addr += "#define ";
-				addr += icon;
-				addr += " ";
-				//addr += icon;
-				//addr += "\"\n";
-				addr.append(QString::number(addr_count++));
-				addr += "\n";
 
 
-				data.append(addr.toLocal8Bit());
-		/*		if (flashaddrfile.isOpen())
-				{
-					flashaddrfile.write(data);
-				}*/
-				ui->TB_addr->append(data);
-				qDebug() << icon;
-				qDebug() << fileInfo.filePath();
-				//bmpPathsMap.insert(icon, fileInfo.filePath());
-				//bmpPathsMap.append(); //添加切图的路径
-			}
-
-		}
-	}
-}
-
-void MainWindow::getBmpPaths(QString path)
-{
-    QDir dir(path);
-    QString last_icon;
-    QImage image;
-
-    foreach(QFileInfo fileInfo, dir.entryInfoList(QDir::Dirs | QDir::Files, QDir::DirsFirst))
-    {
-        if (fileInfo.isDir())
-        {
-            //目录遍历
-            if (fileInfo.fileName() == "." || fileInfo.fileName() == "..")continue;
-            //qDebug() << fileInfo.absolutePath(); //"F:/Work/汇顶/h18T_f/设备UI文件/H18T_UI_1.2.6/切图/音乐"
-            //qDebug() << fileInfo.filePath(); //"F:/Work/汇顶/h18T_f/设备UI文件/H18T_UI_1.2.6/切图/音乐/音乐音量"
-            //qDebug() << fileInfo.fileName(); //"音乐音量"
-            //qDebug() << fileInfo.baseName(); //"音乐音量"
-            //qDebug() << fileInfo.absoluteFilePath();// "F:/Work/汇顶/h18T_f/设备UI文件/H18T_UI_1.2.6/切图/音乐/音乐音量"
-            //qDebug() << fileInfo.path();// "F:/Work/汇顶/h18T_f/设备UI文件/H18T_UI_1.2.6/切图/音乐"
-            getBmpPaths(fileInfo.absoluteFilePath());
-
-        }
-        else {
-            //qDebug() << fileInfo.filePath();
-            //QImage image(fileInfo.filePath());
-            if (fileInfo.suffix() == "bmp" || fileInfo.suffix() == "png")
-            {
-                QString icon_src = fileInfo.baseName();// .toUpper();q
-                //qDebug() << fileInfo.absolutePath(); //"F:/Work/汇顶/h18T_f/设备UI文件/H18T_UI_1.2.6/切图/音乐/音乐音量"
-                //qDebug() << fileInfo.filePath(); //"F:/Work/汇顶/h18T_f/设备UI文件/H18T_UI_1.2.6/切图/音乐/音乐音量/musicvu_icon1_mute.bmp"
-                //qDebug() << fileInfo.fileName(); //"musicvu_icon1_mute.bmp"
-                //qDebug() << fileInfo.baseName(); //"musicvu_icon1_mute"
-                //qDebug() << fileInfo.absoluteFilePath(); //"F:/Work/汇顶/h18T_f/设备UI文件/H18T_UI_1.2.6/切图/音乐/音乐音量/musicvu_icon1_mute.bmp
-            	//qDebug() << icon_src << " " << fileInfo.filePath(); //"F:/Work/汇顶/h18T_f/设备UI文件/H18T_UI_1.2.6/切图/音乐/音乐音量"
-            //	qDebug() << "\n";
-               
-                Image_Path_Map.insert(icon_src, fileInfo.filePath());
-            }    
-
-        }
-    }
-      
-}
 
 void MainWindow::on_pushButton_clicked()
 {
@@ -1174,10 +839,13 @@ void MainWindow::on_updata_item_param()
                     int digit = watch_view->Digit(current_item.fomat); //获取对应数字的位数
                    
                     Utils::CalcNumberPoints(current_item.size, current_item.point, &current_item.points, digit, current_item.interval);
-                    qDebug() << "points" << current_item.points.values();
-
+                  
+                   
                     if (current_item.element_lists.count() == 0)
                     {
+                        int width = current_item.size.width();
+                        current_item.size.setWidth((current_item.interval + width) * digit);
+                        qDebug() << "size" << current_item.size;
                         //如果完全没有切图,则按位数保存选择的同样切图
                         for (int i = digit - 1; i >= 0 ; i--)
                         {
@@ -1202,13 +870,13 @@ void MainWindow::on_updata_item_param()
 
         }
         watch_view->AppendItem(current_item_id, current_item);
-        //qDebug() << "GetPriview" << watch_view->GetPriview(current_item_id);
+      
         
     }
-    CodeJson* josn1 = new CodeJson(this);
+  /*  CodeJson* josn1 = new CodeJson(this);
     josn1->FontParamToJson(&watch_view->view_items_map);
     ui->textBrowser->setText(josn1->GetCode());
-    ui->TB_Positon->setText(josn1->GetCodeAddrArry());
+    ui->TB_Positon->setText(josn1->GetCodeAddrArry());*/
     this->update();
 }
 void MainWindow::on_selected_item(QModelIndex index)
@@ -1434,7 +1102,8 @@ void MainWindow::CreatItem(QString componnet_type, QPoint* point)
     int y = point->y();
     int width  = 0;
     int height = 0;
-    item.interval = 0;
+    int interval = 0;
+    item.interval = interval;
     item.point = QPoint(x, y);
     item.size.setWidth(width);
     item.size.setHeight(height);
@@ -1454,6 +1123,7 @@ void MainWindow::CreatItem(QString componnet_type, QPoint* point)
     }
     select_element_list.clear(); //清除当前的文字列表
     ui->comboBox_texts->clear();
+    ui->spinBox_spacing->setValue(interval);
     ui->spinBox_width->setValue(width);
     ui->spinBox_height->setValue(height);
 
@@ -1476,6 +1146,7 @@ void MainWindow::SelectingItem(QString id)
         int y = point.y();
         int width = watch_view->Width(id);
         int height = watch_view->Height(id);
+        int interval = watch_view->interval(id);
         select_element_list.clear();
         QStringList element_list = watch_view->GetElementList(id);
         select_element_list.append(element_list);
@@ -1488,6 +1159,7 @@ void MainWindow::SelectingItem(QString id)
         ui->spinBox_cood_y->setValue(y);
         ui->spinBox_width->setValue(width);
         ui->spinBox_height->setValue(height);
+        ui->spinBox_spacing->setValue(interval);
         //ui->comboBox_texts->clear();
 
         on_updata_select_content_list();
@@ -1531,6 +1203,8 @@ void MainWindow::DislayView(QPainter* painter)
                 QMap<int, QPoint>* elem_points = watch_view->GetPoints(id);
                 int digit_count = elem_lists->count(); //多少位数
                 int digit = 0;
+                int interval = watch_view->interval(id);
+                //rect.setWidth((width + interval) * digit_count); //设置这个数字的宽度
                 for each (QStringList element in elem_lists->values())
                 {
                     QPoint point = elem_points->value(digit);

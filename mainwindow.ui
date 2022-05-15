@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1314</width>
+    <width>1389</width>
     <height>865</height>
    </rect>
   </property>
@@ -141,9 +141,6 @@ color: rgb(255, 255, 255);</string>
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: qlineargradient(spread:pad, x1:0.213, y1:0.126, x2:1, y2:1, stop:0 rgba(0, 136, 255, 255), stop:1 rgba(255, 255, 255, 255));</string>
         </property>
         <property name="textElideMode">
          <enum>Qt::ElideMiddle</enum>
@@ -1924,8 +1921,8 @@ color: rgb(255, 255, 255);</string>
    <slot>on_display_page(QModelIndex)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>96</x>
-     <y>277</y>
+     <x>439</x>
+     <y>312</y>
     </hint>
     <hint type="destinationlabel">
      <x>592</x>
@@ -1940,8 +1937,8 @@ color: rgb(255, 255, 255);</string>
    <slot>on_lond_language_file()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>969</x>
-     <y>626</y>
+     <x>1516</x>
+     <y>494</y>
     </hint>
     <hint type="destinationlabel">
      <x>646</x>
@@ -1956,8 +1953,8 @@ color: rgb(255, 255, 255);</string>
    <slot>on_select_language_file(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>969</x>
-     <y>502</y>
+     <x>1516</x>
+     <y>536</y>
     </hint>
     <hint type="destinationlabel">
      <x>646</x>
@@ -1972,8 +1969,8 @@ color: rgb(255, 255, 255);</string>
    <slot>on_updata_item_param()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>811</x>
-     <y>625</y>
+     <x>1285</x>
+     <y>489</y>
     </hint>
     <hint type="destinationlabel">
      <x>604</x>
@@ -1988,8 +1985,8 @@ color: rgb(255, 255, 255);</string>
    <slot>on_updata_item_param()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>828</x>
-     <y>318</y>
+     <x>1313</x>
+     <y>357</y>
     </hint>
     <hint type="destinationlabel">
      <x>604</x>
@@ -2004,8 +2001,8 @@ color: rgb(255, 255, 255);</string>
    <slot>on_updata_item_param()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>969</x>
-     <y>318</y>
+     <x>1516</x>
+     <y>357</y>
     </hint>
     <hint type="destinationlabel">
      <x>604</x>
@@ -2020,8 +2017,8 @@ color: rgb(255, 255, 255);</string>
    <slot>on_updata_item_param()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>839</x>
-     <y>379</y>
+     <x>1313</x>
+     <y>399</y>
     </hint>
     <hint type="destinationlabel">
      <x>604</x>
@@ -2036,8 +2033,8 @@ color: rgb(255, 255, 255);</string>
    <slot>on_updata_item_param()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>968</x>
-     <y>379</y>
+     <x>1515</x>
+     <y>399</y>
     </hint>
     <hint type="destinationlabel">
      <x>604</x>
@@ -2052,8 +2049,8 @@ color: rgb(255, 255, 255);</string>
    <slot>on_selected_item(QModelIndex)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>307</x>
-     <y>522</y>
+     <x>937</x>
+     <y>239</y>
     </hint>
     <hint type="destinationlabel">
      <x>604</x>
@@ -2068,11 +2065,27 @@ color: rgb(255, 255, 255);</string>
    <slot>on_updata_item_param()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>927</x>
-     <y>550</y>
+     <x>1516</x>
+     <y>619</y>
     </hint>
     <hint type="destinationlabel">
      <x>494</x>
+     <y>432</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spinBox_spacing</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>on_updata_item_param()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1196</x>
+     <y>647</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>694</x>
      <y>432</y>
     </hint>
    </hints>
