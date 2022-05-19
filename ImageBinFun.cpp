@@ -10,7 +10,7 @@
 #include "veepoolzo.h"
 #include "MinilzoTest.h"
 #include "crcunit.h"
-#pragma execution_character_set("UTF-8")
+#pragma execution_character_set("UTF-8") 
 void ImageBinFun::titletobmpbin(QString titile)
 {
 	//对应的图片保存成bin

@@ -7,6 +7,11 @@
 #include <QRegularExpression>
 #include <QModelIndex>
 #include <QStandardItem>
+typedef enum
+{
+	SELECT_MODE_CREAT,
+	SELECT_MODE_APPEND,
+}SELECT_MODE_T;
 class ImageSelectWidget : public QWidget
 {
 	Q_OBJECT
@@ -20,6 +25,7 @@ public:
 	~ImageSelectWidget();
 	void OpenPath(QString path);
 	void setSelectedImage(QStringList* image_list);
+	void SetMode(SELECT_MODE_T mode);
 
 private:
 	Ui::ImageSelectWidget ui;
@@ -31,6 +37,8 @@ private:
 	QSortFilterProxyModel* modelProxy;
 	QStandardItemModel* image_model; //待选择的文字
 	QStandardItemModel* selected_image_model;//已经选择的文字
+	SELECT_MODE_T mode; 
 signals:
 	void updata_image();
+	void create_image();
 };

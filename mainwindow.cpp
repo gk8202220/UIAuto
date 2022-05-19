@@ -78,6 +78,16 @@ void MainWindow::mousePressEvent(QMouseEvent* event)
     qDebug() << "Press";
     //直接点击效果图进行坐标的设置
     QPoint label_dipaly_point = ui->label_display->mapFromGlobal(QCursor::pos());
+    int lable_width  = ui->label_display->width();
+    int lable_height = ui->label_display->height();
+    int touch_x = label_dipaly_point.x();
+    int touch_y = label_dipaly_point.y();
+    if (touch_x > lable_width || touch_y > lable_height || touch_x < 0 || touch_y <0)
+    {
+        //不在显示范围，不处理
+        return;
+    }
+
     item_is_drop = CheckPointText(label_dipaly_point); //当前点击的控件id
     if (!item_is_drop)
     {
@@ -897,6 +907,7 @@ void MainWindow::on_lond_language_file()
     else
     {
         imageSelectWidget->setSelectedImage(&select_element_list);
+        imageSelectWidget->SetMode(SELECT_MODE_APPEND);
         imageSelectWidget->show();
     }
     
@@ -988,6 +999,7 @@ void MainWindow::CreatTextItem(QPoint *point)
     select_element_list.clear(); //清除当前的文字列表
     ui->comboBox_texts->clear();
     languageTextSelect->SetSelectedText(&select_element_list);
+ 
     languageTextSelect->show();// 显示文本选择框
     
     item.current_element = "Text";
@@ -1096,6 +1108,7 @@ void MainWindow::CreatItem(QString componnet_type, QPoint* point)
     select_element_list.clear(); //清除当前的文字列表
     ui->comboBox_texts->clear();
     imageSelectWidget->setSelectedImage(&select_element_list);
+    imageSelectWidget->SetMode(SELECT_MODE_CREAT);
     imageSelectWidget->show();
     //设置默认参数
     int x = point->x();

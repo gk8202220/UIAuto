@@ -1,5 +1,6 @@
-#include "ImageSelectWidget.h"
+ï»¿#include "ImageSelectWidget.h"
 #include <QDir>
+#pragma execution_character_set("UTF-8")
 void ImageSelectWidget::on_selected_image(const QModelIndex index)
 {
 
@@ -30,7 +31,16 @@ void ImageSelectWidget::on_selected_image(const QModelIndex index)
 }
 void ImageSelectWidget::on_pb_confirm()
 {
-	emit updata_image();
+	if (mode == SELECT_MODE_CREAT)
+	{
+		emit create_image();
+	}
+	else
+	{
+		emit updata_image();
+	}
+
+	
 	this->hide();
 }
 ImageSelectWidget::ImageSelectWidget(QWidget *parent)
@@ -73,6 +83,19 @@ void ImageSelectWidget::setSelectedImage(QStringList* image_list)
 	ui.LV_Image_selected->setModel(selected_image_model);
 }
 
+void ImageSelectWidget::SetMode(SELECT_MODE_T mode)
+{
+	this->mode = mode;
+	if (mode == SELECT_MODE_CREAT)
+	{
+		ui.PB_Confirm->setText("åˆ›å»º");
+	}
+	else
+	{
+		ui.PB_Confirm->setText("ç¡®å®š");
+	}
+}
+
 void ImageSelectWidget::SelectPath(QString path)
 {
 	current_path = path;
@@ -83,16 +106,16 @@ void ImageSelectWidget::SelectPath(QString path)
 	{
 		if (fileInfo.isDir())
 		{
-			//Ä¿Â¼±éÀú
+			//ç›®å½•éå†
 			
-			//qDebug() << fileInfo.absolutePath(); //"F:/Work/»ã¶¥/h18T_f/Éè±¸UIÎÄ¼ş/H18T_UI_1.2.6/ÇĞÍ¼/ÒôÀÖ"
-			//qDebug() << fileInfo.filePath(); //"F:/Work/»ã¶¥/h18T_f/Éè±¸UIÎÄ¼ş/H18T_UI_1.2.6/ÇĞÍ¼/ÒôÀÖ/ÒôÀÖÒôÁ¿"
-			//qDebug() << fileInfo.fileName(); //"ÒôÀÖÒôÁ¿"
-			//qDebug() << fileInfo.baseName(); //"ÒôÀÖÒôÁ¿"
-			//qDebug() << fileInfo.absoluteFilePath();// "F:/Work/»ã¶¥/h18T_f/Éè±¸UIÎÄ¼ş/H18T_UI_1.2.6/ÇĞÍ¼/ÒôÀÖ/ÒôÀÖÒôÁ¿"
-			//qDebug() << fileInfo.path();// "F:/Work/»ã¶¥/h18T_f/Éè±¸UIÎÄ¼ş/H18T_UI_1.2.6/ÇĞÍ¼/ÒôÀÖ"
+			//qDebug() << fileInfo.absolutePath(); //"F:/Work/æ±‡é¡¶/h18T_f/è®¾å¤‡UIæ–‡ä»¶/H18T_UI_1.2.6/åˆ‡å›¾/éŸ³ä¹"
+			//qDebug() << fileInfo.filePath(); //"F:/Work/æ±‡é¡¶/h18T_f/è®¾å¤‡UIæ–‡ä»¶/H18T_UI_1.2.6/åˆ‡å›¾/éŸ³ä¹/éŸ³ä¹éŸ³é‡"
+			//qDebug() << fileInfo.fileName(); //"éŸ³ä¹éŸ³é‡"
+			//qDebug() << fileInfo.baseName(); //"éŸ³ä¹éŸ³é‡"
+			//qDebug() << fileInfo.absoluteFilePath();// "F:/Work/æ±‡é¡¶/h18T_f/è®¾å¤‡UIæ–‡ä»¶/H18T_UI_1.2.6/åˆ‡å›¾/éŸ³ä¹/éŸ³ä¹éŸ³é‡"
+			//qDebug() << fileInfo.path();// "F:/Work/æ±‡é¡¶/h18T_f/è®¾å¤‡UIæ–‡ä»¶/H18T_UI_1.2.6/åˆ‡å›¾/éŸ³ä¹"
 			//getBmpPaths(fileInfo.absoluteFilePath());
-			//½øĞĞ½çÃæµÄÏÔÊ¾
+			//è¿›è¡Œç•Œé¢çš„æ˜¾ç¤º
 			//ui->LV_Image_Browse
 			QString item_path = fileInfo.fileName();
 			image_model->appendRow(new QStandardItem(item_path));
@@ -103,12 +126,12 @@ void ImageSelectWidget::SelectPath(QString path)
 			if (fileInfo.suffix() == "bmp" || fileInfo.suffix() == "png")
 			{
 				QString icon_src = fileInfo.baseName();// .toUpper();q
-				//qDebug() << fileInfo.absolutePath(); //"F:/Work/»ã¶¥/h18T_f/Éè±¸UIÎÄ¼ş/H18T_UI_1.2.6/ÇĞÍ¼/ÒôÀÖ/ÒôÀÖÒôÁ¿"
-				//qDebug() << fileInfo.filePath(); //"F:/Work/»ã¶¥/h18T_f/Éè±¸UIÎÄ¼ş/H18T_UI_1.2.6/ÇĞÍ¼/ÒôÀÖ/ÒôÀÖÒôÁ¿/musicvu_icon1_mute.bmp"
+				//qDebug() << fileInfo.absolutePath(); //"F:/Work/æ±‡é¡¶/h18T_f/è®¾å¤‡UIæ–‡ä»¶/H18T_UI_1.2.6/åˆ‡å›¾/éŸ³ä¹/éŸ³ä¹éŸ³é‡"
+				//qDebug() << fileInfo.filePath(); //"F:/Work/æ±‡é¡¶/h18T_f/è®¾å¤‡UIæ–‡ä»¶/H18T_UI_1.2.6/åˆ‡å›¾/éŸ³ä¹/éŸ³ä¹éŸ³é‡/musicvu_icon1_mute.bmp"
 				//qDebug() << fileInfo.fileName(); //"musicvu_icon1_mute.bmp"
 				//qDebug() << fileInfo.baseName(); //"musicvu_icon1_mute"
-				//qDebug() << fileInfo.absoluteFilePath(); //"F:/Work/»ã¶¥/h18T_f/Éè±¸UIÎÄ¼ş/H18T_UI_1.2.6/ÇĞÍ¼/ÒôÀÖ/ÒôÀÖÒôÁ¿/musicvu_icon1_mute.bmp
-			//	qDebug() << fileInfo.filePath(); //"F:/Work/»ã¶¥/h18T_f/Éè±¸UIÎÄ¼ş/H18T_UI_1.2.6/ÇĞÍ¼/ÒôÀÖ/ÒôÀÖÒôÁ¿"
+				//qDebug() << fileInfo.absoluteFilePath(); //"F:/Work/æ±‡é¡¶/h18T_f/è®¾å¤‡UIæ–‡ä»¶/H18T_UI_1.2.6/åˆ‡å›¾/éŸ³ä¹/éŸ³ä¹éŸ³é‡/musicvu_icon1_mute.bmp
+			//	qDebug() << fileInfo.filePath(); //"F:/Work/æ±‡é¡¶/h18T_f/è®¾å¤‡UIæ–‡ä»¶/H18T_UI_1.2.6/åˆ‡å›¾/éŸ³ä¹/éŸ³ä¹éŸ³é‡"
 			//	qDebug() << "\n";
 				//qDebug() << icon_src;
 				//Image_Path_Map.insert(icon_src, fileInfo.filePath());
@@ -130,7 +153,7 @@ void ImageSelectWidget::on_select_item(const QModelIndex index)
 	QString current_select_path;
 	if (item == "..")
 	{
-		//ÉÏÒ»¼¶
+		//ä¸Šä¸€çº§
 		QDir dir(current_path);
 		if (dir.cdUp())
 		{
