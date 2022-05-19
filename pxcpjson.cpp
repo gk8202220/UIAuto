@@ -412,7 +412,7 @@ bool pxcpJson::GetJsonAndImage(QString srcPath)
     //解析图片
     int image_count = 0; //图片的总数
     int json_count = 0; //json的总数
-    QString json_start_flag = "{\"v"; //json的起始标志位
+    QString json_start_flag = "{\""; //json的起始标志位
     QString json_end_flag = "}";//json的结束标志位
     QString json_name;
     bool priview_flag = false;
@@ -431,6 +431,7 @@ bool pxcpJson::GetJsonAndImage(QString srcPath)
             QByteArray josndata = temp_json_data.mid(0, json_end); //截取json的字符串
             json_name = GetPageName(josndata);
             page_name_list.append(json_name);
+            qDebug() << json_name;
             QString json_path = "./PxcpJson/";
             json_path.append(json_name);
             json_path.append(QString::number(json_count));
@@ -529,7 +530,7 @@ QString pxcpJson::GetPageName(QByteArray json_data)
     QJsonDocument json(QJsonDocument::fromJson(json_data, &json_error));
     if (json_error.error != QJsonParseError::NoError)
     {
-        qDebug() << "GetPageName   error!" << json_error.error;
+        qDebug() << "GetPageName   error!" << json_data;
         return page_name;
     }
 

@@ -50,7 +50,8 @@ MainWindow::MainWindow(QWidget *parent) :
      languageTextSelect->SetSelectedText(&select_element_list);
      QObject::connect(languageTextSelect, SIGNAL(updata_text()), this, SLOT(on_updata_select_content_list()));
      QObject::connect(imageSelectWidget, SIGNAL(updata_image()), this, SLOT(on_updata_select_content_list()));
-
+     QObject::connect(imageSelectWidget, SIGNAL(create_image()), this, SLOT(on_creat_item()));
+     
     vpWatchCode = VpWatchCode::getInstance();
    
 	
@@ -163,18 +164,11 @@ void MainWindow::dropEvent(QDropEvent *event)
            // qDebug() << event->
             if (event->source() == ui->listView_componnets)
             {
-                /*  控件的拖拽添加*/
-              
-                QString componnet_type =  ui->listView_componnets->currentIndex().data().toString();     
-                qDebug() << "Add Item" << componnet_type;
-                QPoint point = ui->label_display->mapFromGlobal(QCursor::pos()); //鼠标相对控件的位置
-                /*int label_x = ui->label_display->x();
-                int label_y = ui->label_display->y();
-                int x = event->pos().x() - label_x;
-                int y = event->pos().y() - label_y;
-                point.setX(x);
-                point.setY(y);*/
-                CreatItem(componnet_type, point);
+                /*  控件的拖拽添加*/          
+                 creat_componnet_type =  ui->listView_componnets->currentIndex().data().toString();
+                 creat_point = ui->label_display->mapFromGlobal(QCursor::pos()); //鼠标相对控件的位置
+        
+                CreatItem(creat_componnet_type, creat_point);
               
 
                 
@@ -752,7 +746,7 @@ void MainWindow::on_updata_select_content_list()
             for (int i = 0; i < count; i++)
             {
                QString path = select_element_list.at(i);
-               QString name = Utils::GetBaseName(path);//QFileInfo(path).baseName();
+               QString name = Utils::GetBaseName(path);
                
                QString current = watch_view->GetPriview(current_item_id);
               
@@ -827,7 +821,7 @@ void MainWindow::on_updata_item_param()
             if (!select_element_list.isEmpty() && (index != -1))
             {
                 QString current_element = select_element_list.at(index);
-                qDebug() << "current_element" << current_element;
+               // qDebug() << "current_element" << current_element;
                 if (!current_element.isEmpty())
                 {
                     current_item.current_element = current_element;
@@ -895,6 +889,11 @@ void MainWindow::on_selected_item(QModelIndex index)
       QModelIndex row_index = ui->treeView_slelect_items->model()->index(row, 0);
       QString select_id = row_index.data().toString();
       SelectingItem(select_id);
+}
+void MainWindow::on_creat_item()
+{
+    CreatItem(creat_componnet_type, &creat_point);
+    on_updata_select_content_list(); 
 }
 void MainWindow::on_lond_language_file()
 {
@@ -1049,7 +1048,11 @@ void MainWindow::CreatItem(QString componnet_type, QPoint point)
     }
     else
     {
-        CreatItem(componnet_type , &point);
+        select_element_list.clear(); //清除当前的文字列表
+        imageSelectWidget->setSelectedImage(&select_element_list);
+        imageSelectWidget->SetMode(SELECT_MODE_CREAT);
+        imageSelectWidget->show();
+       //CreatItem(componnet_type , &point);
     }
     SaveSelectedItem(componnet_type, current_item_id); //保存当前的控件ID
 }
@@ -1105,21 +1108,25 @@ void MainWindow::CreatItem(QString componnet_type, QPoint* point)
     item.count = 1;
     item.fomat = watch_view->GetComponnetType(componnet_type);// COMPONNET_FORMAT_BETTARY;
     //选择图片
-    select_element_list.clear(); //清除当前的文字列表
-    ui->comboBox_texts->clear();
-    imageSelectWidget->setSelectedImage(&select_element_list);
-    imageSelectWidget->SetMode(SELECT_MODE_CREAT);
-    imageSelectWidget->show();
+    //select_element_list.clear(); //清除当前的文字列表
+    //ui->comboBox_texts->clear();
+    //imageSelectWidget->setSelectedImage(&select_element_list);
+    //imageSelectWidget->SetMode(SELECT_MODE_CREAT);
+    //imageSelectWidget->show();
+
+    if (!select_element_list.isEmpty())
+    {
+        QString current_element = select_element_list.at(0);
+        QImage image(current_element);
+        item.size =  image.size();
+    }
+     
     //设置默认参数
     int x = point->x();
     int y = point->y();
-    int width  = 0;
-    int height = 0;
     int interval = 0;
     item.interval = interval;
     item.point = QPoint(x, y);
-    item.size.setWidth(width);
-    item.size.setHeight(height);
   
     watch_view->AppendItem(current_item_id, item); //添加新的控件
     watch_view->SetCurrentItem(current_item_id);
@@ -1134,11 +1141,11 @@ void MainWindow::CreatItem(QString componnet_type, QPoint* point)
         }
         
     }
-    select_element_list.clear(); //清除当前的文字列表
+    
     ui->comboBox_texts->clear();
     ui->spinBox_spacing->setValue(interval);
-    ui->spinBox_width->setValue(width);
-    ui->spinBox_height->setValue(height);
+    ui->spinBox_width->setValue(item.size.width());
+    ui->spinBox_height->setValue(item.size.height());
 
     ui->spinBox_cood_x->setValue(x);
     ui->spinBox_cood_y->setValue(y);

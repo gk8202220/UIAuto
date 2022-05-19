@@ -93,6 +93,7 @@ private slots:
     void on_updata_select_content_list(); //更新选择的文字
     void on_updata_item_param(); //更新控件的参数
     void on_selected_item(QModelIndex index); //选择已经存在的控件
+    void on_creat_item();
 private:
     Ui::MainWindow *ui;
     QString filePath;
@@ -114,6 +115,7 @@ private:
     bool CheckPointText(QPoint touch); //判断是否选中到文字
     //void SelectedText(QString id); //选中已有的文字
     void CreatTextItem(QPoint* point); //创建一个文字的控件
+   
     void CreatItem(QString componnet_type, QPoint point); //创建一个的控件
     void CreatNumber(QString componnet_type, QPoint *point); //创建一个数字的控件
     void CreatItem(QString componnet_type, QPoint* point);
@@ -154,7 +156,10 @@ private:
     WatchView *watch_view;
     VpWatchCode* vpWatchCode;
     ImageSelectWidget* imageSelectWidget;
-  
+
+    QString creat_componnet_type; //创建的类型
+    QPoint creat_point;//创建的位置
+
    
 };
 
