@@ -159,6 +159,7 @@ private:
 
     QString creat_componnet_type; //创建的类型
     QPoint creat_point;//创建的位置
+    QPoint oldPoint;
 
    
 };

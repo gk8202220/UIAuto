@@ -79,6 +79,7 @@ void MainWindow::mousePressEvent(QMouseEvent* event)
     qDebug() << "Press";
     //直接点击效果图进行坐标的设置
     QPoint label_dipaly_point = ui->label_display->mapFromGlobal(QCursor::pos());
+    oldPoint = label_dipaly_point;
     int lable_width  = ui->label_display->width();
     int lable_height = ui->label_display->height();
     int touch_x = label_dipaly_point.x();
@@ -110,11 +111,17 @@ void MainWindow::mouseMoveEvent(QMouseEvent* event)
 {
     qDebug() << "Move";
     QPoint point = ui->label_display->mapFromGlobal(QCursor::pos()); //鼠标相对控件的位置;
-   
+    int move_x = point.x() - oldPoint.x(); //x移动的距离
+    int move_y = point.y() - oldPoint.y(); //y移动的距离
+    int current_x = ui->spinBox_cood_x->value();
+    int current_y = ui->spinBox_cood_y->value();
+    int change_x = current_x + move_x;
+    int change_y = current_y + move_y;
+    oldPoint = point;
     if (item_is_drop)
     {
-        ui->spinBox_cood_x->setValue(point.x());
-        ui->spinBox_cood_y->setValue(point.y());
+        ui->spinBox_cood_x->setValue(change_x);
+        ui->spinBox_cood_y->setValue(change_y);
         on_updata_item_param();
     }
  
@@ -126,7 +133,7 @@ void MainWindow::paintEvent(QPaintEvent * event)
 	//QPainter paint(this);   
     
     QPainter painter;
-
+    qDebug() << "paintEvent";
     int label_h = ui->label_display->height(); //  current_select_text.param.font_size;
     int label_w =  ui->label_display->width();//rec.width(); 
 

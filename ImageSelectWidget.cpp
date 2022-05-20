@@ -12,7 +12,7 @@ void ImageSelectWidget::on_selected_image(const QModelIndex index)
 		QModelIndex name_index = ui.LV_Image_Browse->model()->index(row,0);
 		QString  name = name_index.data().toString();
 		QString image_path = current_path + "/" + name;
-		qDebug() << "on_selected_image" << name << row;
+		//qDebug() << "on_selected_image" << name << row;
 		if (selected_image_list->contains(image_path))
 		{
 			continue;
@@ -42,6 +42,17 @@ void ImageSelectWidget::on_pb_confirm()
 
 	
 	this->hide();
+}
+void ImageSelectWidget::on_item_up()
+{
+	//将项目下移
+	ui.LV_Image_Browse->currentIndex();
+
+	
+	
+}
+void ImageSelectWidget::on_item_dowm()
+{
 }
 ImageSelectWidget::ImageSelectWidget(QWidget *parent)
 	: QWidget(parent)

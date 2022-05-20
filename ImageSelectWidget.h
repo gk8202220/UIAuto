@@ -19,6 +19,8 @@ private	slots:
 	void on_select_item(const QModelIndex index);
 	void on_selected_image(const QModelIndex index);
 	void on_pb_confirm();
+	void on_item_up();
+	void on_item_dowm();
 
 public:
 	ImageSelectWidget(QWidget *parent = Q_NULLPTR);
