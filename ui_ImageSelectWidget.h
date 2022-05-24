@@ -106,6 +106,11 @@ public:
         LV_Image_selected = new QListView(ImageSelectWidget);
         LV_Image_selected->setObjectName(QString::fromUtf8("LV_Image_selected"));
         LV_Image_selected->setEditTriggers(QAbstractItemView::NoEditTriggers);
+        LV_Image_selected->setDragEnabled(true);
+        LV_Image_selected->setDragDropOverwriteMode(false);
+        LV_Image_selected->setDragDropMode(QAbstractItemView::InternalMove);
+        LV_Image_selected->setDefaultDropAction(Qt::TargetMoveAction);
+        LV_Image_selected->setMovement(QListView::Snap);
 
         gridLayout->addWidget(LV_Image_selected, 1, 1, 5, 1);
 
@@ -133,6 +138,8 @@ public:
         QObject::connect(LV_Image_Browse, SIGNAL(doubleClicked(QModelIndex)), ImageSelectWidget, SLOT(on_select_item(QModelIndex)));
         QObject::connect(LV_Image_Browse, SIGNAL(pressed(QModelIndex)), ImageSelectWidget, SLOT(on_selected_image(QModelIndex)));
         QObject::connect(PB_Confirm, SIGNAL(clicked()), ImageSelectWidget, SLOT(on_pb_confirm()));
+        QObject::connect(LV_Image_selected, SIGNAL(doubleClicked(QModelIndex)), ImageSelectWidget, SLOT(on_delete_item(QModelIndex)));
+        QObject::connect(PB_UP, SIGNAL(clicked()), ImageSelectWidget, SLOT(on_item_up()));
 
         QMetaObject::connectSlotsByName(ImageSelectWidget);
     } // setupUi

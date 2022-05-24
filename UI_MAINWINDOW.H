@@ -299,7 +299,7 @@ public:
         toolBox->setLineWidth(0);
         page = new QWidget();
         page->setObjectName(QString::fromUtf8("page"));
-        page->setGeometry(QRect(0, 0, 518, 759));
+        page->setGeometry(QRect(0, 0, 320, 574));
         gridLayout_8 = new QGridLayout(page);
         gridLayout_8->setSpacing(6);
         gridLayout_8->setContentsMargins(11, 11, 11, 11);
@@ -758,7 +758,7 @@ public:
         toolBox->addItem(page, QString::fromUtf8("\346\216\247\344\273\266"));
         page_2 = new QWidget();
         page_2->setObjectName(QString::fromUtf8("page_2"));
-        page_2->setGeometry(QRect(0, 0, 476, 517));
+        page_2->setGeometry(QRect(0, 0, 328, 562));
         gridLayout_7 = new QGridLayout(page_2);
         gridLayout_7->setSpacing(6);
         gridLayout_7->setContentsMargins(11, 11, 11, 11);

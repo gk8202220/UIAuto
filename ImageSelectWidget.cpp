@@ -1,11 +1,13 @@
 ﻿#include "ImageSelectWidget.h"
 #include <QDir>
+#include <QAbstractItemModel>
 #pragma execution_character_set("UTF-8")
 void ImageSelectWidget::on_selected_image(const QModelIndex index)
 {
 
 	QModelIndexList select_list = ui.LV_Image_Browse->selectionModel()->selectedIndexes();
 	int app_row = selected_image_model->rowCount();
+	
 	for each (QModelIndex index in select_list)
 	{
 		int row = index.row();
@@ -46,13 +48,42 @@ void ImageSelectWidget::on_pb_confirm()
 void ImageSelectWidget::on_item_up()
 {
 	//将项目下移
-	ui.LV_Image_Browse->currentIndex();
+	QModelIndex cr_index = ui.LV_Image_selected->currentIndex();
+	//selected_image_model.
+	 	int currRow = cr_index.row();
+	//int currentRow = ui.LV_Image_selected->currentIndex().row();
+	QModelIndex sourceParent = ui.LV_Image_selected->model()->index(currRow, 0);
+	QModelIndex destinationParent = ui.LV_Image_selected->model()->index(currRow + 1, 0);
+	ui.LV_Image_selected->model()->moveRow(sourceParent, currRow, destinationParent, currRow + 1);
+	
+	//ui.LV_Image_selected->model()->moveRow(cr_index, cr_row, cr_index, cr_row + 1);
+	//QAbstractItemModel::beginMoveRows(sourceParent, cr_row, cr_index, )
 
+	//if (cr_index.isValid()) //判断非空，否则点击会出错
+	//{
+	//	//int currRow = ui->listWidget->currentRow();//获取当前行号
+	//	int currRow = cr_index.row();
+	//	QVariant selstr = cr_index.data();
+	//	if (currRow > 0) //限制（上移至第0行终止）
+	//	{
+	//		 ui.LV_Image_selected->model()->removeRow(currRow);
+	//	    	ui.LV_Image_selected->model()->insertRow(currRow - 1);//在上一行插入新行，内容为之前选中内容
+	//	}
+	//	//ui.LV_Image_selected->model()->setCurrent(currRow - 1);//将上移后的新行选中，实现连续上移
+	//	//ui.LV_Image_selected->setCurrentIndex()
+	//}
+	
 	
 	
 }
 void ImageSelectWidget::on_item_dowm()
 {
+}
+void ImageSelectWidget::on_delete_item(const QModelIndex index)
+{
+	//双击删除
+	selected_image_list->remove(selected_image_list->indexOf(index.data().toString()));
+	ui.LV_Image_selected->model()->removeRow(index.row());
 }
 ImageSelectWidget::ImageSelectWidget(QWidget *parent)
 	: QWidget(parent)

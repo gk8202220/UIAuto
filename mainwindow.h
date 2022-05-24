@@ -44,7 +44,7 @@ protected:
     void dragEnterEvent(QDragEnterEvent *event);
     void dropEvent(QDropEvent *event);
 	void paintEvent(QPaintEvent *event);
-	bool eventFilter(QObject *watched, QEvent *event);
+	//bool eventFilter(QObject *watched, QEvent *event);
     void mousePressEvent(QMouseEvent* event);
     void mouseReleaseEvent(QMouseEvent* event);
     void mouseMoveEvent(QMouseEvent* event);
@@ -102,10 +102,10 @@ private:
     void UI_position(QString title);
     void display();
     void initDisplay();
-    void FingPxcpJsonFile(QString jsonPath);
-    void dispaly_BP(QString icon_data,QString icon_person,QString icon_no,QString icon_error);
-    void write_code(QString data);
-    void writePosiAndData(QString tile);
+
+   
+ 
+  
 
     int  GetX();
     int  GetY();

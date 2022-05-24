@@ -143,6 +143,7 @@ void CodeJson::FontParamToJson(QMap<QString, ComponnetsItem> *items_map)
 			title_list = imageBinFun->GetImageTitleList(name_list);
 			//生成地址数组
 			code_addr_arry += vpWatchCode->GenerateAddrArry(title, name_list);
+			code_addr_arry += vpWatchCode->UI_position(title, item.points.values());
 		}
 		
 	}

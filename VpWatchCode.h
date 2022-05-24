@@ -35,7 +35,7 @@ public:
 	bool CodeIsOld();
 	QString GenerateAddrArry(QString title, QStringList images); //打印地址数组
 	QString GeneratePosition(QString title,QList<QPoint> position); //生成位置信息
-	
+	QString UI_position(QString title, QList<QPoint> points);
 private:
 	QString setPostionFun = "LCD_SetXY(icon_16_";
 	QString WriteDataFun = "LCD_SetImage(icon_16_";

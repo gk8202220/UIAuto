@@ -575,3 +575,30 @@ QString VpWatchCode::UI_Sleep_4(QString title)
     return code_text;
 
 }
+
+
+
+QString  VpWatchCode::UI_position(QString title , QList<QPoint> points)
+{
+   // ui->textBrowser->append("\n/***** position coord ****/");
+    QString point_code;
+    int point_count = points.count();
+    if (point_count > 0)
+    {
+        QString pintt_count_str = QString::number(point_count);
+        QString title1 = "ICON_" + title + "_WIDE";
+   
+        point_code.append("const uint16_t icon_16_" + title.toLower() + "_coord[" + pintt_count_str + "][2] = \n{");
+        for (int i = 0; i < point_count; i++)
+        {
+            QPoint point = points.at(i);
+            QString X = QString::number(point.x());
+            QString Y = QString::number(point.y());
+            point_code.append("\t{" + X + "," + Y + "},");
+        }
+        
+        point_code.append(" \n};\n");
+    }
+    return point_code;
+
+}

@@ -65,15 +65,15 @@ void MainWindow::dragEnterEvent(QDragEnterEvent *event)
 {
     event->acceptProposedAction();
 }
-bool MainWindow::eventFilter(QObject *watched, QEvent *event)   //用过滤器eventFilter（）拦截QLabel中的QEvent::Paint事件
-{
-	//if (watched == ui->label_display && event->type() == QEvent::Paint)
-		//paint();
-	//this->update();
-   
-
-	return QWidget::eventFilter(watched, event);
-}
+//bool MainWindow::eventFilter(QObject *watched, QEvent *event)   //用过滤器eventFilter（）拦截QLabel中的QEvent::Paint事件
+//{
+//	//if (watched == ui->label_display && event->type() == QEvent::Paint)
+//		//paint();
+//	//this->update();
+//   
+//
+//	return QWidget::eventFilter(watched, event);
+//}
 void MainWindow::mousePressEvent(QMouseEvent* event)
 {
     qDebug() << "Press";
@@ -142,8 +142,13 @@ void MainWindow::paintEvent(QPaintEvent * event)
     painter.begin(&pix);
     /*进行预览图的绘画*/
     if (!priview_path.isEmpty())
-    {          
-        painter.drawPixmap(QPoint(0, 0), QPixmap(priview_path));
+    {    
+        QImage Image;
+        Image.load(priview_path);
+        QPixmap pixmap = QPixmap::fromImage(Image);
+       // QPixmap fitpixmap(priview_path);
+            QPixmap fitpixmap = pixmap.scaled(label_w, label_h, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+        painter.drawPixmap(QPoint(0, 0), fitpixmap);
      
     }
   
@@ -389,34 +394,7 @@ int addr_count = 0;
 
 
 
-void MainWindow::UI_position(QString title)
-{
-    ui->textBrowser->append("\n/***** position coord ****/");
-    QString X = ui->LE_X->text();
-    QString Y = ui->LE_Y->text();
-    QString title1 ="ICON_"+ title+"_WIDE";
-    int p = ui->LE_distance->text().toInt();
-    ui->textBrowser->append("const uint16_t icon_16_" +title.toLower() +"_coord[4][2] =  \n{ ");
-    if(p != 0)
-    {
 
-        int x0 = ui->LE_X->text().toInt();
-        QString x1 = QString::number(x0+p);
-        QString x2 = QString::number(x0+p*2);
-        QString x3 = QString::number(x0+p*3);
-        QString x4 = QString::number(x0+p*4);
-
-        ui->textBrowser->append("\t{" + X + "," + Y +"}," +"{" + x1+ "+" + title1 + ","+ Y  +" },");
-        ui->textBrowser->append( "\t{" +x2+ "+ " + title1 + "* 2," + Y +"}," + "{" + x3+ "+ " + title1 + "* 3," + Y +"},"+ "{" + x4+ "+ " + title1 + "* 4," + Y +"},"  );
-
-    }else {
-        ui->textBrowser->append("\t{" + X + "," + Y +"}," +"{" + X+ "+" + title1 + ","+ Y  +" },");
-        ui->textBrowser->append( "\t{" + X+ "+ " + title1 + "* 2," + Y +"}," + "{" + X+ "+ " + title1 + "* 3," + Y +"},"+ "{" + X+ "+ " + title1 + "* 4," + Y +"},"  );
-
-    }
-     ui->textBrowser->append(" \n};\n");
-
-}
 
 void MainWindow::display()
 {
@@ -516,28 +494,6 @@ void MainWindow::initDisplay()
 
 
 
-void MainWindow::dispaly_BP(QString icon_data, QString icon_person, QString icon_no, QString icon_error)
-{
-     write_code("if(test_mode == 1){");
-     writePosiAndData(icon_person);
-     write_code("}");
-
-}
-
-void MainWindow::write_code(QString data)
-{
-      ui->textBrowser->append(data);
-
-}
-
-void MainWindow::writePosiAndData(QString tile)
-{
-    write_code( "\t\t\t"+setPostionFun+title.toLower()+"_coord[0][0],icon_16_"+title.toLower()+"_coord[0][1],");
-    write_code("\t\t\t\t\tICON_"+title.toUpper()+"_WIDE,"+ "ICON_"+title.toUpper()+"_HIGH);");
-    write_code( "\t\t\t"+WriteDataFun+title.toLower()+"_addr[0],ICON_"+title.toUpper()+"_SIZE);\n");
-
-
-}
 
 int MainWindow::GetX()
 {
@@ -638,7 +594,7 @@ void MainWindow::on_CB_sleep_activated(const QString &arg1)
 void MainWindow::on_CB_postion_activated(const QString &arg1)
 {
     ui->textBrowser->clear();
-   UI_position(arg1);
+ 
 }
 
 void MainWindow::on_CB_BP_activated(const QString &arg1)
@@ -884,10 +840,10 @@ void MainWindow::on_updata_item_param()
       
         
     }
-  /*  CodeJson* josn1 = new CodeJson(this);
+   CodeJson* josn1 = new CodeJson(this);
     josn1->FontParamToJson(&watch_view->view_items_map);
     ui->textBrowser->setText(josn1->GetCode());
-    ui->TB_Positon->setText(josn1->GetCodeAddrArry());*/
+    ui->TB_Positon->setText(josn1->GetCodeAddrArry());
     this->update();
 }
 void MainWindow::on_selected_item(QModelIndex index)

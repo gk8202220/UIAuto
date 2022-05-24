@@ -107,6 +107,21 @@
      <property name="editTriggers">
       <set>QAbstractItemView::NoEditTriggers</set>
      </property>
+     <property name="dragEnabled">
+      <bool>true</bool>
+     </property>
+     <property name="dragDropOverwriteMode">
+      <bool>false</bool>
+     </property>
+     <property name="dragDropMode">
+      <enum>QAbstractItemView::InternalMove</enum>
+     </property>
+     <property name="defaultDropAction">
+      <enum>Qt::TargetMoveAction</enum>
+     </property>
+     <property name="movement">
+      <enum>QListView::Snap</enum>
+     </property>
     </widget>
    </item>
    <item row="6" column="0">
@@ -211,11 +226,43 @@
    <slot>on_pb_confirm()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>437</x>
-     <y>518</y>
+     <x>395</x>
+     <y>557</y>
     </hint>
     <hint type="destinationlabel">
      <x>279</x>
+     <y>283</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>LV_Image_selected</sender>
+   <signal>doubleClicked(QModelIndex)</signal>
+   <receiver>ImageSelectWidget</receiver>
+   <slot>on_delete_item(QModelIndex)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>258</x>
+     <y>383</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>242</x>
+     <y>283</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>PB_UP</sender>
+   <signal>clicked()</signal>
+   <receiver>ImageSelectWidget</receiver>
+   <slot>on_item_up()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>441</x>
+     <y>230</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>242</x>
      <y>283</y>
     </hint>
    </hints>
@@ -225,5 +272,7 @@
   <slot>on_select_item(QModelIndex)</slot>
   <slot>on_selected_image(QModelIndex)</slot>
   <slot>on_pb_confirm()</slot>
+  <slot>on_delete_item(QModelIndex)</slot>
+  <slot>on_item_up()</slot>
  </slots>
 </ui>
