@@ -21,10 +21,10 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     this->setAcceptDrops(true);
-    json = new pxcpJson();
+    pxcp = new pxcpJson();
     watch_view = new WatchView(this);
 
-    ui->CB_old->setChecked(false);
+ 
 	ui->label_display->installEventFilter(this); 
   
    
@@ -189,7 +189,7 @@ void MainWindow::dropEvent(QDropEvent *event)
         else if (format == "text/uri-list")
         {
             QString file_path = event->mimeData()->urls().first().toLocalFile();
-            this->filePath = event->mimeData()->urls().first().toLocalFile();
+        
             QFileInfo info(filePath);
 
             if (filePath.isEmpty())
@@ -204,7 +204,7 @@ void MainWindow::dropEvent(QDropEvent *event)
                 {
                     
                     //对pxcp 文件进行分析 得到json文件和图片
-                    if (json->GetJsonAndImage(info.filePath()))
+                    if (pxcp->GetJsonAndImage(info.filePath()))
                     {
                         ui->textBrowser->setText("Read pxcp File succeed!");
                     }
@@ -222,7 +222,7 @@ void MainWindow::dropEvent(QDropEvent *event)
                     else
                     {
                         //对pxcp 文件进行分析 得到json文件
-                        if (json->getJson(info.filePath()))
+                        if (pxcp->getJson(info.filePath()))
                         {
                             ui->textBrowser->setText("Read pxcp File succeed!");
                         }
@@ -248,139 +248,20 @@ void MainWindow::dropEvent(QDropEvent *event)
     return;
    
 }
-void MainWindow::DislayAddrParm(QString Image_title, QJsonArray image_arry)
-{
-  
-    /***Write file "gui_flash_param.c"***/
-    QString tiles1 = "const uint32_t icon_16_" + Image_title + "_addr";
-    tiles1.append("[" + QString::number(image_arry.count()) + "] = " + "\n{");
-    ui->TB_Positon->append(tiles1);
-    QByteArray data;
-    for (int i = 0; i < image_arry.count(); i++)
-    {
-        QString icon_name;// = image_arry.at(i).toString();
-        QStringList iconList = image_arry.at(i).toString().split("_");
-        //指针
-        if (iconList.at(0) == "zz" || iconList.at(0) == "zzz")
-        {
-            for (int i = 1; i < iconList.count(); i++)
-            {
-                icon_name += iconList.at(i);
-            }          
-        }
-        else
-        {
-            icon_name = image_arry.at(i).toString();
-        }
-        qDebug() << icon_name;
-        //获取坐标并写入
-        QString addr_str = "   ICON_" + icon_name.toUpper() + "_ADDR,";
-        data.append(addr_str.toLocal8Bit());
-        if (i % 3== 0 || i == image_arry.count() - 1)
-        {
-            ui->TB_Positon->append(data);
-            data.clear();
-        }        
-      
-    }   
-    qDebug() << "***" << Image_title << image_arry;
-    ui->TB_Positon->append("};"); //写参数表
-    ui->TB_head->append("extern const uint32_t icon_16_" + Image_title + "_addr[" + QString::number(image_arry.count()) + "];");  //写头文件声明
-   
 
-    //显示地址
-    QList<int> position_x;
-    QList<int> position_y;
-    if (!iconArray.isEmpty())
-    {   
-        for (int i = iconArray.size() - 1; i >= 0; i--)
-        {
-            QJsonObject  rectInfo = iconArray.at(i).toObject();
-            int x = rectInfo.value("x").toInt();
-            int y = rectInfo.value("y").toInt();
-            //根据高度和宽度匹配到对应的切图路径
-            QString path = rectInfo.value("path").toString();
-             //根据高度和宽度匹配到对应的切图路径           
-            if (path.toLower().contains(Image_title))
-            {
-                  if (position_x.count() == 0)
-                  {
-                      position_x.append(x);
-                      position_y.append(y);
-                  }
-                  else
-                  {
-                      bool HasSave = true; //是否保存
-                      for (int index = 0; index < position_x.count(); index++)
-                      {
-                          //排除重复的
-                          if (abs(position_x.at(index)- x) < 2 && abs(position_y.at(index) - y) < 2)
-                          {
-                              HasSave = false;
-                          }
-                      }
-                      if (HasSave)
-                      {
-                          position_x.append(x);
-                          position_y.append(y);
-                      }
-                  }
-                }
-            }
-        }
-        //显示对应坐标
-        int last_y = 0;
-        QString position_all;
-        QList<int> position_temp_x;
-        QList<int> position_temp_y;
-        position_all.append("const uint16_t icon_16_" + Image_title + "_coord["+ QString::number(position_x.count())+"][2] = \n{\n");
-        for (int index = 0; index < position_x.count(); index++)
-        {
-            int x = position_x.at(index);
-            int y = position_y.at(index);
-            position_temp_x.append(x);
-            position_temp_y.append(y);
-           //按y坐标分组
-            if (last_y != y)
-            {
-                last_y = y;
-                //按x大小排序
-				//在QT6中找不到这个函数
-                //qSort(position_temp_x.begin(), position_temp_x.end());
-                for (int i = 0; i < position_temp_x.count(); i++)
-                {
-                   // qDebug() << "x = " << QString::number(position_temp_x.at(i), 10) << "y = " << position_temp_y.at(i);
-                   
-                    position_temp_x.clear();
-                    position_temp_y.clear();
-                }
-                position_all.append("\n");
-               
-            }
-            position_all.append("\t{" + QString::number(x) + "," + QString::number(y) + "}," );
-          
-        }
-        position_all.append("\n};\n");
-        ui->TB_Positon->append(position_all);
-        ui->TB_head->append("extern const uint16_t icon_16_"+ Image_title + "_coord["+ QString::number(position_x.count())+"][2];\n");
-
-    
-
-    
-}
 void MainWindow::LanguageProcess()
 {
-    //json->GetJsonAndImage("./1.pxcp");
+    //pxcp->GetJsonAndImage("./1.pxcp");
 
    int index = 0;
    //显示图片
-   QStringList page_list = json->GetPages();
+   QStringList page_list = pxcp->GetPages();
 
    QStandardItemModel* page_item_model = new QStandardItemModel(this);
    index = 0;
    for each (QString  page in page_list)
    {
-       QString priview = json->GetPriview(page);
+       QString priview = pxcp->GetPriview(page);
        QStandardItem* item = new QStandardItem(QIcon(priview), page);
        page_item_model->setItem(index, 0, item);
        index++;
@@ -390,107 +271,11 @@ void MainWindow::LanguageProcess()
 
    
 }
-int addr_count = 0;
 
 
 
 
 
-void MainWindow::display()
-{
-    //添加到界面列表
-    QStringList iconlistnumkeys = iconListnum.keys();
-   
-    ui->CB_Time->setModel(iconModel);
-    ui->CB_week->setModel(iconModel);
-   
-   ui->CB_week_en->setModel(iconModel);
-   ui->CB_step->setModel(iconModel);
-   ui->CB_blu->setModel(iconModel);
-   ui->CB_heart->setModel(iconModel);
-   ui->CB_data->setModel(iconModel);
-   ui->CB_ampm->setModel(iconModel);
-   ui->CB_one->setModel(iconModel);
-   ui->CB_charge->setModel(iconModel);
-   ui->CB_calories->setModel(iconModel);
-   ui->CB_unit->setModel(iconModel);
-   ui->CB_distant->setModel(iconModel);
-   ui->CB_sleep->setModel(iconModel);
-   ui->CB_sleep_2->setModel(iconModel);
-   ui->CB_postion->setModel(iconModel);
-   ui->CB_BP->setModel(iconModel);
-    ui->CB_women->setModel(iconModel);
-    //显示单独的代码
-    foreach(QString iconName,iconlistnumkeys)
-    {
-
-        if(iconName.contains("ICON") ||iconName.contains("DOT") )
-        {
-            vpWatchCode->UI_one(iconName, iconListnum.value(title));
-        }
-        if(iconName.contains("DATA")  )
-        {
-
-             ui->CB_Time->setCurrentText(iconName);
-             ui->CB_step->setCurrentText(iconName);
-             ui->CB_data->setCurrentText(iconName);
-             ui->CB_calories->setCurrentText(iconName);
-             ui->CB_sleep->setCurrentText(iconName);
-             ui->CB_postion->setCurrentText(iconName);
-             ui->CB_BP->setCurrentText(iconName);
-        }
-         if(iconName.contains("WEEK"))
-         {
-
-              ui->CB_week->setCurrentText(iconName);
-              ui->CB_week_en->setCurrentText(iconName);
-              vpWatchCode->UI_week(iconName,iconName);
-         }
-         if(iconName.contains("UNIT"))
-         {
-            ui->CB_unit->setCurrentText(iconName);
-            vpWatchCode->UI_uint(iconName);
-
-         }
-         if(iconName.contains("AM"))
-         {
-              ui->CB_ampm->setCurrentText(iconName);
-              vpWatchCode->UI_AMPM(iconName);
-         }
-
-    }
-
-
-}
-
-void MainWindow::initDisplay()
-{
-    ui->textBrowser->clear();
-    ui->TB_head->clear();
-    ui->TB_Positon->clear();
-    ui->CB_Time->clear();
-    ui->CB_week->clear();
-    ui->CB_week_en->clear();
-    ui->CB_step->clear();
-    ui->CB_blu->clear();
-    ui->CB_heart->clear();
-    ui->CB_data->clear();
-    ui->CB_ampm->clear();
-    ui->CB_one->clear();
-    ui->CB_charge->clear();
-    ui->CB_calories->clear();
-    ui->CB_distant->clear();
-    ui->CB_unit->clear();
-    ui->CB_postion->clear();
-    ui->CB_sleep->clear();
-    ui->CB_sleep_2->clear();
-    ui->CB_women->clear();
-    ui->CB_BP->clear();
-    iconListnum.clear();
-    iconTitleList.clear();
-    iconTitleList.append("NULL");
-
-}
 
 
 
@@ -508,114 +293,7 @@ int MainWindow::GetY()
 
 
 
-void MainWindow::on_pushButton_clicked()
-{
-    this->update();
-}
 
-void MainWindow::on_CB_one_activated(const QString &arg1)
-{
-    ui->textBrowser->clear();
-    vpWatchCode->UI_one(arg1, iconListnum.value(title));
-}
-
-void MainWindow::on_CB_Time_activated(const QString &arg1)
-{
-    ui->textBrowser->clear();
-    vpWatchCode->UI_time(arg1);
-}
-
-void MainWindow::on_CB_heart_activated(const QString &arg1)
-{
-    ui->textBrowser->clear();
-    vpWatchCode->UI_heart(arg1);
-}
-
-void MainWindow::on_CB_step_activated(const QString &arg1)
-{
-   ui->textBrowser->clear();
-    vpWatchCode->UI_Step(arg1);
-}
-
-void MainWindow::on_CB_blu_activated(const QString &arg1)
-{
-    ui->textBrowser->clear();
-    vpWatchCode->UI_blue(arg1);
-}
-
-void MainWindow::on_CB_data_activated(const QString &arg1)
-{
-    ui->textBrowser->clear();
-    vpWatchCode->UI_data(arg1);
-}
-
-void MainWindow::on_CB_ampm_activated(const QString &arg1)
-{
-    ui->textBrowser->clear();
-    vpWatchCode->UI_AMPM(arg1);
-}
-
-void MainWindow::on_CB_charge_activated(const QString &arg1)
-{
-    ui->textBrowser->clear();
-    vpWatchCode->UI_charge(arg1);
-}
-
-void MainWindow::on_CB_week_activated(const QString &arg1)
-{
-    ui->textBrowser->clear();
-    vpWatchCode->UI_week(arg1,arg1);
-}
-
-void MainWindow::on_CB_calories_activated(const QString &arg1)
-{
-    ui->textBrowser->clear();
-    vpWatchCode->UI_calories(arg1);
-}
-
-void MainWindow::on_CB_unit_activated(const QString &arg1)
-{
-    ui->textBrowser->clear();
-    vpWatchCode->UI_uint(arg1);
-}
-
-void MainWindow::on_CB_distant_activated(const QString &arg1)
-{
-   ui->textBrowser->clear();
-    vpWatchCode->UI_distance(arg1);
-}
-
-void MainWindow::on_CB_sleep_activated(const QString &arg1)
-{
-   ui->textBrowser->clear();
-    vpWatchCode->UI_Sleep(arg1);
-}
-
-void MainWindow::on_CB_postion_activated(const QString &arg1)
-{
-    ui->textBrowser->clear();
- 
-}
-
-void MainWindow::on_CB_BP_activated(const QString &arg1)
-{
-    ui->textBrowser->clear();
-    vpWatchCode->UI_BP(arg1);
-}
-
-
-void MainWindow::on_CB_women_activated(const QString &arg1)
-{
-    ui->textBrowser->clear();
-    vpWatchCode->UI_Women(arg1);
-}
-
-void MainWindow::on_CB_sleep_2_activated(const QString &arg1)
-{
-    ui->textBrowser->clear();
-    vpWatchCode->UI_Sleep_4(arg1);
-
-}
 //int text_index = 0;
 #define SAVE_TEXT_TO_IMAGE 0
 void MainWindow::on_display_text(const QModelIndex index)
@@ -653,7 +331,7 @@ void MainWindow::on_display_page(const QModelIndex index)
 {
    QString key =  index.data().toString();
    //font_page.Page = key;
-   QString path = json->GetPageImage(key);
+   QString path = pxcp->GetPageImage(key);
    priview_path = path;
    ui->label_display->setScaledContents(true);
    ui->label_display->setPixmap(priview_path);

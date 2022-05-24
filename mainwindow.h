@@ -49,42 +49,6 @@ protected:
     void mouseReleaseEvent(QMouseEvent* event);
     void mouseMoveEvent(QMouseEvent* event);
 private slots:
-    void on_pushButton_clicked();
-
-    void on_CB_one_activated(const QString &arg1);
-
-    void on_CB_Time_activated(const QString &arg1);
-
-    void on_CB_heart_activated(const QString &arg1);
-
-    void on_CB_step_activated(const QString &arg1);
-
-    void on_CB_blu_activated(const QString &arg1);
-
-    void on_CB_data_activated(const QString &arg1);
-
-    void on_CB_ampm_activated(const QString &arg1);
-
-    void on_CB_charge_activated(const QString &arg1);
-
-    void on_CB_week_activated(const QString &arg1);
-
-    void on_CB_calories_activated(const QString &arg1);
-
-    void on_CB_unit_activated(const QString &arg1);
-
-    void on_CB_distant_activated(const QString &arg1);
-
-    void on_CB_sleep_activated(const QString &arg1);
-
-    void on_CB_postion_activated(const QString &arg1);
-
-    void on_CB_BP_activated(const QString &arg1);
-
-
-    void on_CB_women_activated(const QString &arg1);
-
-    void on_CB_sleep_2_activated(const QString &arg1);
 
     void on_display_text(const QModelIndex index); //选择的文字项
     void on_display_page(const QModelIndex index); //选择的文字项
@@ -96,24 +60,13 @@ private slots:
     void on_creat_item();
 private:
     Ui::MainWindow *ui;
-    QString filePath;
-    QString iconName;
-    QStringList iconTitleList;
-    void UI_position(QString title);
-    void display();
-    void initDisplay();
-
-   
- 
-  
-
     int  GetX();
     int  GetY();
 
-    void DislayAddrParm(QString Image_title, QJsonArray image_arry);
+  
     void LanguageProcess(); //多国语言处理
     bool CheckPointText(QPoint touch); //判断是否选中到文字
-    //void SelectedText(QString id); //选中已有的文字
+
     void CreatTextItem(QPoint* point); //创建一个文字的控件
    
     void CreatItem(QString componnet_type, QPoint point); //创建一个的控件
@@ -122,21 +75,8 @@ private:
     void SelectingItem(QString id); //选中的控件
     void DislayView(QPainter *painter); //显示界面
     void SaveSelectedItem(QString type, QString id);
-    QJsonArray iconArray;
-    QFile *file_c;
-    QFile *file;
-    QString title;
-    QString dirName;
-    QString addrName;
-    QMap<QString,int> iconListnum;
-    pxcpJson  *json;
-    QString last_filePath;
-    QString setPostionFun;
-    QString WriteDataFun;
 
-    QMap<QString, QString>Image_Path_Map; //图片命名和路径
-    QStringList titleList; //图片类型的标题
-    QJsonObject Title_Image_json;  //保存标题和对应的所有切图
+    pxcpJson  *pxcp;
     QStandardItemModel* iconModel;
     QStandardItemModel* selected_items_model; //已经选择的控件
    
