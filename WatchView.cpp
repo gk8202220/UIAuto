@@ -30,31 +30,31 @@ WatchView::~WatchView()
 int WatchView::Height(QString id)
 {
 	SetCurrentItem(id);
-	return current_item.size.height();
+	return current_item->size.height();
 }
 
 int WatchView::Width(QString id)
 {
 	SetCurrentItem(id);
-	return  current_item.size.width();
+	return  current_item->size.width();
 }
 
 int WatchView::FontSize(QString id)
 {
 	SetCurrentItem(id);
-	return current_item.font.param.font_size;
+	return current_item->font.param.font_size;
 }
 
 int WatchView::Spacing(QString id)
 {
 	SetCurrentItem(id);
-	return current_item.font.param.spacing;
+	return current_item->font.param.spacing;
 }
 
 int WatchView::LineHeight(QString id)
 {
 	SetCurrentItem(id);
-	return current_item.font.param.lineHeight;
+	return current_item->font.param.lineHeight;
 }
 
 int WatchView::X(QString id)
@@ -67,38 +67,38 @@ int WatchView::X(QString id)
 int WatchView::Y(QString id)
 {
 	SetCurrentItem(id);
-	return current_item.point.y();
+	return current_item->point.y();
 	
 }
 
 int WatchView::interval(QString id)
 {
 	SetCurrentItem(id);
-	return current_item.interval;
+	return current_item->interval;
 }
 
 QString WatchView::Fomat(QString id)
 {
 	SetCurrentItem(id);
-	return current_item.fomat;
+	return current_item->fomat;
 }
 
 QStringList WatchView::GetElementList(QString id)
 {
 	SetCurrentItem(id);
-	return current_item.element_list;
+	return current_item->element_list;
 }
 
-void WatchView::SetItem(ComponnetsItem item)
-{
-	current_item = item;
-}
+//void WatchView::SetItem(ComponnetsItem item)
+//{
+//	current_item = item;
+//}
 
 void WatchView::SetCurrentItem(QString id)
 {
-	if (view_items_map.contains(id))
+	if (view_items_map->contains(id))
 	{
-		current_item = view_items_map.value(id);
+		current_item = &view_items_map->value(id);
 	}
 	
 
@@ -129,12 +129,12 @@ QPoint WatchView::GetPoint(QString id, Language_e lan)
 {
 	SetCurrentItem(id);
 	QPoint point;
-	if (current_item.fomat == "Text")
+	if (current_item->fomat == "Text")
 	{
-		if (current_item.text_point.contains(lan))
+		if (current_item->text_point.contains(lan))
 		{
 			//如果当前的语言有对应的坐标
-			language_offset	text_point = current_item.text_point.value(lan);
+			language_offset	text_point = current_item->text_point.value(lan);
 			point.setX(text_point.x);
 			point.setY(text_point.y);
 
@@ -143,12 +143,12 @@ QPoint WatchView::GetPoint(QString id, Language_e lan)
 		else
 		{
 			
-			point = current_item.point;
+			point = current_item->point;
 		}
 	}
 	else
 	{
-		point = current_item.point;
+		point = current_item->point;
 	}
 	
 	return point;
@@ -157,64 +157,110 @@ QPoint WatchView::GetPoint(QString id, Language_e lan)
 QPoint WatchView::GetPoint(QString id)
 {
 	SetCurrentItem(id);
-	QPoint point = current_item.point;
+	QPoint point = current_item->point;
 	return point;
 }
 
 QMap<int, QPoint>* WatchView::GetPoints(QString id)
 {
 	SetCurrentItem(id);
-	return &current_item.points;
+	return &current_item->points;
 }
 
 QString WatchView::GetPriview(QString id)
 {
 	SetCurrentItem(id);
-	return current_item.current_element;
+	return current_item->current_element;
 }
 
 QString WatchView::Family(QString id)
 {
 	SetCurrentItem(id);
-	return current_item.font.param.family;
+	return current_item->font.param.family;
 }
 
 void WatchView::AppendItem(QString id, ComponnetsItem item)
 {
-	view_items_map.insert(id, item);
+	view_items_map->insert(id, item);
 }
 
 QMap<int, QStringList>* WatchView::GetElementLists(QString id)
 {
 	SetCurrentItem(id);
-	return &current_item.element_lists;
+	return &current_item->element_lists;
 }
 
 
 
-QStringList WatchView::GetViewId()
+QStringList *WatchView::GetViewId(QString page_id)
 {
-	return view_items_map.keys();
+	if (SelectPage(page_id))
+	{
+		return &view_items_map->keys();
+	}
+	return nullptr;
+	
 }
 
 bool WatchView::contains(QString id)
 {
-	return view_items_map.contains(id);
+	return view_items_map->contains(id);
 }
 
 ComponnetsItem WatchView::GetCurrentItem(QString id)
 {
-	return view_items_map.value(id);
+	return view_items_map->value(id);
 }
 
 int WatchView::Count()
 {
-	return view_items_map.count();
+	return view_items_map->count();
 }
 
 QString WatchView::GetComponnetType(QString type)
 {
 	return componnet_id_map.value(type);
+}
+
+bool WatchView::SelectPage(QString page_id)
+{
+	if (!Page_view_items_map.isEmpty())
+	{
+		if (Page_view_items_map.contains(page_id))
+		{
+			view_items_map = &Page_view_items_map.value(page_id);
+			return true;
+		}
+		
+	}
+	return false;
+}
+
+bool WatchView::AppendPage(QString page_id)
+{
+	QMap<QString, ComponnetsItem> view_items;
+	Page_view_items_map.insert(page_id,  view_items);
+	return SelectPage(page_id);
+}
+
+bool WatchView::RemovePage(QString page_id)
+{
+	if (!Page_view_items_map.isEmpty())
+	{
+		if (Page_view_items_map.contains(page_id))
+		{
+			Page_view_items_map.remove(page_id);
+			return true;
+		}
+
+	}
+	return false;
+}
+
+QMap<QString, ComponnetsItem>* WatchView::GetPage(QString page_id)
+{
+	SelectPage(page_id);
+	return view_items_map;
 }
 
 int WatchView::Digit(QString fomat)

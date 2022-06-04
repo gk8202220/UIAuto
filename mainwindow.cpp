@@ -524,7 +524,7 @@ void MainWindow::on_updata_item_param()
         
     }
    CodeJson* josn1 = new CodeJson(this);
-    josn1->FontParamToJson(&watch_view->view_items_map);
+    josn1->FontParamToJson(watch_view->GetPage(current_page_id));
     ui->textBrowser->setText(josn1->GetCode());
     ui->TB_Positon->setText(josn1->GetCodeAddrArry());
     this->update();
@@ -608,12 +608,16 @@ bool MainWindow::CheckPointText(QPoint touch)
     /*  只用在文本上的*/
      /* 根据文字的位置和大小判断是否点击在此位置*/
    
-    QStringList view_id_list = watch_view->GetViewId();
-    int id_count = view_id_list.count();
+    QStringList *view_id_list = watch_view->GetViewId(current_page_id);
+    if (view_id_list == nullptr)
+    {
+        return false;
+    }
+    int id_count = view_id_list->count();
     //for each(QString id in view_id_list)
     for(int i = id_count - 1; i >= 0; i--)
     {   
-        QString id = view_id_list.at(i);
+        QString id = view_id_list->at(i);
         int height = watch_view->Height(id);
         int width = watch_view->Width(id);
         QPoint point = watch_view->GetPoint(id, current_lan);
@@ -838,8 +842,13 @@ void MainWindow::SelectingItem(QString id)
 
 void MainWindow::DislayView(QPainter* painter)
 {
-    QStringList view_id_list = watch_view->GetViewId();
-    for each (QString id in view_id_list)
+   // QStringList view_id_list = watch_view->GetViewId();
+    QStringList* view_id_list = watch_view->GetViewId(current_page_id);
+    if (view_id_list == nullptr)
+    {
+        return ;
+    }
+    for each (QString id in *view_id_list)
     {
         int draw_x = watch_view->X(id);
         int draw_y = watch_view->Y(id);

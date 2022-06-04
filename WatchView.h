@@ -26,6 +26,8 @@ typedef enum
 	COMPONNET_TYPE_NUMBER,
 
 }COMPONNET_TYPE_E;
+
+//typedef QMap<QString, ComponnetsItem> View_Items;
 #include <QObject>
 #include <QMap>
 #include "ComponnetsItem.h"
@@ -47,7 +49,7 @@ public:
 	int interval(QString id);
 	QString Fomat(QString id);
 	QStringList GetElementList(QString id);
-	void SetItem(ComponnetsItem item);
+	//void SetItem(ComponnetsItem item);
 	void SetCurrentItem(QString id);
 	COMPONNET_TYPE_E Type(QString id); //获取控件的类型
 	QPoint GetPoint(QString id, Language_e lan);
@@ -57,20 +59,28 @@ public:
 	QString Family(QString id);
 	void AppendItem(QString id, ComponnetsItem item);
 	QMap<int, QStringList>* GetElementLists(QString id);
-	QStringList GetViewId();
+	QStringList *GetViewId(QString page_id); //获取界面的所有id
 	bool contains(QString id);
 	ComponnetsItem GetCurrentItem(QString id);
 	int Count();
-
 	QString GetComponnetType(QString type);
-	QStringList component_list;
-	ComponnetsItem current_item;
-	QMap<QString, ComponnetsItem> view_items_map;
+
+	bool SelectPage(QString page_id); //选择界面
+	bool AppendPage(QString page_id); //添加界面
+	bool RemovePage(QString page_id); //删除界面
+	QMap<QString, ComponnetsItem>* GetPage(QString page_id);//获取界面元素
+
+	QStringList component_list; //控件的中文 名称 
+
+	
 	int Digit(QString fomat); //获取该类型有多少位数
 	QString DigitToString(int digit);
 	int DigitToInt(QString digit);
 private:
-	QStringList component_id_list;
-	QMap<QString, QString> componnet_id_map;
-	QMap<int, QString> digit_string_map;
+	QStringList component_id_list;//控件的英文
+	QMap<QString, QString> componnet_id_map; //控件对应的中文名称
+	QMap<int, QString> digit_string_map; //数字位数对应的中文名称
+	QMap<QString, QMap<QString, ComponnetsItem> > Page_view_items_map; //所有界面的控件
+	QMap<QString, ComponnetsItem>*view_items_map;//当前界面的所有的ID和控件
+	ComponnetsItem *current_item; //当前选择的控件
 };
