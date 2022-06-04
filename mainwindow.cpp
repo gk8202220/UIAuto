@@ -609,8 +609,11 @@ bool MainWindow::CheckPointText(QPoint touch)
      /* 根据文字的位置和大小判断是否点击在此位置*/
    
     QStringList view_id_list = watch_view->GetViewId();
-    for each(QString id in view_id_list)
+    int id_count = view_id_list.count();
+    //for each(QString id in view_id_list)
+    for(int i = id_count - 1; i >= 0; i--)
     {   
+        QString id = view_id_list.at(i);
         int height = watch_view->Height(id);
         int width = watch_view->Width(id);
         QPoint point = watch_view->GetPoint(id, current_lan);

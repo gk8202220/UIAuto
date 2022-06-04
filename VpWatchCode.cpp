@@ -11,22 +11,27 @@ VpWatchCode::~VpWatchCode()
 
 QString VpWatchCode::UI_time(QString title)
 {
+    
     QString code_text;
     code_text.append("\n//***** 时间 ****//\n");
     code_text.append(setPostionFun + title.toLower() + "_coord[0][0],icon_16_" + title.toLower() + "_coord[0][1],");
     code_text.append("\t\tICON_" + title.toUpper() + "_WIDE," + "ICON_" + title.toUpper() + "_HIGH);");
+    code_text.append("\n");
     code_text.append(WriteDataFun + title.toLower() + "_addr[hour / 10 % 10 % 3],ICON_" + title.toUpper() + "_SIZE);");
     code_text.append("");
     code_text.append(setPostionFun + title.toLower() + "_coord[1][0],icon_16_" + title.toLower() + "_coord[1][1],");
     code_text.append("\t\tICON_" + title.toUpper() + "_WIDE," + "ICON_" + title.toUpper() + "_HIGH);");
+    code_text.append("\n");
     code_text.append(WriteDataFun + title.toLower() + "_addr[hour % 10],ICON_" + title.toUpper() + "_SIZE);");
     code_text.append("");
     code_text.append(setPostionFun + title.toLower() + "_coord[2][0],icon_16_" + title.toLower() + "_coord[2][1],");
     code_text.append("\t\tICON_" + title.toUpper() + "_WIDE," + "ICON_" + title.toUpper() + "_HIGH);");
+    code_text.append("\n");
     code_text.append(WriteDataFun + title.toLower() + "_addr[minute / 10 % 6],ICON_" + title.toUpper() + "_SIZE);");
     code_text.append("");
     code_text.append(setPostionFun + title.toLower() + "_coord[3][0],icon_16_" + title.toLower() + "_coord[3][1],");
     code_text.append("\t\tICON_" + title.toUpper() + "_WIDE," + "ICON_" + title.toUpper() + "_HIGH);");
+    code_text.append("\n");
     code_text.append(WriteDataFun + title.toLower() + "_addr[minute % 10],ICON_" + title.toUpper() + "_SIZE);");
     code_text.append("");
     return code_text;
@@ -38,11 +43,13 @@ QString VpWatchCode::UI_week(QString title, QString title_en)
     code_text.append("if(language == 0)\n{");
     code_text.append("\t" + setPostionFun + title.toLower() + "_coord[0][0],icon_16_" + title.toLower() + "_coord[0][1],");
     code_text.append("\t\tICON_" + title.toUpper() + "_WIDE," + "ICON_" + title.toUpper() + "_HIGH);");
+    code_text.append("\n");
     code_text.append("\t" + WriteDataFun + title.toLower() + "_addr[((week >= 1)?(week-1):week) % 7],ICON_" + title.toUpper() + "_SIZE);");
     code_text.append("");
     code_text.append("}\nelse\n{");
     code_text.append("\t" + setPostionFun + title_en.toLower() + "_coord[0][0],icon_16_" + title_en.toLower() + "_coord[0][1],");
     code_text.append("\t\tICON_" + title_en.toUpper() + "_WIDE," + "ICON_" + title_en.toUpper() + "_HIGH);");
+    code_text.append("\n");
     code_text.append("\t" + WriteDataFun + title_en.toLower() + "_addr[((week >= 1)?(week-1):week) % 7],ICON_" + title.toUpper() + "_SIZE);");
     code_text.append("}");
     return code_text;
@@ -53,6 +60,7 @@ QString VpWatchCode::UI_week(QString title, QString title_en)
     code_text.append("\n//***** 星期 ****//\n");
     code_text.append("\t" + setPostionFun + title.toLower() + "_coord[0][0],icon_16_" + title.toLower() + "_coord[0][1],");
     code_text.append("\t\tICON_" + title.toUpper() + "_WIDE," + "ICON_" + title.toUpper() + "_HIGH);");
+    code_text.append("\n");
     code_text.append("\t" + WriteDataFun + title.toLower() + "_addr[((week >= 1)?(week-1):week) % 7],ICON_" + title.toUpper() + "_SIZE);");
     code_text.append("");
     return code_text;
@@ -84,6 +92,7 @@ QString VpWatchCode::UI_Step(QString title)
 
     code_text.append("\t" + setPostionFun + title.toLower() + "_coord[i][0],icon_16_" + title.toLower() + "_coord[i][1],");
     code_text.append("\t\tICON_" + title.toUpper() + "_WIDE," + "ICON_" + title.toUpper() + "_HIGH);");
+    code_text.append("\n");
     code_text.append("\t" + WriteDataFun + title.toLower() + "_addr[step_data[i]],ICON_" + title.toUpper() + "_SIZE);");
     code_text.append("}");
 
@@ -96,6 +105,7 @@ QString VpWatchCode::UI_blue(QString title)
     code_text.append("\n//***** 蓝牙 ****//\n");
     code_text.append(setPostionFun + title.toLower() + "_coord[0][0],icon_16_" + title.toLower() + "_coord[0][1],");
     code_text.append("\t\t\t\t\tICON_" + title.toUpper() + "_WIDE," + "ICON_" + title.toUpper() + "_HIGH);");
+    code_text.append("\n");
     code_text.append(WriteDataFun + title.toLower() + "_addr[ble_status % 2],ICON_" + title.toUpper() + "_SIZE);");
     return code_text;
 }
@@ -127,12 +137,14 @@ QString VpWatchCode::UI_heart(QString title)
         //显示 ---
         code_text.append("\t\t" + setPostionFun + title.toLower() + "_coord[i][0],icon_16_" + title.toLower() + "_coord[i][1],");
         code_text.append("\t\t\tICON_" + dot.toUpper() + "_WIDE," + "ICON_" + dot.toUpper() + "_HIGH);");
+        code_text.append("\n");
         code_text.append("\t\t" + WriteDataFun + dot.toLower() + "_addr[0],ICON_" + dot.toUpper() + "_SIZE);");
 
     }
     else {
         code_text.append("\t\t" + setPostionFun + title.toLower() + "_coord[i][0],icon_16_" + title.toLower() + "_coord[i][1],");
         code_text.append("\t\t\tICON_" + title.toUpper() + "_WIDE," + "ICON_" + title.toUpper() + "_HIGH);");
+        code_text.append("\n");
         code_text.append("\t\t" + WriteDataFun + title.toLower() + "_addr[0],ICON_" + title.toUpper() + "_SIZE);");
 
 
@@ -156,6 +168,7 @@ QString VpWatchCode::UI_heart(QString title)
     code_text.append("\t{");
     code_text.append("\t\t" + setPostionFun + title.toLower() + "_coord[i][0],icon_16_" + title.toLower() + "_coord[i][1],");
     code_text.append("\t\t\tICON_" + title.toUpper() + "_WIDE," + "ICON_" + title.toUpper() + "_HIGH);");
+    code_text.append("\n");
     code_text.append("\t\t" + WriteDataFun + title.toLower() + "_addr[heart_data[i]],ICON_" + title.toUpper() + "_SIZE);");
     code_text.append("\t}");
     code_text.append("}");
@@ -169,18 +182,22 @@ QString VpWatchCode::UI_data(QString title)
     code_text.append("\n//***** 月份 ****//\n");
     code_text.append(setPostionFun + title.toLower() + "_coord[0][0],icon_16_" + title.toLower() + "_coord[0][1],");
     code_text.append("\t\t\t\tICON_" + title.toUpper() + "_WIDE," + "ICON_" + title.toUpper() + "_HIGH);");
+    code_text.append("\n");
     code_text.append(WriteDataFun + title.toLower() + "_addr[month / 10 % 10],ICON_" + title.toUpper() + "_SIZE);");
     code_text.append("");
     code_text.append(setPostionFun + title.toLower() + "_coord[1][0],icon_16_" + title.toLower() + "_coord[1][1],");
     code_text.append("\t\t\t\tICON_" + title.toUpper() + "_WIDE," + "ICON_" + title.toUpper() + "_HIGH);");
+    code_text.append("\n");
     code_text.append(WriteDataFun + title.toLower() + "_addr[month % 10],ICON_" + title.toUpper() + "_SIZE);");
     code_text.append("\n//*****day****//");
     code_text.append(setPostionFun + title.toLower() + "_coord[2][0],icon_16_" + title.toLower() + "_coord[2][1],");
     code_text.append("\t\t\t\tICON_" + title.toUpper() + "_WIDE," + "ICON_" + title.toUpper() + "_HIGH);");
+    code_text.append("\n");
     code_text.append(WriteDataFun + title.toLower() + "_addr[day / 10 % 10],ICON_" + title.toUpper() + "_SIZE);");
     code_text.append("");
     code_text.append(setPostionFun + title.toLower() + "_coord[3][0],icon_16_" + title.toLower() + "_coord[3][1],");
     code_text.append("\t\t\t\tICON_" + title.toUpper() + "_WIDE," + "ICON_" + title.toUpper() + "_HIGH);");
+    code_text.append("\n");
     code_text.append(WriteDataFun + title.toLower() + "_addr[day % 10],ICON_" + title.toUpper() + "_SIZE);");
     code_text.append("");
     return code_text;
@@ -208,6 +225,7 @@ QString VpWatchCode::UI_calories(QString title)
     code_text.append("{");
     code_text.append("\t" + setPostionFun + title.toLower() + "_coord[i][0],icon_16_" + title.toLower() + "_coord[i][1],");
     code_text.append("\t\tICON_" + title.toUpper() + "_WIDE," + "ICON_" + title.toUpper() + "_HIGH);");
+    code_text.append("\n");
     code_text.append("\t" + WriteDataFun + title.toLower() + "_addr[calories_data[i] ],ICON_" + title.toUpper() + "_SIZE);");
     code_text.append("}");
     return code_text;
@@ -236,6 +254,7 @@ QString VpWatchCode::UI_distance(QString title)
     code_text.append("\t{");
     code_text.append("\t\t" + setPostionFun + title.toLower() + "_coord[i][0],icon_16_" + title.toLower() + "_coord[i][1],");
     code_text.append("\t\t\t\t\t\tICON_" + title.toUpper() + "_WIDE," + "ICON_" + title.toUpper() + "_HIGH);");
+    code_text.append("\n");
     code_text.append("\t\t" + WriteDataFun + title.toLower() + "_addr[distance_data[i]],ICON_" + title.toUpper() + "_SIZE);");
     code_text.append("\t}");
     return code_text;
@@ -342,6 +361,7 @@ QString VpWatchCode::UI_one(QString title, int count)
     code_text.append("\n\t\t/*****" + title + " ****/\n");
     code_text.append("\t\t" + setPostionFun + title.toLower() + "_coord[0][0],icon_16_" + title.toLower() + "_coord[0][1],");
     code_text.append("\t\t\t\t  ICON_" + title.toUpper() + "_WIDE," + "ICON_" + title.toUpper() + "_HIGH);");
+    code_text.append("\n");
     if (count > 1)
     {
         //动图
@@ -366,6 +386,7 @@ QString VpWatchCode::UI_charge(QString title)
     code_text.append("    {");
     code_text.append("\t\t" + setPostionFun + title.toLower() + "_coord[0][0],icon_16_" + title.toLower() + "_coord[0][1],");
     code_text.append("\t\t\tICON_" + title.toUpper() + "_WIDE," + "ICON_" + title.toUpper() + "_HIGH);");
+    code_text.append("\n");
     code_text.append("\t\t" + WriteDataFun + title.toLower() + "_addr[index % 5],ICON_" + title.toUpper() + "_SIZE);\n");
     code_text.append("    }");
     code_text.append("    else");
@@ -376,12 +397,14 @@ QString VpWatchCode::UI_charge(QString title)
     code_text.append("            {");
     code_text.append("\t\t\t" + setPostionFun + title.toLower() + "_coord[0][0],icon_16_" + title.toLower() + "_coord[0][1],");
     code_text.append("\t\t\t\t\tICON_" + title.toUpper() + "_WIDE," + "ICON_" + title.toUpper() + "_HIGH);");
+    code_text.append("\n");
     code_text.append("\t\t\t" + WriteDataFun + title.toLower() + "_addr[0],ICON_" + title.toUpper() + "_SIZE);\n");
     code_text.append("            }");
     code_text.append("            else if(index % 4 == 3)");
     code_text.append("            {");
     code_text.append("\t\t\t" + setPostionFun + title.toLower() + "_coord[0][0],icon_16_" + title.toLower() + "_coord[0][1],");
     code_text.append("\t\t\t\t\tICON_" + title.toUpper() + "_WIDE," + "ICON_" + title.toUpper() + "_HIGH);");
+    code_text.append("\n");
     code_text.append("\t\t\t" + WriteDataFun + title.toLower() + "_addr[5],ICON_" + title.toUpper() + "_SIZE);\n");
 
     code_text.append("            }");
@@ -391,6 +414,7 @@ QString VpWatchCode::UI_charge(QString title)
 
     code_text.append("\t\t\t" + setPostionFun + title.toLower() + "_coord[0][0],icon_16_" + title.toLower() + "_coord[0][1],");
     code_text.append("\t\t\t\t\tICON_" + title.toUpper() + "_WIDE," + "ICON_" + title.toUpper() + "_HIGH);");
+    code_text.append("\n");
     code_text.append("\t\t\t" + WriteDataFun + title.toLower() + "_addr[battery_level],ICON_" + title.toUpper() + "_SIZE);\n");
 
     code_text.append("        }");
@@ -405,6 +429,7 @@ QString VpWatchCode::UI_uint(QString title)
     code_text.append("\n\t\t/***** 单位 ****/\n");
     code_text.append("\t\t" + setPostionFun + title.toLower() + "_coord[0][0],icon_16_" + title.toLower() + "_coord[0][1],");
     code_text.append("\t\t\t\t  ICON_" + title.toUpper() + "_WIDE," + "ICON_" + title.toUpper() + "_HIGH);");
+    code_text.append("\n");
     code_text.append("\t\t" + WriteDataFun + title.toLower() + "_addr[language % 2],ICON_" + title.toUpper() + "_SIZE);\n");
     return code_text;
 }
@@ -414,6 +439,7 @@ QString VpWatchCode::UI_Women(QString title)
     code_text.append("\n\t\t/***** 女性 ****/");
     code_text.append("\t\t" + setPostionFun + title.toLower() + "_coord[0][0],icon_16_" + title.toLower() + "_coord[0][1],");
     code_text.append("\t\t\t\t  ICON_" + title.toUpper() + "_WIDE," + "ICON_" + title.toUpper() + "_HIGH);");
+    code_text.append("\n");
     code_text.append("\t\t" + WriteDataFun + title.toLower() + "_addr[menstrual % 5],ICON_" + title.toUpper() + "_SIZE);\n");
     return code_text;
 }
@@ -436,6 +462,7 @@ QString VpWatchCode::UI_BP(QString title)
 
     code_text.append("\t" + setPostionFun + title.toLower() + "_coord[i][0],icon_16_" + title.toLower() + "_coord[i][1],");
     code_text.append("\t\tICON_" + title.toUpper() + "_WIDE," + "ICON_" + title.toUpper() + "_HIGH);");
+    code_text.append("\n");
     code_text.append("\t" + WriteDataFun + title.toLower() + "_addr[bp_data[i]],ICON_" + title.toUpper() + "_SIZE);");
     code_text.append("}");
     return code_text;
@@ -476,6 +503,7 @@ QString VpWatchCode::UI_Sleep(QString title)
 
     code_text.append("\t" + setPostionFun + title.toLower() + "_coord[i][0],icon_16_" + title.toLower() + "_coord[i][1],");
     code_text.append("\t\tICON_" + title.toUpper() + "_WIDE," + "ICON_" + title.toUpper() + "_HIGH);");
+    code_text.append("\n");
     code_text.append("\t" + WriteDataFun + title.toLower() + "_addr[sleep_data[i]],ICON_" + title.toUpper() + "_SIZE);");
     code_text.append("}");
 
@@ -491,6 +519,7 @@ QString VpWatchCode::UI_Sleep(QString title)
 
     code_text.append("\t" + setPostionFun + title.toLower() + "_coord[i][0],icon_16_" + title.toLower() + "_coord[i][1],");
     code_text.append("\t\tICON_" + title.toUpper() + "_WIDE," + "ICON_" + title.toUpper() + "_HIGH);");
+    code_text.append("\n");
     code_text.append("\t" + WriteDataFun + title.toLower() + "_addr[deep_sleep_data[i]],ICON_" + title.toUpper() + "_SIZE);");
     code_text.append("}");
     code_text.append("\n//***** light Sleep ****//\n");
@@ -505,6 +534,7 @@ QString VpWatchCode::UI_Sleep(QString title)
 
     code_text.append("\t" + setPostionFun + title.toLower() + "_coord[i][0],icon_16_" + title.toLower() + "_coord[i][1],");
     code_text.append("\t\tICON_" + title.toUpper() + "_WIDE," + "ICON_" + title.toUpper() + "_HIGH);");
+    code_text.append("\n");
     code_text.append("\t" + WriteDataFun + title.toLower() + "_addr[light_sleep_data[i]],ICON_" + title.toUpper() + "_SIZE);");
     code_text.append("}");
     return code_text;
@@ -537,6 +567,7 @@ QString VpWatchCode::UI_Sleep_4(QString title)
 
     code_text.append("\t" + setPostionFun + title.toLower() + "_coord[i][0],icon_16_" + title.toLower() + "_coord[i][1],");
     code_text.append("\t\tICON_" + title.toUpper() + "_WIDE," + "ICON_" + title.toUpper() + "_HIGH);");
+    code_text.append("\n");
     code_text.append("\t" + WriteDataFun + title.toLower() + "_addr[sleep_data[i]],ICON_" + title.toUpper() + "_SIZE);");
     code_text.append("}");
     if (CodeIsOld())
@@ -553,6 +584,7 @@ QString VpWatchCode::UI_Sleep_4(QString title)
 
     code_text.append("\t" + setPostionFun + title.toLower() + "_coord[i][0],icon_16_" + title.toLower() + "_coord[i][1],");
     code_text.append("\t\tICON_" + title.toUpper() + "_WIDE," + "ICON_" + title.toUpper() + "_HIGH);");
+    code_text.append("\n");
     code_text.append("\t" + WriteDataFun + title.toLower() + "_addr[deep_sleep_data[i]],ICON_" + title.toUpper() + "_SIZE);");
     code_text.append("}");
 
@@ -570,6 +602,7 @@ QString VpWatchCode::UI_Sleep_4(QString title)
 
     code_text.append("\t" + setPostionFun + title.toLower() + "_coord[i][0],icon_16_" + title.toLower() + "_coord[i][1],");
     code_text.append("\t\tICON_" + title.toUpper() + "_WIDE," + "ICON_" + title.toUpper() + "_HIGH);");
+    code_text.append("\n");
     code_text.append("\t" + WriteDataFun + title.toLower() + "_addr[light_sleep_data[i]],ICON_" + title.toUpper() + "_SIZE);");
     code_text.append("}");
     return code_text;
@@ -602,3 +635,4 @@ QString  VpWatchCode::UI_position(QString title , QList<QPoint> points)
     return point_code;
 
 }
+
