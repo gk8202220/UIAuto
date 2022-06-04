@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1042</width>
+    <width>1227</width>
     <height>865</height>
    </rect>
   </property>
@@ -31,7 +31,7 @@
 color: rgb(255, 255, 255);</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QGridLayout" name="gridLayout_6">
+   <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
      <widget class="QLineEdit" name="lineEdit">
       <property name="sizePolicy">
@@ -51,8 +51,188 @@ color: rgb(255, 255, 255);</string>
       </property>
      </widget>
     </item>
+    <item row="0" column="1" rowspan="2">
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <widget class="QLabel" name="label_47">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>控件</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="QListView" name="listView_componnets">
+          <property name="contextMenuPolicy">
+           <enum>Qt::NoContextMenu</enum>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::Box</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Plain</enum>
+          </property>
+          <property name="editTriggers">
+           <set>QAbstractItemView::NoEditTriggers</set>
+          </property>
+          <property name="dragEnabled">
+           <bool>true</bool>
+          </property>
+          <property name="defaultDropAction">
+           <enum>Qt::ActionMask</enum>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <spacer name="horizontalSpacer_2">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_display">
+            <property name="minimumSize">
+             <size>
+              <width>360</width>
+              <height>360</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>360</width>
+              <height>360</height>
+             </size>
+            </property>
+            <property name="acceptDrops">
+             <bool>true</bool>
+            </property>
+            <property name="autoFillBackground">
+             <bool>false</bool>
+            </property>
+            <property name="styleSheet">
+             <string notr="true"/>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::Box</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Sunken</enum>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="textFormat">
+             <enum>Qt::PlainText</enum>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+            </property>
+            <property name="wordWrap">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QListView" name="listView_page">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>280</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>微软雅黑 Light</family>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
+          <property name="toolTip">
+           <string>界面选择</string>
+          </property>
+          <property name="statusTip">
+           <string>界面选择</string>
+          </property>
+          <property name="whatsThis">
+           <string>界面选择</string>
+          </property>
+          <property name="accessibleName">
+           <string/>
+          </property>
+          <property name="sizeAdjustPolicy">
+           <enum>QAbstractScrollArea::AdjustToContentsOnFirstShow</enum>
+          </property>
+          <property name="dragEnabled">
+           <bool>true</bool>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>200</width>
+            <height>200</height>
+           </size>
+          </property>
+          <property name="textElideMode">
+           <enum>Qt::ElideNone</enum>
+          </property>
+          <property name="verticalScrollMode">
+           <enum>QAbstractItemView::ScrollPerItem</enum>
+          </property>
+          <property name="flow">
+           <enum>QListView::LeftToRight</enum>
+          </property>
+          <property name="gridSize">
+           <size>
+            <width>200</width>
+            <height>220</height>
+           </size>
+          </property>
+          <property name="viewMode">
+           <enum>QListView::IconMode</enum>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </item>
     <item row="1" column="0">
-     <widget class="QListView" name="listView_page">
+     <widget class="QListView" name="lv_Page_Select">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
         <horstretch>0</horstretch>
@@ -115,96 +295,6 @@ color: rgb(255, 255, 255);</string>
       </property>
      </widget>
     </item>
-    <item row="0" column="1" rowspan="2">
-     <layout class="QVBoxLayout" name="verticalLayout_4">
-      <item>
-       <layout class="QVBoxLayout" name="verticalLayout_3">
-        <item>
-         <widget class="QLabel" name="label_47">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="text">
-           <string>已选择控件</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <widget class="QTreeView" name="treeView_slelect_items">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="textElideMode">
-         <enum>Qt::ElideMiddle</enum>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="label_display">
-        <property name="minimumSize">
-         <size>
-          <width>360</width>
-          <height>360</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>360</width>
-          <height>360</height>
-         </size>
-        </property>
-        <property name="acceptDrops">
-         <bool>true</bool>
-        </property>
-        <property name="autoFillBackground">
-         <bool>false</bool>
-        </property>
-        <property name="styleSheet">
-         <string notr="true"/>
-        </property>
-        <property name="frameShape">
-         <enum>QFrame::Box</enum>
-        </property>
-        <property name="frameShadow">
-         <enum>QFrame::Sunken</enum>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="textFormat">
-         <enum>Qt::PlainText</enum>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-        </property>
-        <property name="wordWrap">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <spacer name="verticalSpacer">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>228</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-     </layout>
-    </item>
    </layout>
   </widget>
   <widget class="QDockWidget" name="dockWidget_3">
@@ -224,7 +314,7 @@ color: rgb(255, 255, 255);</string>
     <set>QDockWidget::DockWidgetFloatable|QDockWidget::DockWidgetMovable</set>
    </property>
    <property name="windowTitle">
-    <string>属性</string>
+    <string>已选择控件</string>
    </property>
    <attribute name="dockWidgetArea">
     <number>2</number>
@@ -265,36 +355,22 @@ color: rgb(255, 255, 255);</string>
       <number>0</number>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <property name="tabSpacing">
       <number>0</number>
      </property>
-     <widget class="QWidget" name="page">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>328</width>
-        <height>562</height>
-       </rect>
-      </property>
-      <attribute name="label">
-       <string>控件</string>
-      </attribute>
-      <layout class="QGridLayout" name="gridLayout_8"/>
-     </widget>
      <widget class="QWidget" name="page_2">
       <property name="geometry">
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>328</width>
-        <height>562</height>
+        <width>476</width>
+        <height>555</height>
        </rect>
       </property>
       <attribute name="label">
-       <string>设置</string>
+       <string>属性</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_7">
        <item row="5" column="0">
@@ -893,29 +969,23 @@ color: rgb(255, 255, 255);</string>
       </layout>
      </widget>
     </widget>
-    <widget class="QListView" name="listView_componnets">
+    <widget class="QTreeView" name="treeView_slelect_items">
      <property name="geometry">
       <rect>
-       <x>9</x>
-       <y>9</y>
-       <width>321</width>
-       <height>192</height>
+       <x>3</x>
+       <y>10</y>
+       <width>351</width>
+       <height>181</height>
       </rect>
      </property>
-     <property name="contextMenuPolicy">
-      <enum>Qt::NoContextMenu</enum>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
      </property>
-     <property name="frameShape">
-      <enum>QFrame::Box</enum>
-     </property>
-     <property name="frameShadow">
-      <enum>QFrame::Plain</enum>
-     </property>
-     <property name="dragEnabled">
-      <bool>true</bool>
-     </property>
-     <property name="defaultDropAction">
-      <enum>Qt::ActionMask</enum>
+     <property name="textElideMode">
+      <enum>Qt::ElideMiddle</enum>
      </property>
     </widget>
    </widget>
@@ -934,104 +1004,108 @@ color: rgb(255, 255, 255);</string>
     <number>1</number>
    </attribute>
    <widget class="QWidget" name="dockWidgetContents">
-    <layout class="QGridLayout" name="gridLayout_9">
-     <item row="0" column="0">
-      <widget class="QTabWidget" name="tabWidget">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="tabPosition">
-        <enum>QTabWidget::West</enum>
-       </property>
-       <property name="tabShape">
-        <enum>QTabWidget::Triangular</enum>
-       </property>
-       <property name="currentIndex">
-        <number>0</number>
-       </property>
-       <property name="elideMode">
-        <enum>Qt::ElideNone</enum>
-       </property>
-       <property name="usesScrollButtons">
-        <bool>false</bool>
-       </property>
-       <property name="documentMode">
-        <bool>true</bool>
-       </property>
-       <property name="tabBarAutoHide">
-        <bool>true</bool>
-       </property>
-       <widget class="QWidget" name="tab">
-        <attribute name="title">
-         <string>代码区</string>
-        </attribute>
-        <layout class="QGridLayout" name="gridLayout_3">
-         <item row="0" column="0">
-          <widget class="QTextBrowser" name="textBrowser">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-       <widget class="QWidget" name="tab_2">
-        <attribute name="title">
-         <string>坐标</string>
-        </attribute>
-        <layout class="QGridLayout" name="gridLayout_4">
-         <item row="0" column="0">
-          <widget class="QTextBrowser" name="TB_Positon">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-       <widget class="QWidget" name="tab_3">
-        <attribute name="title">
-         <string>头文件</string>
-        </attribute>
-        <layout class="QGridLayout" name="gridLayout_5">
-         <item row="0" column="0">
-          <widget class="QTextBrowser" name="TB_head"/>
-         </item>
-        </layout>
-       </widget>
-       <widget class="QWidget" name="tab_4">
-        <attribute name="title">
-         <string>地址</string>
-        </attribute>
-        <widget class="QTextBrowser" name="TB_addr">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>10</y>
-           <width>891</width>
-           <height>801</height>
-          </rect>
+    <widget class="QTabWidget" name="tabWidget">
+     <property name="geometry">
+      <rect>
+       <x>9</x>
+       <y>9</y>
+       <width>185</width>
+       <height>810</height>
+      </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="tabPosition">
+      <enum>QTabWidget::West</enum>
+     </property>
+     <property name="tabShape">
+      <enum>QTabWidget::Triangular</enum>
+     </property>
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <property name="elideMode">
+      <enum>Qt::ElideNone</enum>
+     </property>
+     <property name="usesScrollButtons">
+      <bool>false</bool>
+     </property>
+     <property name="documentMode">
+      <bool>true</bool>
+     </property>
+     <property name="tabBarAutoHide">
+      <bool>true</bool>
+     </property>
+     <widget class="QWidget" name="tab">
+      <attribute name="title">
+       <string>代码区</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_3">
+       <item row="0" column="0">
+        <widget class="QTextBrowser" name="textBrowser">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
          </property>
         </widget>
-       </widget>
-       <widget class="QWidget" name="tab_5">
-        <attribute name="title">
-         <string>多国语言</string>
-        </attribute>
-        <layout class="QGridLayout" name="gridLayout_2"/>
-       </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_2">
+      <attribute name="title">
+       <string>坐标</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_4">
+       <item row="0" column="0">
+        <widget class="QTextBrowser" name="TB_Positon">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_3">
+      <attribute name="title">
+       <string>头文件</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_5">
+       <item row="0" column="0">
+        <widget class="QTextBrowser" name="TB_head"/>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_4">
+      <attribute name="title">
+       <string>地址</string>
+      </attribute>
+      <widget class="QTextBrowser" name="TB_addr">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>10</y>
+         <width>891</width>
+         <height>801</height>
+        </rect>
+       </property>
       </widget>
-     </item>
-    </layout>
+     </widget>
+     <widget class="QWidget" name="tab_5">
+      <attribute name="title">
+       <string>多国语言</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_2"/>
+     </widget>
+    </widget>
    </widget>
   </widget>
  </widget>

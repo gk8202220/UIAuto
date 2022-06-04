@@ -48,8 +48,7 @@ public:
 	int Y(QString id);
 	int interval(QString id);
 	QString Fomat(QString id);
-	QStringList GetElementList(QString id);
-	//void SetItem(ComponnetsItem item);
+	QStringList GetElementList(QString id);	
 	void SetCurrentItem(QString id);
 	COMPONNET_TYPE_E Type(QString id); //获取控件的类型
 	QPoint GetPoint(QString id, Language_e lan);
@@ -62,7 +61,7 @@ public:
 	QStringList *GetViewId(QString page_id); //获取界面的所有id
 	bool contains(QString id);
 	ComponnetsItem GetCurrentItem(QString id);
-	int Count();
+	int Count(); //当前界面元素的个数
 	QString GetComponnetType(QString type);
 
 	bool SelectPage(QString page_id); //选择界面

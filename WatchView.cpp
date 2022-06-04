@@ -89,10 +89,6 @@ QStringList WatchView::GetElementList(QString id)
 	return current_item->element_list;
 }
 
-//void WatchView::SetItem(ComponnetsItem item)
-//{
-//	current_item = item;
-//}
 
 void WatchView::SetCurrentItem(QString id)
 {
