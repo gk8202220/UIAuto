@@ -56,7 +56,7 @@ private slots:
     void on_select_language_file(int select); //选择语言文件
     void on_updata_select_content_list(); //更新选择的文字
     void on_updata_item_param(); //更新控件的参数
-    void on_selected_item(QModelIndex index); //选择已经存在的控件
+    void on_selected_item(QModelIndex index); //从已选择的列表中选中控件
     void on_creat_item();
 private:
     Ui::MainWindow *ui;

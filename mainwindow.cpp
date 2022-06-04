@@ -133,7 +133,7 @@ void MainWindow::paintEvent(QPaintEvent * event)
 	//QPainter paint(this);   
     
     QPainter painter;
-    qDebug() << "paintEvent";
+   // qDebug() << "paintEvent";
     int label_h = ui->label_display->height(); //  current_select_text.param.font_size;
     int label_w =  ui->label_display->width();//rec.width(); 
 
@@ -188,7 +188,7 @@ void MainWindow::dropEvent(QDropEvent *event)
         }
         else if (format == "text/uri-list")
         {
-            QString file_path = event->mimeData()->urls().first().toLocalFile();
+            QString filePath = event->mimeData()->urls().first().toLocalFile();
         
             QFileInfo info(filePath);
 
@@ -234,7 +234,7 @@ void MainWindow::dropEvent(QDropEvent *event)
                 }
                 else if (info.suffix() == "xlsx")
                 {
-                    language->SetLanguageFileExcel(file_path);
+                    language->SetLanguageFileExcel(filePath);
                     languageTextSelect->SetTextList(language->text_id_list);
 
                 }
@@ -511,6 +511,11 @@ void MainWindow::on_updata_item_param()
                         
                     }
                 }
+                else
+                {
+                    //不是数字的，只保持一位
+                    current_item.points.insert(0, current_item.point);
+                }
             }   
 
         }
@@ -534,6 +539,7 @@ void MainWindow::on_selected_item(QModelIndex index)
 void MainWindow::on_creat_item()
 {
     CreatItem(creat_componnet_type, &creat_point);
+    SaveSelectedItem(creat_componnet_type, current_item_id); //保存当前的控件ID
     on_updata_select_content_list(); 
 }
 void MainWindow::on_lond_language_file()
@@ -695,7 +701,7 @@ void MainWindow::CreatItem(QString componnet_type, QPoint point)
         imageSelectWidget->show();
        //CreatItem(componnet_type , &point);
     }
-    SaveSelectedItem(componnet_type, current_item_id); //保存当前的控件ID
+   
 }
 
 void MainWindow::CreatNumber(QString componnet_type, QPoint *point)
@@ -914,7 +920,7 @@ void MainWindow::DislayView(QPainter* painter)
 
 void MainWindow::SaveSelectedItem(QString type, QString id)
 {
-    //添加到已选择的控件  
+    //添加到已选择的控件列表中  
     QStandardItem* item_type = new QStandardItem(type);
     int row_count = selected_items_model->rowCount();
     selected_items_model->setItem(row_count, 1, item_type);

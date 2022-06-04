@@ -253,7 +253,7 @@ QString VpWatchCode::GenerateAddrArry(QString title, QStringList images)
     QString gui_flash_addr;
     if (images.isEmpty())return gui_flash_addr;
     int count = images.size();
-    QString tiles1 = "\nconst uint32_t icon_16_" + images.at(0) + "_addr";
+    QString tiles1 = "\nconst uint32_t icon_16_" + title + "_addr";
     tiles1.append("[" + QString::number(images.count()) + "] = " + "\n{");
     gui_flash_addr.append(tiles1);
     for each (QString title in images)
@@ -581,7 +581,7 @@ QString VpWatchCode::UI_Sleep_4(QString title)
 QString  VpWatchCode::UI_position(QString title , QList<QPoint> points)
 {
    // ui->textBrowser->append("\n/***** position coord ****/");
-    QString point_code;
+    QString point_code = "\n";
     int point_count = points.count();
     if (point_count > 0)
     {
