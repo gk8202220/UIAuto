@@ -58,6 +58,7 @@ private slots:
     void on_updata_item_param(); //更新控件的参数
     void on_selected_item(QModelIndex index); //从已选择的列表中选中控件
     void on_creat_item();
+    void on_create_page(); //创建界面
 private:
     Ui::MainWindow *ui;
     int  GetX();
@@ -79,7 +80,7 @@ private:
     pxcpJson  *pxcp;
     QStandardItemModel* iconModel;
     QStandardItemModel* selected_items_model; //已经选择的控件
-   
+    QStandardItemModel* page_model; //已经选择的控件
       //多国语言
     Language* language;
     QJsonObject text_object;

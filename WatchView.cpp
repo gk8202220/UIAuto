@@ -92,6 +92,8 @@ QStringList WatchView::GetElementList(QString id)
 
 void WatchView::SetCurrentItem(QString id)
 {
+	view_items_map = &Page_view_items_map.value(current_page_id);
+
 	if (view_items_map->contains(id))
 	{
 		current_item = &view_items_map->value(id);
@@ -177,6 +179,7 @@ QString WatchView::Family(QString id)
 
 void WatchView::AppendItem(QString id, ComponnetsItem item)
 {
+	view_items_map = &Page_view_items_map.value(current_page_id);
 	view_items_map->insert(id, item);
 }
 
@@ -210,7 +213,15 @@ ComponnetsItem WatchView::GetCurrentItem(QString id)
 
 int WatchView::Count()
 {
-	return view_items_map->count();
+	if (view_items_map == nullptr)
+	{
+		return 0;
+	}
+	view_items_map = &Page_view_items_map.value(current_page_id);
+	
+	int count = view_items_map->count();
+	qDebug() << count;
+	return count;
 }
 
 QString WatchView::GetComponnetType(QString type)
@@ -220,11 +231,13 @@ QString WatchView::GetComponnetType(QString type)
 
 bool WatchView::SelectPage(QString page_id)
 {
+	current_page_id = page_id;
 	if (!Page_view_items_map.isEmpty())
 	{
 		if (Page_view_items_map.contains(page_id))
 		{
 			view_items_map = &Page_view_items_map.value(page_id);
+		
 			return true;
 		}
 		
@@ -232,9 +245,13 @@ bool WatchView::SelectPage(QString page_id)
 	return false;
 }
 
-bool WatchView::AppendPage(QString page_id)
+bool WatchView::AppendPage()
 {
 	QMap<QString, ComponnetsItem> view_items;
+	
+	int count = Page_view_items_map.count() + 1;
+	QString page_id = QString::number(count);
+	current_page_id = page_id;
 	Page_view_items_map.insert(page_id,  view_items);
 	return SelectPage(page_id);
 }
@@ -251,6 +268,11 @@ bool WatchView::RemovePage(QString page_id)
 
 	}
 	return false;
+}
+
+QString WatchView::CurrentPageId()
+{
+	return current_page_id;
 }
 
 QMap<QString, ComponnetsItem>* WatchView::GetPage(QString page_id)

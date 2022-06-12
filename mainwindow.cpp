@@ -54,6 +54,8 @@ MainWindow::MainWindow(QWidget *parent) :
      
     vpWatchCode = VpWatchCode::getInstance();
    
+    /* 界面 */
+    page_model = new QStandardItemModel(this);
 	
 }
 
@@ -542,6 +544,13 @@ void MainWindow::on_creat_item()
     SaveSelectedItem(creat_componnet_type, current_item_id); //保存当前的控件ID
     on_updata_select_content_list(); 
 }
+void MainWindow::on_create_page()
+{
+    watch_view->AppendPage();
+    QString page_id = watch_view->CurrentPageId();
+    page_model->appendRow(new QStandardItem(page_id));
+    ui->lv_Page_Select->setModel(page_model);
+}
 void MainWindow::on_lond_language_file()
 {
     if (watch_view->Fomat(current_item_id) == COMPONNET_FORMAT_TEXT)
@@ -756,6 +765,7 @@ void MainWindow::CreatItem(QString componnet_type, QPoint* point)
 {
     ComponnetsItem item;
     //添加id
+    qDebug() << "CreatItem" << watch_view->Count();
     item.id = watch_view->Count() + 1;
     QString id = QString::number(item.id);
     current_item_id = id;

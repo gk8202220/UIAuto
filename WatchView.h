@@ -64,9 +64,11 @@ public:
 	int Count(); //当前界面元素的个数
 	QString GetComponnetType(QString type);
 
+	/*  界面相关操作  */
 	bool SelectPage(QString page_id); //选择界面
-	bool AppendPage(QString page_id); //添加界面
+	bool AppendPage(); //添加界面
 	bool RemovePage(QString page_id); //删除界面
+	QString CurrentPageId();
 	QMap<QString, ComponnetsItem>* GetPage(QString page_id);//获取界面元素
 
 	QStringList component_list; //控件的中文 名称 
@@ -82,4 +84,6 @@ private:
 	QMap<QString, QMap<QString, ComponnetsItem> > Page_view_items_map; //所有界面的控件
 	QMap<QString, ComponnetsItem>*view_items_map;//当前界面的所有的ID和控件
 	ComponnetsItem *current_item; //当前选择的控件
+
+	QString current_page_id; //当前界面的id
 };
